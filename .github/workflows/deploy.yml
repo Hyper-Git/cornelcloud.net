@@ -21,7 +21,6 @@ on:
 env:
   AWS_REGION: eu-west-1
   TF_VERSION: 1.6.0
-  DEPLOY_ROLE_ARN: arn:aws:iam::377977678666:role/DevelopmentAccessRole
 
 jobs:
   ################################################################################
@@ -31,7 +30,11 @@ jobs:
     name: Terraform Plan
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
-    
+
+    permissions:
+      id-token: write
+      contents: read
+
     defaults:
       run:
         working-directory: terraform
@@ -43,8 +46,8 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-session-name: GitHubActions
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Setup Terraform
@@ -72,7 +75,11 @@ jobs:
     name: Deploy Infrastructure & Website
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-    
+
+    permissions:
+      id-token: write
+      contents: read
+
     outputs:
       cloudfront_distribution_id: ${{ steps.tf-output.outputs.cloudfront_id }}
       s3_bucket: ${{ steps.tf-output.outputs.s3_bucket }}
@@ -84,8 +91,8 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-session-name: GitHubActions
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Setup Terraform
@@ -113,18 +120,6 @@ jobs:
           echo "s3_bucket=$(terraform output -raw website_bucket_name)" >> $GITHUB_OUTPUT
 
       #####################################
-      # Assume cross-account role for CLI operations
-      #####################################
-      - name: Assume deployment role
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
-          role-to-assume: ${{ env.DEPLOY_ROLE_ARN }}
-          role-session-name: github-actions-deploy
-
-      #####################################
       # Deploy Website Files
       #####################################
       - name: Sync website to S3
@@ -132,8 +127,8 @@ jobs:
           aws s3 sync ./website s3://${{ steps.tf-output.outputs.s3_bucket }} \
             --delete \
             --cache-control "max-age=31536000" \
-            --exclude "*.html" 
-          
+            --exclude "*.html"
+
           # HTML files with shorter cache
           aws s3 sync ./website s3://${{ steps.tf-output.outputs.s3_bucket }} \
             --delete \
@@ -151,7 +146,7 @@ jobs:
 
       - name: Deployment Summary
         run: |
-          echo "## 🚀 Deployment Successful!" >> $GITHUB_STEP_SUMMARY
+          echo "## Deployment Successful!" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Website URL:** https://cornelcloud.net" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
