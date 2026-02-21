@@ -1,0 +1,149 @@
+################################################################################
+# GitHub Actions Workflow - Deploy Portfolio
+################################################################################
+# This workflow:
+# 1. Runs Terraform to ensure infrastructure is up to date
+# 2. Syncs website files to S3
+# 3. Invalidates CloudFront cache
+################################################################################
+
+name: Deploy Portfolio
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch: # Allow manual trigger
+
+env:
+  AWS_REGION: eu-west-1
+  TF_VERSION: 1.6.0
+
+jobs:
+  ################################################################################
+  # Terraform Plan (runs on PRs)
+  ################################################################################
+  terraform-plan:
+    name: Terraform Plan
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    
+    defaults:
+      run:
+        working-directory: terraform
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Format Check
+        run: terraform fmt -check
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        run: terraform plan -no-color
+        continue-on-error: true
+
+  ################################################################################
+  # Terraform Apply + Deploy (runs on main branch)
+  ################################################################################
+  deploy:
+    name: Deploy Infrastructure & Website
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    
+    outputs:
+      cloudfront_distribution_id: ${{ steps.tf-output.outputs.cloudfront_id }}
+      s3_bucket: ${{ steps.tf-output.outputs.s3_bucket }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+          terraform_wrapper: false
+
+      #####################################
+      # Terraform
+      #####################################
+      - name: Terraform Init
+        working-directory: terraform
+        run: terraform init
+
+      - name: Terraform Apply
+        working-directory: terraform
+        run: terraform apply -auto-approve
+
+      - name: Get Terraform Outputs
+        id: tf-output
+        working-directory: terraform
+        run: |
+          echo "cloudfront_id=$(terraform output -raw cloudfront_distribution_id)" >> $GITHUB_OUTPUT
+          echo "s3_bucket=$(terraform output -raw website_bucket_name)" >> $GITHUB_OUTPUT
+
+      #####################################
+      # Deploy Website Files
+      #####################################
+      - name: Sync website to S3
+        run: |
+          aws s3 sync ./website s3://${{ steps.tf-output.outputs.s3_bucket }} \
+            --delete \
+            --cache-control "max-age=31536000" \
+            --exclude "*.html" 
+          
+          # HTML files with shorter cache
+          aws s3 sync ./website s3://${{ steps.tf-output.outputs.s3_bucket }} \
+            --delete \
+            --cache-control "max-age=3600" \
+            --include "*.html"
+
+      #####################################
+      # Invalidate CloudFront Cache
+      #####################################
+      - name: Invalidate CloudFront cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ steps.tf-output.outputs.cloudfront_id }} \
+            --paths "/*"
+
+      - name: Deployment Summary
+        run: |
+          echo "## 🚀 Deployment Successful!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Website URL:** https://cornelcloud.net" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**S3 Bucket:** ${{ steps.tf-output.outputs.s3_bucket }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**CloudFront Distribution:** ${{ steps.tf-output.outputs.cloudfront_id }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Cache invalidation has been triggered. Changes may take a few minutes to propagate." >> $GITHUB_STEP_SUMMARY
