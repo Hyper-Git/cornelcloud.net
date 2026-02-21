@@ -13,3 +13,6 @@ hosted_zone_id = "Z01393483HVF6KCHJNO5V"
 # When false: Your existing site stays live, test via CloudFront URL
 # When true:  Route 53 records updated to point to new infrastructure
 update_dns = false
+
+contact_email = "contact@cornelcloud.net"
+from_email    = "noreply@cornelcloud.net"

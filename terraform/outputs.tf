@@ -46,3 +46,8 @@ output "dns_update_status" {
   description = "Whether DNS records are managed by Terraform"
   value       = var.update_dns ? "ENABLED - cornelcloud.net points to new infrastructure" : "DISABLED - Test via CloudFront URL above"
 }
+
+output "api_gateway_url" {
+  description = "API Gateway invoke URL (injected into index.html at deploy time)"
+  value       = aws_apigatewayv2_stage.api.invoke_url
+}

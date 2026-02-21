@@ -32,3 +32,15 @@ variable "update_dns" {
   type        = bool
   default     = false
 }
+
+variable "contact_email" {
+  description = "Email address to receive contact form submissions"
+  type        = string
+  default     = "contact@cornelcloud.net"
+}
+
+variable "from_email" {
+  description = "Verified SES sender address for contact form emails"
+  type        = string
+  default     = "noreply@cornelcloud.net"
+}

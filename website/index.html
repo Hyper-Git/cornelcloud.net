@@ -493,50 +493,32 @@
         });
 
         // Chatbot
+        const API_BASE = '__API_URL__';
+
+        // Session ID - persists for the browser session
+        let chatSessionId = sessionStorage.getItem('chatSessionId');
+        if (!chatSessionId) {
+            chatSessionId = crypto.randomUUID();
+            sessionStorage.setItem('chatSessionId', chatSessionId);
+        }
+
         function toggleChatbot() {
             document.getElementById('chatbotWindow').classList.toggle('active');
         }
 
-        const knowledge = {
-            skills: 'AWS, Terraform, Docker, Kubernetes, Python, JavaScript, CI/CD, Lambda, S3, EC2, CloudFront, API Gateway, DynamoDB, SageMaker, Bedrock',
-            cert: 'AWS Certified Cloud Practitioner',
-            available: 'Available for cloud engineering roles, freelance projects, and consulting opportunities. Based in Europe, open to remote work globally.',
-            contact: 'Email: ecornelbacanu@gmail.com | LinkedIn: linkedin.com/in/cornel-bacanu-b7138032a | GitHub: github.com/Hyper-Git',
-            projects: 'Cloud Portfolio Infrastructure (AWS, Terraform), AI-Powered Chatbot (Lambda, Bedrock), Automated CI/CD Pipelines (GitHub Actions, ECS)',
-            background: 'Transitioned from kitchen installation to cloud engineering. Strong problem-solving skills from managing complex physical projects now applied to cloud architecture.'
-        };
-
-        function generateResponse(q) {
-            q = q.toLowerCase();
-            if (q.includes('skill') || q.includes('tech') || q.includes('know') || q.includes('can')) 
-                return 'Cornel is skilled in: ' + knowledge.skills + '. He specializes in AWS services and infrastructure automation.';
-            if (q.includes('certif') || q.includes('aws') || q.includes('qualified')) 
-                return 'Cornel holds the ' + knowledge.cert + ' certification and is actively pursuing additional AWS certifications.';
-            if (q.includes('available') || q.includes('hire') || q.includes('work') || q.includes('job') || q.includes('opportunit')) 
-                return knowledge.available;
-            if (q.includes('contact') || q.includes('reach') || q.includes('email') || q.includes('connect')) 
-                return 'You can reach Cornel via: ' + knowledge.contact;
-            if (q.includes('project') || q.includes('portfolio') || q.includes('built') || q.includes('made')) 
-                return 'Featured projects: ' + knowledge.projects + '. Check out the Projects section for more details!';
-            if (q.includes('background') || q.includes('before') || q.includes('journey') || q.includes('story')) 
-                return knowledge.background;
-            if (q.includes('hello') || q.includes('hi') || q.includes('hey')) 
-                return "Hello! Great to meet you. I can tell you about Cornel's skills, projects, certifications, or availability. What would you like to know?";
-            return "I can tell you about Cornel's skills (AWS, Terraform, Python), certifications, projects, availability for work, or how to contact him. What interests you?";
-        }
-
-        function sendMessage() {
+        async function sendMessage() {
             const input = document.getElementById('chatInput');
             const messages = document.getElementById('chatMessages');
             const msg = input.value.trim();
             if (!msg) return;
 
-            // User message
+            // Render user message
             const userDiv = document.createElement('div');
             userDiv.className = 'chat-message user';
             userDiv.textContent = msg;
             messages.appendChild(userDiv);
             input.value = '';
+            input.disabled = true;
 
             // Typing indicator
             const typing = document.createElement('div');
@@ -545,28 +527,70 @@
             messages.appendChild(typing);
             messages.scrollTop = messages.scrollHeight;
 
-            // Bot response
-            setTimeout(() => {
+            try {
+                const res = await fetch(API_BASE + '/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: msg, session_id: chatSessionId })
+                });
+                typing.remove();
+                const data = await res.json();
+                const botDiv = document.createElement('div');
+                botDiv.className = 'chat-message bot';
+                botDiv.textContent = data.response || "Sorry, I couldn't process that. Please try again.";
+                messages.appendChild(botDiv);
+            } catch (err) {
                 typing.remove();
                 const botDiv = document.createElement('div');
                 botDiv.className = 'chat-message bot';
-                botDiv.textContent = generateResponse(msg);
+                botDiv.textContent = "Sorry, I'm having trouble connecting. Please try again.";
                 messages.appendChild(botDiv);
+            } finally {
+                input.disabled = false;
+                input.focus();
                 messages.scrollTop = messages.scrollHeight;
-            }, 800 + Math.random() * 400);
+            }
         }
 
         // Contact form
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const btn = this.querySelector('button');
-            btn.innerHTML = 'Message Sent! ✓';
-            btn.style.background = '#22c55e';
-            setTimeout(() => {
-                btn.innerHTML = 'Send Message';
-                btn.style.background = '';
-                this.reset();
-            }, 3000);
+            const originalText = btn.innerHTML;
+            btn.innerHTML = 'Sending...';
+            btn.disabled = true;
+
+            try {
+                const res = await fetch(API_BASE + '/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: this.name.value,
+                        email: this.email.value,
+                        message: this.message.value
+                    })
+                });
+                if (res.ok) {
+                    btn.innerHTML = 'Message Sent! ✓';
+                    btn.style.background = '#22c55e';
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.style.background = '';
+                        btn.disabled = false;
+                        this.reset();
+                    }, 3000);
+                } else {
+                    throw new Error('Send failed');
+                }
+            } catch (err) {
+                btn.innerHTML = 'Failed — Try Again';
+                btn.style.background = '#ef4444';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = '';
+                    btn.disabled = false;
+                }, 3000);
+            }
         });
 
         // Typing effect - repeats when hero section is visible
