@@ -11,7 +11,7 @@ resource "aws_apigatewayv2_api" "portfolio" {
     allow_origins = [
       "https://cornelcloud.net",
       "https://www.cornelcloud.net",
-      "https://*.cloudfront.net"
+      "https://${aws_cloudfront_distribution.website.domain_name}"
     ]
     allow_methods = ["POST", "OPTIONS"]
     allow_headers = ["Content-Type"]
