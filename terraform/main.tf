@@ -15,11 +15,14 @@ terraform {
 
   # Remote state configuration - Cross-account access
   backend "s3" {
-    bucket         = "cornel-terraform-bucket"
-    key            = "cornelcloud-portfolio/terraform.tfstate"
-    region         = "eu-west-1"
-    encrypt        = true
-    role_arn       = "arn:aws:iam::377977678666:role/DevelopmentAccessRole"
+    bucket  = "cornel-terraform-bucket"
+    key     = "cornelcloud-portfolio/terraform.tfstate"
+    region  = "eu-west-1"
+    encrypt = true
+
+    assume_role = {
+      role_arn = "arn:aws:iam::377977678666:role/DevelopmentAccessRole"
+    }
   }
 }
 
