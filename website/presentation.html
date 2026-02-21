@@ -349,6 +349,8 @@
             .top-bar { padding: 1rem 1.5rem; }
             .hud-left { display: none; }
             .scene-indicator { display: none; }
+            .controls { bottom: 1rem; left: 50%; transform: translateX(-50%); }
+            .progress-container { bottom: 5rem; }
         }
     </style>
 </head>
@@ -439,6 +441,11 @@
                 <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
             </svg>
         </button>
+        <button class="control-btn" onclick="toggleFullscreen()">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+            </svg>
+        </button>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -449,16 +456,19 @@
         let currentScene = 0;
         let currentTime = 0;
         let totalDuration = 120; // 2 minutes
-        let speechSynth = window.speechSynthesis;
-        let currentUtterance = null;
+        let currentAudio = null;
+        let audioContext = null;
+        let backgroundGainNode = null;
+        let lastTime = 0;
+        let accumulatedTime = 0;
 
-        // Scene data with narration and timing
+        // Scene data with narration and fallback timing
         const scenes = [
             {
                 id: 1,
                 title: "INTRODUCTION",
                 startTime: 0,
-                duration: 15,
+                fallbackDuration: 15,
                 text: `Hi, I'm <span class="highlight">Cornel Bacanu</span>, and I build things — I always have.`,
                 narration: "Hi, I'm Cornel Bacanu, and I build things — I always have."
             },
@@ -466,7 +476,7 @@
                 id: 2,
                 title: "THE FOUNDATION",
                 startTime: 15,
-                duration: 20,
+                fallbackDuration: 20,
                 text: `For years, I worked in <span class="highlight-orange">kitchen installation</span>. Every project was a puzzle: measuring twice, planning for problems, and making sure every piece fit perfectly.`,
                 narration: "For years, I worked in kitchen installation. Every project was a puzzle: measuring twice, planning for problems, and making sure every piece fit perfectly."
             },
@@ -474,7 +484,7 @@
                 id: 3,
                 title: "THE DISCOVERY",
                 startTime: 35,
-                duration: 18,
+                fallbackDuration: 18,
                 text: `Then I discovered <span class="highlight">cloud computing</span> — and realised I'd been training for it my whole career without knowing it.`,
                 narration: "Then I discovered cloud computing — and realised I'd been training for it my whole career without knowing it."
             },
@@ -482,7 +492,7 @@
                 id: 4,
                 title: "THE CONNECTION",
                 startTime: 53,
-                duration: 22,
+                fallbackDuration: 22,
                 text: `Cloud architecture is <span class="highlight-purple">installation at a different scale</span>. Instead of fitting cabinets, I'm fitting services. Instead of planning plumbing, I'm designing data flows.`,
                 narration: "Cloud architecture is installation at a different scale. Instead of fitting cabinets into tight corners, I'm fitting services into infrastructure. Instead of planning plumbing routes, I'm designing data flows."
             },
@@ -490,7 +500,7 @@
                 id: 5,
                 title: "CREDENTIALS",
                 startTime: 75,
-                duration: 22,
+                fallbackDuration: 22,
                 text: `I'm <span class="highlight">AWS Certified</span>, building with <span class="highlight-purple">Terraform</span>, <span class="highlight-orange">Docker</span>, and serverless architectures. I'm exploring <span class="highlight">AI integration</span> with Amazon Bedrock.`,
                 narration: "I've earned my AWS Cloud Practitioner certification. I build infrastructure with Terraform, containerize with Docker, and create serverless architectures with Lambda. I'm particularly excited about AI integration with Amazon Bedrock."
             },
@@ -498,7 +508,7 @@
                 id: 6,
                 title: "THE VALUE",
                 startTime: 97,
-                duration: 15,
+                fallbackDuration: 15,
                 text: `I bring a <span class="highlight-purple">problem-solver's mindset</span> shaped by years of real-world project delivery. I understand deadlines, client expectations, and getting things right.`,
                 narration: "What I bring isn't just technical skills — it's a problem-solver's mindset, shaped by years of real-world project delivery. I understand deadlines, client expectations, and the importance of getting things right."
             },
@@ -506,10 +516,16 @@
                 id: 7,
                 title: "THE FUTURE",
                 startTime: 112,
-                duration: 8,
+                fallbackDuration: 8,
                 text: `I'm ready to bring this unique perspective to <span class="highlight">cloud engineering</span>. <span class="highlight-orange">Let's connect.</span>`,
                 narration: "I'm ready to bring this unique perspective to cloud engineering. Let's connect and build something amazing together."
             }
+        ];
+
+        // Floating text keywords
+        const keywords = [
+            'AWS', 'Terraform', 'Docker', 'Lambda', 'Bedrock', 'Cloud', 'AI', 'Serverless',
+            'Infrastructure', 'Architecture', 'Data Flows', 'Problem Solver'
         ];
 
         // Three.js Setup
@@ -753,21 +769,33 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
         }
 
-        function animate() {
+        function animate(time) {
             animationId = requestAnimationFrame(animate);
 
-            const time = Date.now() * 0.001;
+            const delta = (time - lastTime) / 1000;
+            lastTime = time;
+
+            if (isPlaying) {
+                accumulatedTime += delta;
+                currentTime = Math.min(accumulatedTime, totalDuration);
+                updateProgress();
+                if (currentTime >= totalDuration) {
+                    endPresentation();
+                }
+            }
+
+            const now = Date.now() * 0.001;
 
             // Update grid shader
             if (gridHelper && gridHelper.material.uniforms) {
-                gridHelper.material.uniforms.time.value = time;
+                gridHelper.material.uniforms.time.value = now;
             }
 
             // Animate cloud nodes
             cloudNodes.forEach((node, i) => {
                 if (node.userData.originalY !== undefined) {
                     node.position.y = node.userData.originalY + 
-                        Math.sin(time * node.userData.speed + node.userData.phase) * 2;
+                        Math.sin(now * node.userData.speed + node.userData.phase) * 2;
                     node.rotation.x += 0.005;
                     node.rotation.y += 0.01;
                 }
@@ -788,8 +816,8 @@
             }
 
             // Camera movement based on scene
-            const targetX = Math.sin(time * 0.1) * 5;
-            const targetY = 5 + Math.sin(time * 0.15) * 2;
+            const targetX = Math.sin(now * 0.1) * 5;
+            const targetY = 5 + Math.sin(now * 0.15) * 2;
             camera.position.x += (targetX - camera.position.x) * 0.01;
             camera.position.y += (targetY - camera.position.y) * 0.01;
             camera.lookAt(0, 5, -10);
@@ -803,7 +831,10 @@
             isPlaying = true;
             updatePlayPauseButton();
             playCurrentScene();
-            startTimer();
+            startBackgroundAudio();
+            createFloatingTexts();
+            lastTime = performance.now();
+            accumulatedTime = currentTime;
         }
 
         function playCurrentScene() {
@@ -829,62 +860,63 @@
                 subtitleBox.classList.add('visible');
             }, 300);
 
-            // Speak narration
+            // Play narration audio
+            if (sceneTimer) {
+                clearTimeout(sceneTimer);
+                sceneTimer = null;
+            }
             if (!isMuted) {
-                speakText(sceneData.narration, sceneData.duration);
+                playSceneAudio(currentScene);
+            } else {
+                sceneTimer = setTimeout(nextScene, sceneData.fallbackDuration * 1000);
             }
-
-            // Schedule next scene
-            setTimeout(() => {
-                if (isPlaying) {
-                    currentScene++;
-                    playCurrentScene();
-                }
-            }, sceneData.duration * 1000);
         }
 
-        function speakText(text, duration) {
-            if (speechSynth.speaking) {
-                speechSynth.cancel();
+        function nextScene() {
+            if (isPlaying) {
+                currentScene++;
+                playCurrentScene();
             }
-
-            currentUtterance = new SpeechSynthesisUtterance(text);
-            currentUtterance.rate = 0.9;
-            currentUtterance.pitch = 1;
-            currentUtterance.volume = 1;
-
-            // Try to find a good voice
-            const voices = speechSynth.getVoices();
-            const preferredVoice = voices.find(v => 
-                v.name.includes('Google') || 
-                v.name.includes('Daniel') || 
-                v.name.includes('James') ||
-                v.lang.startsWith('en')
-            );
-            if (preferredVoice) {
-                currentUtterance.voice = preferredVoice;
-            }
-
-            speechSynth.speak(currentUtterance);
         }
 
-        let timerInterval;
-        function startTimer() {
-            timerInterval = setInterval(() => {
-                if (isPlaying) {
-                    currentTime++;
-                    updateProgress();
-                    if (currentTime >= totalDuration) {
-                        endPresentation();
-                    }
-                }
-            }, 1000);
+        let sceneTimer = null;
+
+        function playSceneAudio(sceneIndex) {
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio = null;
+            }
+            if (sceneTimer) {
+                clearTimeout(sceneTimer);
+                sceneTimer = null;
+            }
+
+            const audioFile = `audio/scene${sceneIndex + 1}.mp3`;
+            currentAudio = new Audio(audioFile);
+            currentAudio.volume = isMuted ? 0 : 1;
+            currentAudio.onended = function() {
+                sceneTimer = null;
+                nextScene();
+            };
+            currentAudio.onerror = function() {
+                console.warn(`Audio file ${audioFile} not found, using fallback timer.`);
+                sceneTimer = setTimeout(nextScene, scenes[sceneIndex].fallbackDuration * 1000);
+            };
+            var playPromise = currentAudio.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(function() {
+                    // Autoplay blocked by browser, fall back to timer
+                    currentAudio = null;
+                    console.warn('Autoplay blocked, using fallback timer for scene ' + (sceneIndex + 1));
+                    sceneTimer = setTimeout(nextScene, scenes[sceneIndex].fallbackDuration * 1000);
+                });
+            }
         }
 
         function updateProgress() {
             const progress = (currentTime / totalDuration) * 100;
             document.getElementById('progressFill').style.width = progress + '%';
-            document.getElementById('currentTime').textContent = formatTime(currentTime);
+            document.getElementById('currentTime').textContent = formatTime(Math.floor(currentTime));
         }
 
         function formatTime(seconds) {
@@ -898,9 +930,20 @@
             updatePlayPauseButton();
             
             if (isPlaying) {
-                playCurrentScene();
+                if (audioContext && audioContext.state === 'suspended') {
+                    audioContext.resume();
+                }
+                if (currentAudio && currentAudio.paused) {
+                    currentAudio.play();
+                }
+                lastTime = performance.now();
             } else {
-                speechSynth.cancel();
+                if (audioContext) {
+                    audioContext.suspend();
+                }
+                if (currentAudio) {
+                    currentAudio.pause();
+                }
             }
         }
 
@@ -915,27 +958,49 @@
             document.getElementById('soundOffIcon').style.display = isMuted ? 'block' : 'none';
             
             if (isMuted) {
-                speechSynth.cancel();
+                if (currentAudio) {
+                    currentAudio.volume = 0;
+                }
+                if (backgroundGainNode) {
+                    backgroundGainNode.gain.value = 0;
+                }
+            } else {
+                if (currentAudio) {
+                    currentAudio.volume = 1;
+                }
+                if (backgroundGainNode) {
+                    backgroundGainNode.gain.value = 0.1;
+                }
             }
         }
 
         function restartPresentation() {
-            speechSynth.cancel();
-            clearInterval(timerInterval);
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio = null;
+            }
             currentScene = 0;
             currentTime = 0;
+            accumulatedTime = 0;
             isPlaying = true;
             updatePlayPauseButton();
             updateProgress();
             playCurrentScene();
-            startTimer();
+            lastTime = performance.now();
+            removeFloatingTexts();
+            createFloatingTexts();
         }
 
         function endPresentation() {
             isPlaying = false;
             updatePlayPauseButton();
-            clearInterval(timerInterval);
-            speechSynth.cancel();
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio = null;
+            }
+            if (audioContext) {
+                audioContext.close();
+            }
             
             document.getElementById('subtitleText').innerHTML = `
                 <span class="highlight">Thank you for watching.</span><br><br>
@@ -943,14 +1008,69 @@
             `;
         }
 
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+        }
+
+        // Background Audio
+        function startBackgroundAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                oscillator.type = 'sine';
+                oscillator.frequency.setValueAtTime(55, audioContext.currentTime); // Low frequency for ambient hum
+
+                const filter = audioContext.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.value = 200;
+
+                backgroundGainNode = audioContext.createGain();
+                backgroundGainNode.gain.value = isMuted ? 0 : 0.1;
+
+                oscillator.connect(filter);
+                filter.connect(backgroundGainNode);
+                backgroundGainNode.connect(audioContext.destination);
+
+                oscillator.start();
+            }
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+        }
+
+        // Floating Texts
+        function createFloatingTexts() {
+            for (let i = 0; i < 20; i++) {
+                const text = document.createElement('div');
+                text.className = 'floating-text';
+                text.textContent = keywords[Math.floor(Math.random() * keywords.length)];
+                text.style.left = `${Math.random() * 100}%`;
+                text.style.animationDelay = `${-Math.random() * 20}s`;
+                text.style.animationDuration = `${15 + Math.random() * 10}s`;
+                document.body.appendChild(text);
+            }
+        }
+
+        function removeFloatingTexts() {
+            const texts = document.querySelectorAll('.floating-text');
+            texts.forEach(text => text.remove());
+        }
+
         // Initialize
         window.addEventListener('load', () => {
             initThreeJS();
-            animate();
-            
-            // Load voices
-            speechSynth.getVoices();
-            speechSynth.onvoiceschanged = () => speechSynth.getVoices();
+            lastTime = performance.now();
+            requestAnimationFrame(animate);
+
+            // Auto-start if loaded from portfolio site
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('autostart') === '1') {
+                startPresentation();
+            }
         });
     </script>
 </body>
