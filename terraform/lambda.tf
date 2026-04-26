@@ -61,7 +61,7 @@ resource "aws_lambda_function" "chatbot" {
   environment {
     variables = {
       DYNAMODB_TABLE   = aws_dynamodb_table.chat_sessions.name
-      BEDROCK_MODEL_ID = "anthropic.claude-3-haiku-20240307-v1:0"
+      BEDROCK_MODEL_ID = "anthropic.claude-opus-4-5-20251101-v1:0"
     }
   }
 

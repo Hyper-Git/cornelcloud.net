@@ -30,7 +30,8 @@ Skills & Technologies:
 
 Certifications:
 - AWS Certified Cloud Practitioner (achieved)
-- Actively pursuing AWS Solutions Architect Associate
+- AWS Certified Solutions Architect Associate (achieved)
+- Actively pursuing AWS Data Engineer Associate and AWS Machine Learning Engineer Associate certifications
 
 Projects:
 1. Cloud Portfolio Infrastructure — This very website. Built with Terraform, S3, CloudFront, Route 53, ACM. CI/CD via GitHub Actions.
