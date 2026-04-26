@@ -5,8 +5,8 @@ import boto3
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
-dynamodb = boto3.resource("dynamodb", region_name="eu-west-1")
-bedrock  = boto3.client("bedrock-runtime", region_name="eu-west-1")
+dynamodb = boto3.resource("dynamodb", region_name=os.environ.get("AWS_REGION", "eu-west-1"))
+bedrock  = boto3.client("bedrock-runtime", region_name=os.environ.get("AWS_REGION", "eu-west-1"))
 
 TABLE_NAME = os.environ["DYNAMODB_TABLE"]
 MODEL_ID   = os.environ["BEDROCK_MODEL_ID"]
@@ -69,8 +69,8 @@ def get_history(table, session_id):
 
 
 def save_messages(table, session_id, user_msg, assistant_msg):
-    now = int(time.time())
-    ttl = now + TTL_SECONDS
+    now = int(time.time() * 1000)  # milliseconds to avoid same-second collision
+    ttl = int(now / 1000) + TTL_SECONDS
     table.put_item(Item={
         "session_id": session_id,
         "timestamp": now,
@@ -91,13 +91,20 @@ def lambda_handler(event, context):
     try:
         body       = json.loads(event.get("body") or "{}")
         user_msg   = body.get("message", "").strip()
-        session_id = body.get("session_id", "default")
+        session_id = body.get("session_id", "").strip()
 
         if not user_msg:
             return {
                 "statusCode": 400,
                 "headers": HEADERS,
                 "body": json.dumps({"error": "message is required"}),
+            }
+
+        if not session_id:
+            return {
+                "statusCode": 400,
+                "headers": HEADERS,
+                "body": json.dumps({"error": "session_id is required"}),
             }
 
         table   = dynamodb.Table(TABLE_NAME)

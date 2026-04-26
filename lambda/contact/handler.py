@@ -1,9 +1,10 @@
 import json
 import os
+import html
 import boto3
 from botocore.exceptions import ClientError
 
-ses = boto3.client("ses", region_name="eu-west-1")
+ses = boto3.client("ses", region_name=os.environ.get("AWS_REGION", "eu-west-1"))
 
 FROM_EMAIL = os.environ["FROM_EMAIL"]
 TO_EMAIL   = os.environ["TO_EMAIL"]
@@ -17,9 +18,9 @@ def lambda_handler(event, context):
 
     try:
         body = json.loads(event.get("body") or "{}")
-        name    = body.get("name", "").strip()
-        email   = body.get("email", "").strip()
-        message = body.get("message", "").strip()
+        name    = html.escape(body.get("name", "").strip())
+        email   = html.escape(body.get("email", "").strip())
+        message = html.escape(body.get("message", "").strip())
 
         if not all([name, email, message]):
             return {

@@ -44,7 +44,7 @@ resource "aws_lambda_permission" "contact_api" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.contact.function_name
   principal     = "apigateway.amazonaws.com"
-  source_arn    = "${aws_apigatewayv2_api.portfolio.execution_arn}/*/*/contact"
+  source_arn    = "${aws_apigatewayv2_api.portfolio.execution_arn}/*"
 }
 
 # ── Chatbot Lambda ─────────────────────────────────────────────────────────────
@@ -75,5 +75,5 @@ resource "aws_lambda_permission" "chatbot_api" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.chatbot.function_name
   principal     = "apigateway.amazonaws.com"
-  source_arn    = "${aws_apigatewayv2_api.portfolio.execution_arn}/*/*/chat"
+  source_arn    = "${aws_apigatewayv2_api.portfolio.execution_arn}/*"
 }

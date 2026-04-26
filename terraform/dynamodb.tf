@@ -23,6 +23,10 @@ resource "aws_dynamodb_table" "chat_sessions" {
     enabled        = true
   }
 
+  point_in_time_recovery {
+    enabled = true
+  }
+
   tags = {
     Name = "cornelcloud-chat-sessions"
   }
