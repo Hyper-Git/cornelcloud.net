@@ -63,7 +63,10 @@ resource "aws_iam_role_policy" "lambda_chatbot_bedrock" {
     Statement = [{
       Effect   = "Allow"
       Action   = "bedrock:InvokeModel"
-      Resource = "arn:aws:bedrock:eu-west-1::foundation-model/anthropic.claude-opus-4-5-20251101-v1:0"
+      Resource = [
+        "arn:aws:bedrock:eu-west-1::foundation-model/eu.anthropic.claude-opus-4-5-20251101-v1:0",
+        "arn:aws:bedrock:*::foundation-model/anthropic.claude-opus-4-5-20251101-v1:0"
+      ]
     }]
   })
 }
