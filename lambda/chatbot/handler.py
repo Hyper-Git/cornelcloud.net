@@ -31,7 +31,7 @@ Skills & Technologies:
 Certifications:
 - AWS Certified Cloud Practitioner (achieved)
 - AWS Certified Solutions Architect Associate (achieved)
-- Actively pursuing AWS Data Engineer Associate and AWS Machine Learning Engineer Associate certifications
+- Currently enrolled with Optima IT Academy pursuing AWS Data Engineer Associate and AWS AI/ML Associate certifications
 
 Projects:
 1. Cloud Portfolio Infrastructure — This very website. Built with Terraform, S3, CloudFront, Route 53, ACM. CI/CD via GitHub Actions.
