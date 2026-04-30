@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cornel Bacanu | Cloud Engineer & AI Enthusiast</title>
+    <title>Cornel Bacanu | Cloud Engineer · AWS Certified Solutions Architect</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -25,6 +25,8 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         body { font-family: 'Outfit', sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; }
+
+        /* ── Background ─────────────────────────────────────────────────────── */
         .bg-animation { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
         .bg-grid { position: absolute; width: 200%; height: 200%; background-image: linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px); background-size: 50px 50px; animation: gridMove 20s linear infinite; transform: perspective(500px) rotateX(60deg); transform-origin: center top; }
         @keyframes gridMove { 0% { transform: perspective(500px) rotateX(60deg) translateY(0); } 100% { transform: perspective(500px) rotateX(60deg) translateY(50px); } }
@@ -36,34 +38,43 @@
         .particles { position: absolute; width: 100%; height: 100%; }
         .particle { position: absolute; width: 4px; height: 4px; background: var(--accent-cyan); border-radius: 50%; animation: particleFloat 15s linear infinite; opacity: 0; }
         @keyframes particleFloat { 0% { opacity: 0; transform: translateY(100vh) scale(0); } 10% { opacity: 1; } 90% { opacity: 1; } 100% { opacity: 0; transform: translateY(-100vh) scale(1); } }
+
+        /* ── Navbar ──────────────────────────────────────────────────────────── */
         nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; background: rgba(10, 14, 23, 0.8); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-subtle); transition: all 0.3s ease; }
         nav.scrolled { padding: 1rem 3rem; background: rgba(10, 14, 23, 0.95); }
-        .logo { font-family: 'JetBrains Mono', monospace; font-size: 1.5rem; font-weight: 500; background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: flex; align-items: center; gap: 0.5rem; }
+        .logo { font-family: 'JetBrains Mono', monospace; font-size: 1.5rem; font-weight: 500; background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
         .nav-links { display: flex; gap: 2.5rem; list-style: none; }
         .nav-links a { color: var(--text-secondary); text-decoration: none; font-weight: 400; font-size: 0.95rem; transition: all 0.3s ease; position: relative; }
         .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--gradient-main); transition: width 0.3s ease; }
-        .nav-links a:hover { color: var(--text-primary); }
-        .nav-links a:hover::after { width: 100%; }
+        .nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
+        .nav-links a.active::after, .nav-links a:hover::after { width: 100%; }
         .nav-cta { padding: 0.75rem 1.5rem; background: var(--gradient-main); border: none; border-radius: 8px; color: var(--bg-primary); font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-family: 'Outfit', sans-serif; }
         .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3); }
+
+        /* ── Hero ───────────────────────────────────────────────────────────── */
         .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 8rem 3rem 4rem; position: relative; }
         .hero-content { max-width: 1200px; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
         .hero-text { animation: fadeInUp 1s ease forwards; opacity: 0; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
         .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: var(--glass); border: 1px solid var(--border-subtle); border-radius: 50px; font-size: 0.85rem; color: var(--accent-cyan); margin-bottom: 1.5rem; }
-        .hero-badge::before { content: ''; width: 8px; height: 8px; background: var(--accent-cyan); border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
+        .hero-badge::before { content: ''; width: 8px; height: 8px; background: #22c55e; border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
         @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.2); } }
+        .hero-name { font-size: clamp(1.1rem, 2vw, 1.4rem); font-weight: 500; color: var(--text-secondary); letter-spacing: 0.05em; margin-bottom: 0.5rem; font-family: 'JetBrains Mono', monospace; }
         .hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 700; line-height: 1.1; margin-bottom: 1.5rem; }
         .hero h1 span { background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .typing-cursor { animation: blink 0.7s step-end infinite; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
         .typing-line { min-height: 1.2em; display: inline; }
-        .hero-description { font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 2rem; max-width: 500px; }
+        .hero-tagline { font-size: 0.9rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.03em; margin-bottom: 1.25rem; }
+        .hero-tagline span { color: var(--accent-cyan); }
+        .hero-description { font-size: 1.15rem; color: var(--text-secondary); margin-bottom: 2rem; max-width: 500px; line-height: 1.75; }
         .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
         .btn-primary { padding: 1rem 2rem; background: var(--gradient-main); border: none; border-radius: 12px; color: var(--bg-primary); font-weight: 600; font-size: 1rem; cursor: pointer; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; }
         .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3); }
         .btn-secondary { padding: 1rem 2rem; background: transparent; border: 1px solid var(--border-subtle); border-radius: 12px; color: var(--text-primary); font-weight: 500; font-size: 1rem; cursor: pointer; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; }
         .btn-secondary:hover { background: var(--glass); border-color: var(--accent-cyan); }
+
+        /* ── Profile Card ────────────────────────────────────────────────────── */
         .hero-visual { position: relative; animation: fadeInUp 1s ease 0.3s forwards; opacity: 0; }
         .profile-card { position: relative; padding: 2rem; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 24px; backdrop-filter: blur(20px); overflow: hidden; }
         .profile-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--gradient-main); }
@@ -72,10 +83,12 @@
         .profile-ring { position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border: 2px dashed var(--accent-cyan); border-radius: 50%; animation: spin 20s linear infinite; opacity: 0.3; }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         .profile-info { text-align: center; }
-        .profile-info h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
-        .profile-info p { color: var(--text-secondary); margin-bottom: 1rem; }
-        .cert-badges { display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap; }
-        .cert-badge { padding: 0.4rem 0.8rem; background: rgba(0, 212, 255, 0.1); border: 1px solid rgba(0, 212, 255, 0.3); border-radius: 6px; font-size: 0.75rem; color: var(--accent-cyan); font-family: 'JetBrains Mono', monospace; }
+        .profile-info h3 { font-size: 1.5rem; margin-bottom: 0.25rem; }
+        .profile-info .profile-role { color: var(--text-secondary); margin-bottom: 0.5rem; font-size: 0.95rem; }
+        .cert-section-label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem; }
+        .cert-badges { display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+        .cert-badge { padding: 0.35rem 0.7rem; background: rgba(0, 212, 255, 0.1); border: 1px solid rgba(0, 212, 255, 0.3); border-radius: 6px; font-size: 0.72rem; color: var(--accent-cyan); font-family: 'JetBrains Mono', monospace; }
+        .cert-badge.in-progress { background: rgba(255, 107, 53, 0.1); border-color: rgba(255, 107, 53, 0.3); color: var(--accent-orange); }
         .floating-icons { position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; }
         .floating-icon { position: absolute; padding: 0.75rem; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 12px; animation: iconFloat 4s ease-in-out infinite; }
         .floating-icon svg { width: 24px; height: 24px; }
@@ -84,11 +97,15 @@
         .icon-python { top: 30%; left: -30px; animation-delay: -2s; }
         .icon-terraform { bottom: 10%; left: -20px; animation-delay: -3s; }
         @keyframes iconFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+        /* ── Sections ────────────────────────────────────────────────────────── */
         section { padding: 6rem 3rem; max-width: 1400px; margin: 0 auto; }
         .section-header { text-align: center; margin-bottom: 4rem; }
         .section-label { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: var(--glass); border: 1px solid var(--border-subtle); border-radius: 50px; font-size: 0.85rem; color: var(--accent-cyan); margin-bottom: 1rem; font-family: 'JetBrains Mono', monospace; }
         .section-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; margin-bottom: 1rem; }
         .section-subtitle { color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+
+        /* ── Video ───────────────────────────────────────────────────────────── */
         .video-container { position: relative; max-width: 900px; margin: 0 auto; border-radius: 24px; overflow: hidden; background: var(--bg-card); border: 1px solid var(--border-subtle); }
         .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%); }
         .video-wrapper video, .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
@@ -108,55 +125,81 @@
         .video-corner-br { bottom: 15px; right: 15px; border-bottom: 2px solid; border-right: 2px solid; }
         .video-label { position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--accent-cyan); letter-spacing: 3px; opacity: 0.6; }
         .video-bottom-label { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-secondary); opacity: 0.7; }
+        .video-cta-label { color: var(--text-secondary); font-size: 1rem; position: relative; z-index: 2; }
         .play-button { width: 80px; height: 80px; background: var(--gradient-main); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; transition: all 0.3s ease; box-shadow: 0 20px 60px rgba(0, 212, 255, 0.3); }
         .play-button svg { width: 32px; height: 32px; fill: var(--bg-primary); margin-left: 4px; }
         .video-placeholder:hover .play-button { transform: scale(1.1); }
         .video-placeholder p { color: var(--text-secondary); font-size: 1rem; }
+
+        /* ── Skills ──────────────────────────────────────────────────────────── */
         .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-        .skill-card { padding: 2rem; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 20px; transition: all 0.4s ease; position: relative; overflow: hidden; }
-        .skill-card:hover { transform: translateY(-5px); border-color: rgba(0, 212, 255, 0.3); }
+        .skill-card { padding: 2rem; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 20px; transition: all 0.3s ease; position: relative; overflow: hidden; cursor: default; }
+        .skill-card:hover { transform: translateY(-5px); border-color: rgba(0, 212, 255, 0.3); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
         .skill-icon { width: 60px; height: 60px; background: var(--glass); border: 1px solid var(--border-subtle); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; }
         .skill-icon svg { width: 32px; height: 32px; }
-        .skill-card h3 { font-size: 1.25rem; margin-bottom: 0.75rem; }
-        .skill-card p { color: var(--text-secondary); font-size: 0.95rem; }
-        .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
-        .skill-tag { padding: 0.3rem 0.6rem; background: rgba(0, 212, 255, 0.1); border-radius: 4px; font-size: 0.75rem; color: var(--accent-cyan); font-family: 'JetBrains Mono', monospace; }
+        .skill-card h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .skill-card p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem; line-height: 1.6; }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .skill-tag { padding: 0.3rem 0.6rem; background: rgba(0, 212, 255, 0.08); border: 1px solid rgba(0, 212, 255, 0.15); border-radius: 4px; font-size: 0.72rem; color: var(--accent-cyan); font-family: 'JetBrains Mono', monospace; }
+
+        /* ── Projects ────────────────────────────────────────────────────────── */
         .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
-        .project-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 20px; overflow: hidden; transition: all 0.4s ease; }
-        .project-card:hover { transform: translateY(-8px); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3); }
-        .project-image { height: 200px; background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%); position: relative; }
-        .project-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: var(--glass); border: 1px solid var(--border-subtle); border-radius: 20px; display: flex; align-items: center; justify-content: center; }
+        .project-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 20px; overflow: hidden; transition: all 0.3s ease; position: relative; }
+        .project-card:hover { transform: translateY(-8px); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3); border-color: rgba(0, 212, 255, 0.2); }
+        .project-card.featured { border-color: rgba(124, 58, 237, 0.3); }
+        .project-card.featured:hover { border-color: rgba(124, 58, 237, 0.5); box-shadow: 0 30px 60px rgba(124, 58, 237, 0.15); }
+        .featured-badge { position: absolute; top: 1rem; right: 1rem; z-index: 2; padding: 0.3rem 0.75rem; background: rgba(124, 58, 237, 0.2); border: 1px solid rgba(124, 58, 237, 0.4); border-radius: 50px; font-size: 0.7rem; color: #a78bfa; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.05em; }
+        .project-image { height: 200px; background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%); position: relative; overflow: hidden; }
+        .project-image-gradient { position: absolute; inset: 0; opacity: 0.15; }
+        .project-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: var(--glass); border: 1px solid var(--border-subtle); border-radius: 20px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px); }
         .project-icon svg { width: 40px; height: 40px; }
+        .project-number { position: absolute; bottom: 1rem; left: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-muted); opacity: 0.6; letter-spacing: 0.1em; }
+        .project-gradient-ai { background: linear-gradient(135deg, rgba(124,58,237,0.4) 0%, rgba(0,212,255,0.2) 100%); }
+        .project-gradient-cost { background: linear-gradient(135deg, rgba(0,212,255,0.3) 0%, rgba(255,107,53,0.15) 100%); }
+        .project-gradient-portfolio { background: linear-gradient(135deg, rgba(255,107,53,0.25) 0%, rgba(124,58,237,0.15) 100%); }
         .project-content { padding: 1.5rem; }
-        .project-content h3 { font-size: 1.25rem; margin-bottom: 0.75rem; }
-        .project-content p { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1rem; }
-        .project-tech { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
-        .project-tech span { padding: 0.3rem 0.6rem; background: rgba(124, 58, 237, 0.1); border: 1px solid rgba(124, 58, 237, 0.2); border-radius: 4px; font-size: 0.75rem; color: var(--accent-purple); font-family: 'JetBrains Mono', monospace; }
+        .project-content h3 { font-size: 1.2rem; margin-bottom: 0.6rem; }
+        .project-content p { color: var(--text-secondary); font-size: 0.92rem; margin-bottom: 1.25rem; line-height: 1.65; }
+        .project-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.25rem; }
+        .project-tech span { padding: 0.25rem 0.55rem; background: rgba(124, 58, 237, 0.08); border: 1px solid rgba(124, 58, 237, 0.2); border-radius: 4px; font-size: 0.7rem; color: #a78bfa; font-family: 'JetBrains Mono', monospace; }
         .project-links { display: flex; gap: 1rem; }
-        .project-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 0.4rem; transition: color 0.3s ease; }
+        .project-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 0.4rem; transition: color 0.2s ease; cursor: pointer; }
         .project-links a:hover { color: var(--accent-cyan); }
+
+        /* ── Timeline ────────────────────────────────────────────────────────── */
         .timeline { position: relative; max-width: 800px; margin: 0 auto; }
         .timeline::before { content: ''; position: absolute; left: 20px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--accent-cyan), var(--accent-purple), var(--accent-orange)); }
-        .timeline-item { position: relative; padding-left: 60px; margin-bottom: 3rem; }
-        .timeline-dot { position: absolute; left: 12px; top: 0; width: 18px; height: 18px; background: var(--bg-primary); border: 3px solid var(--accent-cyan); border-radius: 50%; }
-        .timeline-content { padding: 1.5rem; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 16px; }
-        .timeline-date { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--accent-cyan); margin-bottom: 0.5rem; }
-        .timeline-content h3 { font-size: 1.2rem; margin-bottom: 0.25rem; }
-        .timeline-content h4 { font-size: 1rem; color: var(--text-secondary); font-weight: 400; margin-bottom: 0.75rem; }
-        .timeline-content p { color: var(--text-secondary); font-size: 0.95rem; }
+        .timeline-item { position: relative; padding-left: 60px; margin-bottom: 2.5rem; }
+        .timeline-dot { position: absolute; left: 12px; top: 0; width: 18px; height: 18px; background: var(--bg-primary); border: 3px solid var(--accent-cyan); border-radius: 50%; transition: border-color 0.3s ease; }
+        .timeline-dot.current { border-color: #22c55e; box-shadow: 0 0 12px rgba(34, 197, 94, 0.4); }
+        .timeline-dot.cert { border-color: var(--accent-purple); }
+        .timeline-content { padding: 1.5rem; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 16px; transition: border-color 0.3s ease; }
+        .timeline-content:hover { border-color: rgba(0, 212, 255, 0.2); }
+        .timeline-date { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; color: var(--accent-cyan); margin-bottom: 0.4rem; }
+        .timeline-content h3 { font-size: 1.15rem; margin-bottom: 0.2rem; }
+        .timeline-content h4 { font-size: 0.95rem; color: var(--text-secondary); font-weight: 400; margin-bottom: 0.75rem; }
+        .timeline-content p { color: var(--text-secondary); font-size: 0.92rem; line-height: 1.65; }
+        .timeline-tag { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.75rem; padding: 0.3rem 0.75rem; border-radius: 50px; font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; }
+        .timeline-tag.achieved { background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.25); color: #22c55e; }
+        .timeline-tag.in-progress { background: rgba(255, 107, 53, 0.1); border: 1px solid rgba(255, 107, 53, 0.25); color: var(--accent-orange); }
+
+        /* ── Contact ──────────────────────────────────────────────────────────── */
         .contact-container { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; max-width: 1000px; margin: 0 auto; }
         .contact-info h3 { font-size: 1.5rem; margin-bottom: 1rem; }
-        .contact-info p { color: var(--text-secondary); margin-bottom: 2rem; }
+        .contact-info p { color: var(--text-secondary); margin-bottom: 2rem; line-height: 1.7; }
         .contact-links { display: flex; flex-direction: column; gap: 1rem; }
-        .contact-link { display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 12px; color: var(--text-primary); text-decoration: none; transition: all 0.3s ease; }
+        .contact-link { display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 12px; color: var(--text-primary); text-decoration: none; transition: all 0.3s ease; cursor: pointer; }
         .contact-link:hover { border-color: var(--accent-cyan); transform: translateX(5px); }
-        .contact-link svg { width: 24px; height: 24px; color: var(--accent-cyan); }
+        .contact-link svg { width: 24px; height: 24px; color: var(--accent-cyan); flex-shrink: 0; }
+        .contact-link-detail { color: var(--text-secondary); }
         .contact-form { padding: 2rem; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 20px; }
         .form-group { margin-bottom: 1.5rem; }
         .form-group label { display: block; margin-bottom: 0.5rem; color: var(--text-secondary); font-size: 0.9rem; }
-        .form-group input, .form-group textarea { width: 100%; padding: 1rem; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 10px; color: var(--text-primary); font-family: 'Outfit', sans-serif; font-size: 1rem; }
+        .form-group input, .form-group textarea { width: 100%; padding: 1rem; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 10px; color: var(--text-primary); font-family: 'Outfit', sans-serif; font-size: 1rem; transition: border-color 0.2s ease; }
         .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--accent-cyan); }
         .form-group textarea { min-height: 120px; resize: vertical; }
+
+        /* ── Chatbot ──────────────────────────────────────────────────────────── */
         .chatbot-container { position: fixed; bottom: 2rem; right: 2rem; z-index: 1000; }
         .chatbot-toggle { width: 60px; height: 60px; background: var(--gradient-main); border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 40px rgba(0, 212, 255, 0.3); transition: all 0.3s ease; }
         .chatbot-toggle:hover { transform: scale(1.1); }
@@ -167,13 +210,13 @@
         .chatbot-header { padding: 1rem 1.5rem; background: var(--bg-card); border-bottom: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: space-between; }
         .chatbot-header h4 { display: flex; align-items: center; gap: 0.5rem; font-size: 1rem; }
         .chatbot-header h4::before { content: ''; width: 10px; height: 10px; background: #22c55e; border-radius: 50%; }
-        .chatbot-close { background: none; border: none; color: var(--text-secondary); cursor: pointer; }
+        .chatbot-close { background: none; border: none; color: var(--text-secondary); cursor: pointer; font-size: 1.1rem; line-height: 1; }
         .chatbot-messages { flex: 1; padding: 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; }
         .chat-message { max-width: 85%; padding: 0.75rem 1rem; border-radius: 16px; font-size: 0.9rem; line-height: 1.5; }
         .chat-message.bot { background: var(--bg-card); border: 1px solid var(--border-subtle); align-self: flex-start; border-bottom-left-radius: 4px; }
         .chat-message.user { background: var(--gradient-main); color: var(--bg-primary); align-self: flex-end; border-bottom-right-radius: 4px; }
         .chatbot-input { padding: 1rem; border-top: 1px solid var(--border-subtle); display: flex; gap: 0.75rem; }
-        .chatbot-input input { flex: 1; padding: 0.75rem 1rem; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 10px; color: var(--text-primary); font-family: 'Outfit', sans-serif; }
+        .chatbot-input input { flex: 1; padding: 0.75rem 1rem; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 10px; color: var(--text-primary); font-family: 'Outfit', sans-serif; transition: border-color 0.2s ease; }
         .chatbot-input input:focus { outline: none; border-color: var(--accent-cyan); }
         .chatbot-input button { padding: 0.75rem 1rem; background: var(--gradient-main); border: none; border-radius: 10px; cursor: pointer; }
         .chatbot-input button svg { width: 20px; height: 20px; fill: var(--bg-primary); }
@@ -182,11 +225,23 @@
         .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
         .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
         @keyframes typingBounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-6px); } }
+
+        /* ── Footer ──────────────────────────────────────────────────────────── */
         footer { padding: 3rem; text-align: center; border-top: 1px solid var(--border-subtle); }
-        .footer-logo { font-family: 'JetBrains Mono', monospace; font-size: 1.25rem; background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1rem; }
+        .footer-logo { font-family: 'JetBrains Mono', monospace; font-size: 1.25rem; background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.75rem; }
         footer p { color: var(--text-muted); font-size: 0.9rem; }
+
+        /* ── Reveal ──────────────────────────────────────────────────────────── */
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
         .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* ── Reduced Motion ──────────────────────────────────────────────────── */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+            html { scroll-behavior: auto; }
+        }
+
+        /* ── Responsive ──────────────────────────────────────────────────────── */
         @media (max-width: 968px) {
             nav { padding: 1rem 1.5rem; }
             .nav-links { display: none; }
@@ -210,7 +265,7 @@
     </div>
 
     <nav id="navbar">
-        <div class="logo">cornelcloud</div>
+        <a href="#about" class="logo">cornelcloud</a>
         <ul class="nav-links">
             <li><a href="#about">About</a></li>
             <li><a href="#video">Introduction</a></li>
@@ -222,12 +277,15 @@
         <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Let's Connect</button>
     </nav>
 
+    <!-- ── Hero ──────────────────────────────────────────────────────────── -->
     <section class="hero" id="about">
         <div class="hero-content">
             <div class="hero-text">
-                <div class="hero-badge">Available for Cloud Engineering Roles</div>
-                <h1>Building the Future<br/><span class="typing-line" id="typingText"></span><span class="typing-cursor">|</span></h1>
-                <p class="hero-description">I'm Cornel Bacanu, an AWS Certified Solutions Architect passionate about cloud infrastructure, automation, and AI integration. I transform complex systems into elegant, scalable solutions.</p>
+                <div class="hero-badge">Available for Cloud Engineering Roles · UK &amp; Remote</div>
+                <p class="hero-name">Cornel Bacanu</p>
+                <h1>Building Infrastructure<br/><span class="typing-line" id="typingText"></span><span class="typing-cursor">|</span></h1>
+                <p class="hero-tagline">Cloud Engineer · <span>AWS Certified Solutions Architect</span> · Building Infrastructure That Thinks</p>
+                <p class="hero-description">I build cloud systems that don't just run — they think. Serverless architectures, AI-integrated pipelines, and infrastructure-as-code delivered end to end. From IaC to live production.</p>
                 <div class="hero-buttons">
                     <a href="#projects" class="btn-primary">View My Work</a>
                     <a href="#video" class="btn-secondary">Watch Intro</a>
@@ -237,33 +295,47 @@
                 <div class="profile-card">
                     <div class="profile-image-container">
                         <div class="profile-ring"></div>
-                        <img src="photos/20220313_124426.jpg" alt="Cornel Bacanu" class="profile-image">
+                        <img src="photos/20220313_124426.jpg" alt="Cornel Bacanu — Cloud Engineer" class="profile-image">
                     </div>
                     <div class="profile-info">
                         <h3>Cornel Bacanu</h3>
-                        <p>Cloud Engineer & AI Enthusiast</p>
+                        <p class="profile-role">Cloud Engineer &amp; AI Enthusiast</p>
+                        <p class="cert-section-label">Certifications</p>
                         <div class="cert-badges">
                             <span class="cert-badge">AWS CCP</span>
-                            <span class="cert-badge">Python</span>
-                            <span class="cert-badge">Terraform</span>
+                            <span class="cert-badge">SAA-C03</span>
+                            <span class="cert-badge">re/Start</span>
+                        </div>
+                        <div class="cert-badges">
+                            <span class="cert-badge in-progress">Data Engineer ↗</span>
+                            <span class="cert-badge in-progress">AI/ML ↗</span>
                         </div>
                     </div>
                     <div class="floating-icons">
-                        <div class="floating-icon icon-aws"><svg viewBox="0 0 24 24" fill="#ff9900"><circle cx="12" cy="12" r="10"/></svg></div>
-                        <div class="floating-icon icon-docker"><svg viewBox="0 0 24 24" fill="#2496ed"><circle cx="12" cy="12" r="10"/></svg></div>
-                        <div class="floating-icon icon-python"><svg viewBox="0 0 24 24" fill="#3776ab"><circle cx="12" cy="12" r="10"/></svg></div>
-                        <div class="floating-icon icon-terraform"><svg viewBox="0 0 24 24" fill="#7b42bc"><circle cx="12" cy="12" r="10"/></svg></div>
+                        <div class="floating-icon icon-aws">
+                            <svg viewBox="0 0 24 24" fill="#ff9900"><path d="M7.17 8.4c0 .23.02.42.07.55.05.14.12.28.22.44.04.06.05.12.05.17 0 .08-.05.16-.14.24l-.48.32c-.07.04-.13.07-.19.07-.08 0-.15-.04-.23-.11a2.4 2.4 0 0 1-.27-.35 6.1 6.1 0 0 1-.23-.44c-.59.69-1.32 1.04-2.2 1.04-.63 0-1.13-.18-1.5-.54-.37-.36-.55-.84-.55-1.44 0-.63.22-1.14.67-1.52.45-.38 1.04-.57 1.8-.57.25 0 .5.02.77.06.27.04.55.1.84.18V6.6c0-.57-.12-.97-.36-1.2-.24-.23-.64-.35-1.22-.35-.26 0-.53.03-.8.09a5.9 5.9 0 0 0-.8.24 2.1 2.1 0 0 1-.25.09.44.44 0 0 1-.11.02c-.1 0-.15-.07-.15-.22v-.35c0-.11.01-.2.05-.24.03-.05.09-.1.17-.14.26-.14.57-.25.94-.34.37-.1.76-.14 1.17-.14.9 0 1.55.2 1.97.61.42.41.63 1.03.63 1.86v2.46zm-3.05 1.14c.24 0 .49-.04.75-.13.26-.09.49-.25.69-.47.12-.13.2-.28.25-.44.05-.17.07-.37.07-.59V7.9a6.2 6.2 0 0 0-.67-.12 5.5 5.5 0 0 0-.68-.04c-.49 0-.84.1-1.08.29-.24.2-.36.48-.36.85 0 .35.09.6.27.78.18.18.44.27.76.27zm5.8.76c-.12 0-.2-.02-.25-.07-.05-.04-.1-.14-.14-.27L8.1 5.12c-.04-.14-.06-.23-.06-.28 0-.11.05-.17.16-.17h.66c.13 0 .21.02.26.07.05.04.09.14.13.27l1.07 4.22 1-4.22c.03-.14.07-.23.12-.27.05-.04.14-.07.26-.07h.54c.13 0 .21.02.26.07.05.04.09.14.12.27l1.01 4.28 1.1-4.28c.04-.14.08-.23.13-.27.05-.04.13-.07.25-.07h.63c.11 0 .17.05.17.17 0 .03-.01.07-.02.11l-.03.17-1.47 4.84c-.04.14-.08.23-.13.27-.05.04-.13.07-.25.07h-.58c-.13 0-.21-.02-.26-.07-.05-.05-.09-.14-.12-.28l-.99-4.12-.98 4.11c-.03.14-.07.23-.12.28-.05.05-.14.07-.27.07h-.58zm7.8.16c-.35 0-.7-.04-1.03-.13-.33-.09-.59-.19-.76-.3-.1-.06-.17-.13-.2-.19a.48.48 0 0 1-.04-.19v-.37c0-.15.06-.22.17-.22.04 0 .09.01.13.03.04.02.1.04.18.08.24.11.5.19.79.25.29.06.57.09.86.09.46 0 .81-.08 1.06-.24.25-.16.38-.39.38-.69 0-.2-.06-.37-.19-.51-.13-.14-.37-.26-.72-.38l-1.03-.32c-.52-.16-.9-.4-1.14-.72a1.74 1.74 0 0 1-.36-1.07c0-.31.07-.58.2-.82.13-.24.31-.45.54-.62.22-.17.47-.3.77-.39.3-.09.61-.13.95-.13.17 0 .34.01.51.03.17.02.33.05.47.09.14.03.28.07.4.12.13.04.23.09.3.13.1.06.17.12.21.18.04.06.06.14.06.24v.34c0 .15-.06.23-.17.23-.06 0-.16-.03-.28-.09-.39-.17-.82-.26-1.3-.26-.41 0-.74.07-.97.21-.23.14-.35.35-.35.64 0 .2.07.38.21.52.14.14.4.27.77.39l1.01.32c.51.16.88.39 1.1.69.22.3.33.64.33 1.02 0 .32-.06.6-.19.85-.13.25-.31.47-.55.65-.24.18-.52.31-.85.4-.34.1-.7.15-1.09.15z"/></svg>
+                        </div>
+                        <div class="floating-icon icon-docker">
+                            <svg viewBox="0 0 24 24" fill="#2496ed"><path d="M13.98 11.08h2.12v-2.1h-2.12v2.1zm-2.95 0h2.12v-2.1h-2.12v2.1zm-2.97 0H10.2v-2.1H8.06v2.1zm-2.96 0h2.12v-2.1H5.1v2.1zm5.96-2.94h2.12V6.02h-2.12v2.12zm-2.97 0h2.12V6.02H8.06v2.12zM5.1 8.14h2.12V6.02H5.1v2.12zM22.3 11.1c-.3-.22-.99-.3-1.52-.2-.07-.52-.36-.97-.85-1.32l-.29-.19-.2.28c-.25.38-.33.99-.29 1.46-.04.15-.14.5-.36.73-.25.28-.5.38-.67.43H.42c-.1.71-.1 2.97 1.32 4.42.73.76 1.82 1.14 3.24 1.14 3.06 0 5.33-1.41 6.4-3.98.42.01 1.33.01 1.8-.9.02-.04.16-.3.23-.46l-.12-.09c-.19-.13-.64-.18-1.08-.07a2.2 2.2 0 0 1-.07-.73h-.01c-.01 0-.02 0-.03-.01-.04-.04-.08-.09-.08-.09.02-.25.19-.75.47-1.11l.03-.04h-.01c.03-.17.03-.35-.02-.52z"/></svg>
+                        </div>
+                        <div class="floating-icon icon-python">
+                            <svg viewBox="0 0 24 24" fill="#3776ab"><path d="M11.97 0C5.93 0 6.3 2.67 6.3 2.67l.01 2.77h5.77v.83H3.94S0 5.83 0 11.97c0 6.14 3.4 5.92 3.4 5.92h2.03v-2.85s-.11-3.4 3.34-3.4h5.76s3.23.05 3.23-3.12V3.23S18.27 0 11.97 0zm-3.2 1.86c.58 0 1.05.47 1.05 1.05 0 .59-.47 1.06-1.05 1.06a1.06 1.06 0 0 1 0-2.11zm.01 10.22c6.04 0 5.67 2.67 5.67 2.67l-.01 2.77H8.68v.83h8.14s3.93-.45 3.93-5.92c0-5.47-3.39-5.24-3.39-5.24h-2.03v2.85s.11 3.04-3.34 3.04H6.23s-3.23.29-3.23 3.12v5.28s-.49 3.22 5.78 3.22c6.04 0 5.67-2.67 5.67-2.67l.01-2.77H8.68v-.83h8.14s3.94.45 3.94-6.14c0-5.47-3.4-5.92-3.4-5.92h-2.03v2.85s-.11 3.4-3.34 3.4H5.82s-3.23.05-3.23 3.12v.9h1.77v-2.85s-.1-3.4 3.34-3.4h5.76s3.23-.05 3.23-3.12v-5.3s.49-3.22-5.77-3.22zm3.2 10.06c.58 0 1.06.47 1.06 1.06 0 .58-.48 1.05-1.06 1.05a1.06 1.06 0 0 1 0-2.11z"/></svg>
+                        </div>
+                        <div class="floating-icon icon-terraform">
+                            <svg viewBox="0 0 24 24" fill="#7b42bc"><path d="M15.8 5.8l-5 2.9v5.7l5-2.9V5.8zM9 9l-5 2.9v5.7L9 14.7V9zm7.6 8.2l-5-2.9v5.7l5 2.9v-5.7zM9.8 4.1L4.8 7v5.7l5-2.9V4.1z"/></svg>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- ── Introduction Video ─────────────────────────────────────────────── -->
     <section id="video" class="reveal">
         <div class="section-header">
             <span class="section-label">// INTRODUCTION</span>
             <h2 class="section-title">Meet the Engineer</h2>
-            <p class="section-subtitle">Get to know me, my background, and what drives my passion for cloud technology and AI.</p>
+            <p class="section-subtitle">Get to know me, my background, and what drives my passion for cloud infrastructure and AI.</p>
         </div>
         <div class="video-container">
             <div class="video-wrapper">
@@ -278,179 +350,298 @@
                     <div class="video-corner video-corner-br"></div>
                     <span class="video-label">INTERACTIVE PRESENTATION</span>
                     <div class="play-button"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
-                    <p style="color: var(--text-secondary); font-size: 1rem; position: relative; z-index: 2;">Click to begin the journey</p>
+                    <p class="video-cta-label">Click to begin the journey</p>
                     <span class="video-bottom-label">CORNEL BACANU // CLOUD ENGINEER</span>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- ── Skills ──────────────────────────────────────────────────────────── -->
     <section id="skills" class="reveal">
         <div class="section-header">
             <span class="section-label">// EXPERTISE</span>
             <h2 class="section-title">Technical Skills</h2>
-            <p class="section-subtitle">A comprehensive toolkit for building and managing cloud infrastructure at scale.</p>
+            <p class="section-subtitle">A comprehensive toolkit for designing, building, and shipping cloud-native infrastructure.</p>
         </div>
         <div class="skills-grid">
             <div class="skill-card">
-                <div class="skill-icon"><svg viewBox="0 0 24 24" fill="#ff9900"><circle cx="12" cy="12" r="10"/></svg></div>
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24" fill="#ff9900"><path d="M18.75 11.35a4.32 4.32 0 0 0 .1-.85 4.25 4.25 0 0 0-4.25-4.25c-.76 0-1.47.2-2.1.55A3.48 3.48 0 0 0 9.25 5C7.46 5 6 6.46 6 8.25c0 .17.01.34.04.5A3.75 3.75 0 0 0 3.75 12.5 3.75 3.75 0 0 0 7.5 16.25h10.5a3.25 3.25 0 0 0 .75-6.9z"/></svg>
+                </div>
                 <h3>AWS Cloud Services</h3>
-                <p>Designing and implementing scalable cloud solutions using the full AWS ecosystem.</p>
-                <div class="skill-tags"><span class="skill-tag">EC2</span><span class="skill-tag">S3</span><span class="skill-tag">Lambda</span><span class="skill-tag">RDS</span></div>
+                <p>Designing and deploying production-grade solutions across the full AWS ecosystem.</p>
+                <div class="skill-tags">
+                    <span class="skill-tag">Lambda</span><span class="skill-tag">EC2</span><span class="skill-tag">S3</span><span class="skill-tag">CloudFront</span><span class="skill-tag">VPC</span><span class="skill-tag">Route 53</span><span class="skill-tag">API Gateway</span><span class="skill-tag">DynamoDB</span><span class="skill-tag">ELB</span><span class="skill-tag">CloudWatch</span><span class="skill-tag">CloudTrail</span><span class="skill-tag">IAM</span><span class="skill-tag">ACM</span><span class="skill-tag">SES</span><span class="skill-tag">EFS</span><span class="skill-tag">EBS</span><span class="skill-tag">AWS Config</span>
+                </div>
             </div>
             <div class="skill-card">
-                <div class="skill-icon"><svg viewBox="0 0 24 24" fill="#7b42bc"><circle cx="12" cy="12" r="10"/></svg></div>
-                <h3>Infrastructure as Code</h3>
-                <p>Automating infrastructure deployment with modern IaC tools for consistency.</p>
-                <div class="skill-tags"><span class="skill-tag">Terraform</span><span class="skill-tag">CloudFormation</span><span class="skill-tag">Ansible</span></div>
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24" fill="#7b42bc"><path d="M15.8 5.8l-5 2.9v5.7l5-2.9V5.8zM9 9l-5 2.9v5.7L9 14.7V9zm7.6 8.2l-5-2.9v5.7l5 2.9v-5.7zM9.8 4.1L4.8 7v5.7l5-2.9V4.1z"/></svg>
+                </div>
+                <h3>Infrastructure as Code &amp; CI/CD</h3>
+                <p>Automating infrastructure and delivery pipelines for reproducible, zero-drift deployments.</p>
+                <div class="skill-tags">
+                    <span class="skill-tag">Terraform</span><span class="skill-tag">CloudFormation</span><span class="skill-tag">GitHub Actions</span><span class="skill-tag">CodePipeline</span><span class="skill-tag">Docker</span><span class="skill-tag">ECS</span><span class="skill-tag">ECR</span>
+                </div>
             </div>
             <div class="skill-card">
-                <div class="skill-icon"><svg viewBox="0 0 24 24" fill="#2496ed"><circle cx="12" cy="12" r="10"/></svg></div>
-                <h3>Containerization</h3>
-                <p>Building and orchestrating containerized applications for efficient deployment.</p>
-                <div class="skill-tags"><span class="skill-tag">Docker</span><span class="skill-tag">Kubernetes</span><span class="skill-tag">ECS</span></div>
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24" fill="var(--accent-purple)"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/></svg>
+                </div>
+                <h3>AI &amp; Cloud Intelligence</h3>
+                <p>Integrating large language models and AI services into production serverless architectures.</p>
+                <div class="skill-tags">
+                    <span class="skill-tag">AWS Bedrock</span><span class="skill-tag">SageMaker</span><span class="skill-tag">Claude API</span><span class="skill-tag">Cost Explorer API</span><span class="skill-tag">AI Agents</span>
+                </div>
             </div>
             <div class="skill-card">
-                <div class="skill-icon"><svg viewBox="0 0 24 24" fill="#3776ab"><circle cx="12" cy="12" r="10"/></svg></div>
-                <h3>Programming & Scripting</h3>
-                <p>Writing clean, efficient code for automation and cloud-native applications.</p>
-                <div class="skill-tags"><span class="skill-tag">Python</span><span class="skill-tag">Bash</span><span class="skill-tag">JavaScript</span></div>
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24" fill="#3776ab"><path d="M11.97 0C5.93 0 6.3 2.67 6.3 2.67l.01 2.77h5.77v.83H3.94S0 5.83 0 11.97c0 6.14 3.4 5.92 3.4 5.92h2.03v-2.85s-.11-3.4 3.34-3.4h5.76s3.23.05 3.23-3.12V3.23S18.27 0 11.97 0zm-3.2 1.86c.58 0 1.05.47 1.05 1.05 0 .59-.47 1.06-1.05 1.06a1.06 1.06 0 0 1 0-2.11z"/></svg>
+                </div>
+                <h3>Languages &amp; APIs</h3>
+                <p>Writing clean backend code for serverless functions, automation scripts, and REST APIs.</p>
+                <div class="skill-tags">
+                    <span class="skill-tag">Python</span><span class="skill-tag">FastAPI</span><span class="skill-tag">JavaScript</span><span class="skill-tag">Bash</span><span class="skill-tag">REST APIs</span>
+                </div>
             </div>
             <div class="skill-card">
-                <div class="skill-icon"><svg viewBox="0 0 24 24" fill="var(--accent-cyan)"><circle cx="12" cy="12" r="10"/></svg></div>
-                <h3>CI/CD & DevOps</h3>
-                <p>Implementing automated pipelines for continuous integration and deployment.</p>
-                <div class="skill-tags"><span class="skill-tag">GitHub Actions</span><span class="skill-tag">Jenkins</span><span class="skill-tag">CodePipeline</span></div>
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24" fill="#2496ed"><path d="M13.98 11.08h2.12v-2.1h-2.12v2.1zm-2.95 0h2.12v-2.1h-2.12v2.1zm-2.97 0H10.2v-2.1H8.06v2.1zm-2.96 0h2.12v-2.1H5.1v2.1zM22.3 11.1c-.3-.22-.99-.3-1.52-.2-.07-.52-.36-.97-.85-1.32l-.29-.19-.2.28c-.25.38-.33.99-.29 1.46-.04.15-.14.5-.36.73-.25.28-.5.38-.67.43H.42c-.1.71-.1 2.97 1.32 4.42.73.76 1.82 1.14 3.24 1.14 3.06 0 5.33-1.41 6.4-3.98.42.01 1.33.01 1.8-.9l.23-.46-.12-.09c-.19-.13-.64-.18-1.08-.07z"/></svg>
+                </div>
+                <h3>Containers &amp; Networking</h3>
+                <p>Building containerised workloads and designing secure, highly available network topologies.</p>
+                <div class="skill-tags">
+                    <span class="skill-tag">Docker</span><span class="skill-tag">Kubernetes</span><span class="skill-tag">ECS/Fargate</span><span class="skill-tag">VPCs</span><span class="skill-tag">Security Groups</span><span class="skill-tag">Load Balancers</span>
+                </div>
             </div>
             <div class="skill-card">
-                <div class="skill-icon"><svg viewBox="0 0 24 24" fill="var(--accent-purple)"><circle cx="12" cy="12" r="10"/></svg></div>
-                <h3>AI & Machine Learning</h3>
-                <p>Integrating AI services and building intelligent applications using cloud ML tools.</p>
-                <div class="skill-tags"><span class="skill-tag">SageMaker</span><span class="skill-tag">Bedrock</span><span class="skill-tag">OpenAI</span></div>
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24" fill="var(--accent-cyan)"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                </div>
+                <h3>Certifications</h3>
+                <p>Validated AWS expertise across cloud foundations, architecture, data, and AI/ML domains.</p>
+                <div class="skill-tags">
+                    <span class="skill-tag">AWS CCP ✓</span><span class="skill-tag">SAA-C03 ✓</span><span class="skill-tag">AWS re/Start ✓</span><span class="skill-tag">Data Engineer ↗</span><span class="skill-tag">AI/ML Specialty ↗</span>
+                </div>
             </div>
         </div>
     </section>
+
+    <!-- ── Projects ────────────────────────────────────────────────────────── -->
     <section id="projects" class="reveal">
         <div class="section-header">
             <span class="section-label">// PORTFOLIO</span>
             <h2 class="section-title">Featured Projects</h2>
-            <p class="section-subtitle">A selection of cloud infrastructure and automation projects I've built.</p>
+            <p class="section-subtitle">Real systems, shipped to production. AI + serverless + IaC — not studying cloud, doing it.</p>
         </div>
         <div class="projects-grid">
-            <div class="project-card">
-                <div class="project-image"><div class="project-icon"><svg viewBox="0 0 24 24" fill="var(--accent-cyan)"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg></div></div>
+
+            <!-- Project 1: AI Product Listing Generator -->
+            <div class="project-card featured">
+                <div class="featured-badge">★ Headline Project</div>
+                <div class="project-image">
+                    <div class="project-image-gradient project-gradient-ai"></div>
+                    <div class="project-icon">
+                        <svg viewBox="0 0 24 24" fill="var(--accent-purple)"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/></svg>
+                    </div>
+                    <span class="project-number">01 / 03</span>
+                </div>
                 <div class="project-content">
-                    <h3>Cloud Portfolio Infrastructure</h3>
-                    <p>Fully automated AWS infrastructure for hosting this portfolio using S3, CloudFront, Route 53, and Certificate Manager with IaC.</p>
-                    <div class="project-tech"><span>AWS</span><span>Terraform</span><span>CloudFront</span><span>S3</span></div>
-                    <div class="project-links"><a href="https://github.com/Hyper-Git" target="_blank">View Code →</a></div>
+                    <h3>AI Product Listing Generator</h3>
+                    <p>Hackathon build: a serverless backend (Python FastAPI on Lambda + API Gateway) integrated with AWS Bedrock (Claude Sonnet) to analyse product images and generate sales listings. React/Vite frontend on S3/CloudFront. Full Terraform IaC, CI/CD via GitHub Actions.</p>
+                    <div class="project-tech">
+                        <span>Lambda</span><span>API Gateway</span><span>Bedrock</span><span>S3</span><span>CloudFront</span><span>Terraform</span><span>FastAPI</span><span>GitHub Actions</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/Hyper-Git" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                            View on GitHub →
+                        </a>
+                    </div>
                 </div>
             </div>
+
+            <!-- Project 2: Cost Optimization Dashboard -->
             <div class="project-card">
-                <div class="project-image"><div class="project-icon"><svg viewBox="0 0 24 24" fill="var(--accent-purple)"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/></svg></div></div>
+                <div class="project-image">
+                    <div class="project-image-gradient project-gradient-cost"></div>
+                    <div class="project-icon">
+                        <svg viewBox="0 0 24 24" fill="var(--accent-cyan)"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
+                    </div>
+                    <span class="project-number">02 / 03</span>
+                </div>
                 <div class="project-content">
-                    <h3>AI-Powered Chatbot</h3>
-                    <p>Serverless chatbot built with AWS Lambda, API Gateway, and Amazon Bedrock for intelligent conversational AI responses.</p>
-                    <div class="project-tech"><span>Lambda</span><span>API Gateway</span><span>Bedrock</span><span>DynamoDB</span></div>
-                    <div class="project-links"><a href="https://github.com/Hyper-Git" target="_blank">View Code →</a></div>
+                    <h3>AWS Cost Optimization Dashboard</h3>
+                    <p>A real-time web dashboard giving small businesses visibility into their AWS spend — built because enterprise cost tools cost $2,000+/month. Lambda pulls live data from the Cost Explorer API, served via API Gateway, with DynamoDB for historical storage and Chart.js for service-level breakdowns and weekly trends. Under $10/month to run.</p>
+                    <div class="project-tech">
+                        <span>Lambda</span><span>API Gateway</span><span>Cost Explorer API</span><span>DynamoDB</span><span>Chart.js</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/Hyper-Git/Cost-Optimization-Dashboard" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                            View on GitHub →
+                        </a>
+                    </div>
                 </div>
             </div>
+
+            <!-- Project 3: Live Cloud Portfolio -->
             <div class="project-card">
-                <div class="project-image"><div class="project-icon"><svg viewBox="0 0 24 24" fill="var(--accent-orange)"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg></div></div>
+                <div class="project-image">
+                    <div class="project-image-gradient project-gradient-portfolio"></div>
+                    <div class="project-icon">
+                        <svg viewBox="0 0 24 24" fill="var(--accent-orange)"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>
+                    </div>
+                    <span class="project-number">03 / 03</span>
+                </div>
                 <div class="project-content">
-                    <h3>Automated CI/CD Pipeline</h3>
-                    <p>End-to-end deployment pipeline with automated testing, staging, and production deployments using GitHub Actions and AWS.</p>
-                    <div class="project-tech"><span>GitHub Actions</span><span>CodeDeploy</span><span>ECR</span><span>ECS</span></div>
-                    <div class="project-links"><a href="https://github.com/Hyper-Git" target="_blank">View Code →</a></div>
+                    <h3>cornelcloud.net — Live Cloud Portfolio</h3>
+                    <p>This site. The portfolio itself is a live AWS environment I continuously iterate on: S3 + CloudFront + Route 53 + ACM for hosting, Lambda + API Gateway + Bedrock for the AI chatbot, and full Terraform IaC with GitHub Actions CI/CD. Not a demo — it's in production.</p>
+                    <div class="project-tech">
+                        <span>S3</span><span>CloudFront</span><span>Route 53</span><span>Lambda</span><span>Bedrock</span><span>Terraform</span><span>GitHub Actions</span><span>DynamoDB</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/Hyper-Git" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                            View on GitHub →
+                        </a>
+                        <a href="https://cornelcloud.net" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                            Live Site →
+                        </a>
+                    </div>
                 </div>
             </div>
+
         </div>
     </section>
 
+    <!-- ── Experience ──────────────────────────────────────────────────────── -->
     <section id="experience" class="reveal">
         <div class="section-header">
             <span class="section-label">// JOURNEY</span>
-            <h2 class="section-title">Experience & Education</h2>
-            <p class="section-subtitle">My path from physical architecture to digital infrastructure.</p>
+            <h2 class="section-title">Experience &amp; Certifications</h2>
+            <p class="section-subtitle">From physical project delivery to cloud architecture — the same discipline, a bigger canvas.</p>
         </div>
         <div class="timeline">
+
+            <div class="timeline-item">
+                <div class="timeline-dot current"></div>
+                <div class="timeline-content">
+                    <span class="timeline-date">Sep 2025 — Present</span>
+                    <h3>Independent Cloud Engineer</h3>
+                    <h4>Self-employed</h4>
+                    <p>Building and shipping cloud-native projects independently. Developing serverless architectures with AWS Bedrock and AI integrations, delivering full IaC pipelines with Terraform, and actively pursuing AWS Data Engineer Associate and AI/ML Specialty certifications.</p>
+                </div>
+            </div>
+
             <div class="timeline-item">
                 <div class="timeline-dot"></div>
                 <div class="timeline-content">
-                    <span class="timeline-date">2024 - Present</span>
-                    <h3>Cloud Engineering Journey</h3>
-                    <h4>Self-Directed Learning & Certifications</h4>
-                    <p>Intensive focus on cloud technologies, earning AWS Cloud Practitioner and AWS Solutions Architect Associate certifications. Building hands-on projects with Terraform, Docker, and serverless architectures. Currently enrolled with Optima IT Academy pursuing AWS Data Engineer Associate and AI/ML Associate certifications.</p>
+                    <span class="timeline-date">Jun 2025 — Sep 2025</span>
+                    <h3>Cloud Engineer — Training Programme</h3>
+                    <h4>Primed Talent UK</h4>
+                    <p>Structured cloud engineering programme focused on AWS architecture, IaC, and professional delivery practices. Gained hands-on experience with real-world cloud deployments and enterprise-grade workflows.</p>
                 </div>
             </div>
+
             <div class="timeline-item">
-                <div class="timeline-dot"></div>
+                <div class="timeline-dot cert"></div>
+                <div class="timeline-content">
+                    <span class="timeline-date">2025</span>
+                    <h3>AWS Certified Solutions Architect — Associate</h3>
+                    <h4>Amazon Web Services</h4>
+                    <p>Demonstrated ability to design and deploy scalable, highly available, and fault-tolerant systems on AWS. Covers compute, storage, networking, databases, and security across multi-tier architectures.</p>
+                    <span class="timeline-tag achieved">✓ Achieved</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot cert"></div>
                 <div class="timeline-content">
                     <span class="timeline-date">2025</span>
                     <h3>AWS Certified Cloud Practitioner</h3>
                     <h4>Amazon Web Services</h4>
-                    <p>Validated foundational understanding of AWS Cloud concepts, services, security, architecture, pricing, and support.</p>
+                    <p>Validated foundational understanding of AWS Cloud concepts, services, security, architecture, pricing, and support models.</p>
+                    <span class="timeline-tag achieved">✓ Achieved</span>
                 </div>
             </div>
+
             <div class="timeline-item">
-                <div class="timeline-dot"></div>
+                <div class="timeline-dot cert"></div>
                 <div class="timeline-content">
                     <span class="timeline-date">2025</span>
-                    <h3>AWS Certified Solutions Architect – Associate</h3>
+                    <h3>AWS re/Start Graduate</h3>
                     <h4>Amazon Web Services</h4>
-                    <p>Demonstrated ability to design and deploy scalable, highly available, and fault-tolerant systems on AWS.</p>
+                    <p>Completed the AWS re/Start programme — a full-time cloud computing skills training programme designed to prepare graduates for cloud roles.</p>
+                    <span class="timeline-tag achieved">✓ Achieved</span>
                 </div>
             </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot cert"></div>
+                <div class="timeline-content">
+                    <span class="timeline-date">In Progress</span>
+                    <h3>AWS Data Engineer Associate &amp; AI/ML Specialty</h3>
+                    <h4>Amazon Web Services</h4>
+                    <p>Actively pursuing both AWS Data Engineer Associate and AWS AI/ML Specialty certifications to deepen expertise in data pipelines, ML workflows, and AI-integrated cloud architectures.</p>
+                    <span class="timeline-tag in-progress">↗ In Progress</span>
+                </div>
+            </div>
+
             <div class="timeline-item">
                 <div class="timeline-dot"></div>
                 <div class="timeline-content">
-                    <span class="timeline-date">2025 - Present</span>
-                    <h3>Optima IT Academy</h3>
-                    <h4>AWS Data Engineer Associate & AI/ML Associate</h4>
-                    <p>Currently enrolled in structured training programs pursuing AWS Data Engineer Associate and AWS AI/ML Associate certifications.</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <span class="timeline-date">Previous Career</span>
+                    <span class="timeline-date">Mar 2022 — May 2025</span>
                     <h3>Kitchen Installation Specialist</h3>
-                    <h4>Physical Architecture & Project Management</h4>
-                    <p>Managed complex installation projects requiring precision, spatial planning, and client coordination. Developed strong problem-solving skills that translate directly to cloud architecture.</p>
+                    <h4>Triple Purple Ltd.</h4>
+                    <p>Managed 50+ complex kitchen installations end-to-end — from scoping and resource planning to on-site delivery and handover. The precision, client coordination, and structured problem-solving developed here maps directly onto cloud project delivery.</p>
                 </div>
             </div>
+
         </div>
     </section>
 
+    <!-- ── Contact ─────────────────────────────────────────────────────────── -->
     <section id="contact" class="reveal">
         <div class="section-header">
             <span class="section-label">// GET IN TOUCH</span>
             <h2 class="section-title">Let's Build Something</h2>
-            <p class="section-subtitle">I'm always interested in new opportunities and collaborations in cloud engineering.</p>
+            <p class="section-subtitle">Open to cloud engineering roles, freelance projects, and consulting opportunities — UK-based, remote-ready globally.</p>
         </div>
         <div class="contact-container">
             <div class="contact-info">
                 <h3>Connect With Me</h3>
-                <p>Whether you have a project in mind, a question about cloud architecture, or just want to say hello, I'd love to hear from you.</p>
+                <p>Whether you have a cloud project, a question about architecture, or a role that needs someone who ships real things — I'd love to hear from you.</p>
                 <div class="contact-links">
-                    <a href="mailto:ecornelbacanu@gmail.com" class="contact-link">
+                    <a href="mailto:contact@cornelcloud.net" class="contact-link">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22,7L12,14L2,7"/></svg>
-                        <div><strong>Email</strong><br><span style="color:var(--text-secondary)">ecornelbacanu@gmail.com</span></div>
+                        <div><strong>Email</strong><br><span class="contact-link-detail">contact@cornelcloud.net</span></div>
                     </a>
-                    <a href="https://www.linkedin.com/in/cornel-bacanu-b7138032a/" target="_blank" class="contact-link">
+                    <a href="https://linkedin.com/in/cornel-bacanu" target="_blank" rel="noopener" class="contact-link">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                        <div><strong>LinkedIn</strong><br><span style="color:var(--text-secondary)">Connect on LinkedIn</span></div>
+                        <div><strong>LinkedIn</strong><br><span class="contact-link-detail">linkedin.com/in/cornel-bacanu</span></div>
                     </a>
-                    <a href="https://github.com/Hyper-Git" target="_blank" class="contact-link">
+                    <a href="https://github.com/Hyper-Git" target="_blank" rel="noopener" class="contact-link">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                        <div><strong>GitHub</strong><br><span style="color:var(--text-secondary)">@Hyper-Git</span></div>
+                        <div><strong>GitHub</strong><br><span class="contact-link-detail">github.com/Hyper-Git</span></div>
                     </a>
                 </div>
             </div>
             <form class="contact-form" id="contactForm">
-                <div class="form-group"><label>Your Name</label><input type="text" name="name" placeholder="John Doe" required></div>
-                <div class="form-group"><label>Email Address</label><input type="email" name="email" placeholder="john@example.com" required></div>
-                <div class="form-group"><label>Message</label><textarea name="message" placeholder="Tell me about your project..." required></textarea></div>
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" placeholder="Jane Smith" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="jane@company.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" placeholder="Tell me about the project or role..." required></textarea>
+                </div>
                 <button type="submit" class="btn-primary" style="width:100%">Send Message</button>
             </form>
         </div>
@@ -458,23 +649,25 @@
 
     <footer>
         <div class="footer-logo">cornelcloud</div>
-        <p>Designed & Built with ☁️ by Cornel Bacanu © 2025</p>
+        <p>Designed &amp; Built by Cornel Bacanu &copy; 2025 &nbsp;·&nbsp; Hosted on AWS</p>
     </footer>
+
+    <!-- ── Chatbot ──────────────────────────────────────────────────────────── -->
     <div class="chatbot-container">
         <div class="chatbot-window" id="chatbotWindow">
             <div class="chatbot-header">
                 <h4>Ask Me Anything</h4>
-                <button class="chatbot-close" onclick="toggleChatbot()">✕</button>
+                <button class="chatbot-close" onclick="toggleChatbot()" aria-label="Close chat">✕</button>
             </div>
             <div class="chatbot-messages" id="chatMessages">
                 <div class="chat-message bot">Hi! I'm Cornel's AI assistant. Ask me anything about his skills, experience, projects, or availability!</div>
             </div>
             <div class="chatbot-input">
-                <input type="text" id="chatInput" placeholder="Type your question..." onkeypress="if(event.key==='Enter')sendMessage()">
-                <button onclick="sendMessage()"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
+                <input type="text" id="chatInput" placeholder="Type your question..." aria-label="Chat message" onkeypress="if(event.key==='Enter')sendMessage()">
+                <button onclick="sendMessage()" aria-label="Send message"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
             </div>
         </div>
-        <button class="chatbot-toggle" onclick="toggleChatbot()"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg></button>
+        <button class="chatbot-toggle" onclick="toggleChatbot()" aria-label="Open chat"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg></button>
     </div>
 
     <script>
@@ -491,10 +684,25 @@
             }
         })();
 
-        // Navbar scroll
-        window.addEventListener('scroll', () => {
-            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
-        });
+        // Navbar scroll + active section tracking
+        const sections = ['about', 'video', 'skills', 'projects', 'experience', 'contact'];
+        const navLinks = document.querySelectorAll('.nav-links a');
+
+        function updateNav() {
+            const scrollY = window.scrollY;
+            document.getElementById('navbar').classList.toggle('scrolled', scrollY > 50);
+
+            let current = 'about';
+            sections.forEach(id => {
+                const el = document.getElementById(id);
+                if (el && el.getBoundingClientRect().top <= 120) current = id;
+            });
+            navLinks.forEach(a => {
+                a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+            });
+        }
+        window.addEventListener('scroll', updateNav);
+        updateNav();
 
         // Reveal animation
         function reveal() {
@@ -505,7 +713,7 @@
         window.addEventListener('scroll', reveal);
         reveal();
 
-        // Video placeholder - load presentation
+        // Video placeholder → presentation iframe
         document.getElementById('videoPlaceholder').addEventListener('click', function() {
             this.outerHTML = '<iframe src="presentation.html?autostart=1" frameborder="0" allow="autoplay *; fullscreen" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>';
         });
@@ -513,7 +721,6 @@
         // Chatbot
         const API_BASE = '__API_URL__';
 
-        // Session ID - persists for the browser session
         let chatSessionId = sessionStorage.getItem('chatSessionId');
         if (!chatSessionId) {
             chatSessionId = crypto.randomUUID();
@@ -530,7 +737,6 @@
             const msg = input.value.trim();
             if (!msg) return;
 
-            // Render user message
             const userDiv = document.createElement('div');
             userDiv.className = 'chat-message user';
             userDiv.textContent = msg;
@@ -538,7 +744,6 @@
             input.value = '';
             input.disabled = true;
 
-            // Typing indicator
             const typing = document.createElement('div');
             typing.className = 'typing-indicator';
             typing.innerHTML = '<span></span><span></span><span></span>';
@@ -611,20 +816,19 @@
             }
         });
 
-        // Typing effect - repeats when hero section is visible
+        // Typing effect — "That Thinks" with "Thinks" in gradient
         (function() {
-            const text = 'in the Cloud';
+            const text = 'That Thinks';
             const el = document.getElementById('typingText');
-            const cursor = document.querySelector('.typing-cursor');
             const heroSection = document.getElementById('about');
-            const cloudStart = text.indexOf('Cloud');
+            const thinksStart = text.indexOf('Thinks');
             let timeout = null;
             let firstVisit = true;
 
             function updateText(len) {
                 const current = text.substring(0, len);
-                if (len > cloudStart) {
-                    el.innerHTML = current.substring(0, cloudStart) + '<span>' + current.substring(cloudStart) + '</span>';
+                if (len > thinksStart) {
+                    el.innerHTML = current.substring(0, thinksStart) + '<span>' + current.substring(thinksStart) + '</span>';
                 } else {
                     el.textContent = current;
                 }
@@ -633,13 +837,8 @@
             function erase(callback) {
                 let i = text.length;
                 function step() {
-                    if (i >= 0) {
-                        updateText(i);
-                        i--;
-                        timeout = setTimeout(step, 50);
-                    } else {
-                        callback();
-                    }
+                    if (i >= 0) { updateText(i); i--; timeout = setTimeout(step, 50); }
+                    else callback();
                 }
                 step();
             }
@@ -647,43 +846,25 @@
             function type(onDone) {
                 let i = 0;
                 function step() {
-                    if (i < text.length) {
-                        i++;
-                        updateText(i);
-                        timeout = setTimeout(step, 100);
-                    } else if (onDone) {
-                        timeout = setTimeout(onDone, 2000);
-                    }
+                    if (i < text.length) { i++; updateText(i); timeout = setTimeout(step, 100); }
+                    else if (onDone) timeout = setTimeout(onDone, 2000);
                 }
                 step();
             }
 
             function loop() {
-                type(function() {
-                    erase(function() {
-                        timeout = setTimeout(loop, 500);
-                    });
-                });
-            }
-
-            function stopAnimation() {
-                clearTimeout(timeout);
-                timeout = null;
+                type(function() { erase(function() { timeout = setTimeout(loop, 500); }); });
             }
 
             const observer = new IntersectionObserver(function(entries) {
                 entries.forEach(function(entry) {
                     if (entry.isIntersecting) {
-                        stopAnimation();
+                        clearTimeout(timeout); timeout = null;
                         el.textContent = '';
-                        if (firstVisit) {
-                            firstVisit = false;
-                            timeout = setTimeout(loop, 1200);
-                        } else {
-                            timeout = setTimeout(loop, 300);
-                        }
+                        timeout = setTimeout(loop, firstVisit ? 1200 : 300);
+                        firstVisit = false;
                     } else {
-                        stopAnimation();
+                        clearTimeout(timeout); timeout = null;
                     }
                 });
             }, { threshold: 0.3 });
@@ -695,7 +876,7 @@
         document.querySelectorAll('a[href^="#"]').forEach(a => {
             a.addEventListener('click', e => {
                 e.preventDefault();
-                document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
+                document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
             });
         });
     </script>

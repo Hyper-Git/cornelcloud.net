@@ -40,7 +40,7 @@ Projects:
 4. Automated CI/CD Pipelines — GitHub Actions workflows deploying to AWS ECS and S3.
 
 Contact:
-- Email: ecornelbacanu@gmail.com or contact@cornelcloud.net
+- Email: contact@cornelcloud.net
 - LinkedIn: linkedin.com/in/cornel-bacanu-b7138032a
 - GitHub: github.com/Hyper-Git
 
