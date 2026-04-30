@@ -16,9 +16,9 @@ resource "aws_cloudfront_distribution" "website" {
   enabled             = true
   is_ipv6_enabled     = true
   default_root_object = "index.html"
-  # aliases omitted - test via CloudFront URL first; add var.domain_name here when ready to go live
-  comment     = "cornelcloud.net portfolio website"
-  price_class = "PriceClass_100" # US, Canada, Europe - cost effective
+  aliases             = [var.domain_name]
+  comment             = "cornelcloud.net portfolio website"
+  price_class         = "PriceClass_100" # US, Canada, Europe - cost effective
 
   # S3 Origin
   origin {
@@ -54,10 +54,10 @@ resource "aws_cloudfront_distribution" "website" {
     response_page_path = "/index.html"
   }
 
-  # Use default CloudFront certificate while testing via CloudFront URL.
-  # Switch to ACM cert + aliases block when ready to go live on cornelcloud.net.
   viewer_certificate {
-    cloudfront_default_certificate = true
+    acm_certificate_arn      = aws_acm_certificate_validation.website.certificate_arn
+    ssl_support_method       = "sni-only"
+    minimum_protocol_version = "TLSv1.2_2021"
   }
 
   # No geo restrictions

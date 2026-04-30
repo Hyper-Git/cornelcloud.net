@@ -28,9 +28,9 @@ variable "hosted_zone_id" {
 
 # Toggle for Route 53 - Set to false initially for testing
 variable "update_dns" {
-  description = "Whether to update Route 53 records to point to new CloudFront. Set to false for testing."
+  description = "Whether to update Route 53 records to point to new CloudFront."
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "contact_email" {
