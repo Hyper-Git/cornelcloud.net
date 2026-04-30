@@ -1,3 +1,6 @@
+# Lambda build artifacts
+lambda/*.zip
+
 # Terraform
 terraform/.terraform/
 terraform/*.tfstate
