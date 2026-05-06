@@ -38,6 +38,7 @@ Projects:
 2. AI-Powered Chatbot — Serverless chatbot (you!) built with Lambda, API Gateway, DynamoDB, and Amazon Bedrock.
 3. Hackathon Backend — Serverless backend for a marketplace app. Lambda, API Gateway, DynamoDB, S3.
 4. Automated CI/CD Pipelines — GitHub Actions workflows deploying to AWS ECS and S3.
+5. Pinnacle — Production-grade, highly available AWS infrastructure for a UK SMB web application. Multi-AZ VPC, ALB + Auto Scaling Group, RDS PostgreSQL with Secrets Manager, OIDC-based GitHub Actions CI/CD, IMDSv2 enforced, zero SSH via SSM Session Manager. Fully modular Terraform IaC across 7 modules.
 
 Contact:
 - Email: contact@cornelcloud.net
