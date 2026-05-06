@@ -6,44 +6,50 @@ Cloud portfolio infrastructure for [cornelcloud.net](https://cornelcloud.net), b
 
 ## Architecture
 
+> **Interactive diagram:** [`docs/cornelcloud-portfolio-architecture.drawio`](docs/cornelcloud-portfolio-architecture.drawio) — open with [draw.io](https://app.diagrams.net) or the VS Code draw.io extension.
+
+### Data Flow
+
 ```
-┌──────────────────────────────────────────────────────────────────┐
-│                           Route 53                               │
-│                       cornelcloud.net                            │
-│                      (A & AAAA Records)                          │
-└──────────────────────────┬───────────────────────────────────────┘
-                           │
-┌──────────────────────────▼───────────────────────────────────────┐
-│                        CloudFront                                 │
-│                  (CDN + SSL/TLS via ACM)                         │
-│                   Origin Access Control                           │
-└──────────┬───────────────────────────────────────────────────────┘
-           │                                │
-┌──────────▼──────────┐        ┌────────────▼────────────────────┐
-│      S3 Bucket       │        │         API Gateway              │
-│  (Static Website)    │        │   /chat   /contact              │
-│  Private — OAC only  │        └────────────┬────────────────────┘
-└─────────────────────┘                      │
-                              ┌──────────────┴──────────────────┐
-                              │                                  │
-                    ┌─────────▼────────┐            ┌───────────▼──────────┐
-                    │  chatbot Lambda  │            │   contact Lambda     │
-                    │  Python 3.12     │            │   Python 3.12        │
-                    └────┬─────────────┘            └───────────┬──────────┘
-                         │                                      │
-              ┌──────────┴──────────┐                 ┌────────▼────────┐
-              │   Amazon Bedrock    │                  │    AWS SES      │
-              │  claude-opus-4-5    │                  │  (Send email)   │
-              │  (EU inference      │                  └─────────────────┘
-              │   profile)          │
-              └─────────────────────┘
-                         │
-              ┌──────────▼──────────┐
-              │      DynamoDB        │
-              │  (Chat sessions,     │
-              │   24h TTL)           │
-              └─────────────────────┘
+  User
+   │
+   ├─1─▶  Route 53 (cornelcloud.net A/AAAA alias)
+   │           │
+   ├─2─▶  CloudFront  ◀── ACM cert (us-east-1)
+   │       │       │
+   │      OAC    CORS
+   │       │       │
+   ├─3─▶  S3      API Gateway v2 (HTTP API)  ◀─5─ User (POST /contact, POST /chat)
+   │    (static)    │               │
+   │               6a              6b
+   │                │               │
+   │         contact Lambda    chatbot Lambda
+   │         Python 3.12       Python 3.12 · 30s
+   │                │               │           │
+   │               7a              7b           8
+   │                │               │           │
+   │              SES           Bedrock      DynamoDB
+   │          (send email)   (Claude Opus   (chat sessions
+   │                          4.5 EU)        24h TTL)
+   │
+   ├──  CI/CD: GitHub Actions → Terraform apply → S3 sync → CF invalidation
+   └──  IAM:   least-privilege roles per Lambda · OIDC (no static keys)
 ```
+
+### Services
+
+| # | Service | Role |
+|---|---------|------|
+| 1 | Route 53 | DNS — A/AAAA alias to CloudFront |
+| 2 | CloudFront + ACM | CDN, HTTPS, OAC · PriceClass_100 |
+| 3 | S3 | Private static website · SSE-S3 · versioning |
+| 4 | S3 (tf-state) | Terraform remote state backend |
+| 5 | API Gateway v2 | HTTP API — `POST /contact`, `POST /chat` |
+| 6a | Lambda (contact) | Validates form input, calls SES |
+| 6b | Lambda (chatbot) | Loads history, calls Bedrock, saves reply |
+| 7a | SES | Sends contact email to `contact@cornelcloud.net` |
+| 7b | Bedrock | Claude Opus 4.5 via EU cross-region inference profile |
+| 8 | DynamoDB | Chat session history · PAY_PER_REQUEST · 24h TTL |
 
 ## Tech Stack
 
@@ -159,7 +165,7 @@ Each Lambda has a dedicated least-privilege role:
 
 | Role | Permissions |
 |------|-------------|
-| `cornelcloud-lambda-chatbot` | `bedrock:InvokeModel` on EU inference profile + underlying foundation model, `dynamodb:Query` + `dynamodb:PutItem` on chat sessions table |
+| `cornelcloud-lambda-chatbot` | `bedrock:InvokeModel` on EU inference profile + underlying foundation model, `aws-marketplace:ViewSubscriptions` + `aws-marketplace:Subscribe` for model access verification, `dynamodb:Query` + `dynamodb:PutItem` on chat sessions table |
 | `cornelcloud-lambda-contact` | `ses:SendEmail` on `cornelcloud.net` SES identity |
 
 ## Security

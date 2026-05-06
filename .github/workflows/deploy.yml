@@ -129,15 +129,16 @@ jobs:
       #####################################
       - name: Sync website to S3
         run: |
+          # Non-HTML assets — long cache, uploaded first
           aws s3 sync ./website s3://${{ steps.tf-output.outputs.s3_bucket }} \
             --delete \
             --cache-control "max-age=31536000" \
             --exclude "*.html"
 
-          # HTML files with shorter cache
+          # HTML files — short cache, no --delete (already handled above)
           aws s3 sync ./website s3://${{ steps.tf-output.outputs.s3_bucket }} \
-            --delete \
             --cache-control "max-age=3600" \
+            --exclude "*" \
             --include "*.html"
 
       #####################################
