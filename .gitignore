@@ -33,3 +33,7 @@ Thumbs.db
 # Local development
 .env
 .env.local
+
+# Web app build and dependencies
+website/node_modules/
+website/dist/

@@ -1,9 +1,0 @@
-# Assets Folder
-
-Place your static assets here:
-
-- Images (profile photo, project screenshots)
-- Audio files (if using pre-generated Polly narration)
-- Any other static files
-
-These will be synced to S3 during deployment.

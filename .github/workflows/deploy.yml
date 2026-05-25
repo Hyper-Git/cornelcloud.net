@@ -120,9 +120,24 @@ jobs:
           echo "s3_bucket=$(terraform output -raw website_bucket_name)" >> $GITHUB_OUTPUT
           echo "api_url=$(terraform output -raw api_gateway_url)" >> $GITHUB_OUTPUT
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: website/package-lock.json
+
+      - name: Install dependencies
+        working-directory: website
+        run: npm ci
+
+      - name: Build website
+        working-directory: website
+        run: npm run build
+
       - name: Inject API URL into index.html
         run: |
-          sed -i "s|__API_URL__|${{ steps.tf-output.outputs.api_url }}|g" website/index.html
+          sed -i "s|__API_URL__|${{ steps.tf-output.outputs.api_url }}|g" website/dist/index.html
 
       #####################################
       # Deploy Website Files
@@ -130,13 +145,13 @@ jobs:
       - name: Sync website to S3
         run: |
           # Non-HTML assets — long cache, uploaded first
-          aws s3 sync ./website s3://${{ steps.tf-output.outputs.s3_bucket }} \
+          aws s3 sync ./website/dist s3://${{ steps.tf-output.outputs.s3_bucket }} \
             --delete \
             --cache-control "max-age=31536000" \
             --exclude "*.html"
 
           # HTML files — short cache, no --delete (already handled above)
-          aws s3 sync ./website s3://${{ steps.tf-output.outputs.s3_bucket }} \
+          aws s3 sync ./website/dist s3://${{ steps.tf-output.outputs.s3_bucket }} \
             --cache-control "max-age=3600" \
             --exclude "*" \
             --include "*.html"
