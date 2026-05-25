@@ -16,7 +16,7 @@ export function Chatbot() {
   const [isTyping, setIsTyping] = useState(false);
   
   const chatEndRef = useRef<HTMLDivElement | null>(null);
-  const API_BASE = (window as any).__API_URL__ || 'https://vr03mmaz83.execute-api.eu-west-1.amazonaws.com';
+  const API_BASE = (window as any).API_URL || 'https://vr03mmaz83.execute-api.eu-west-1.amazonaws.com';
 
   // Get or create unique session ID
   const sessionId = useRef<string>('');

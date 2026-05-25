@@ -20,7 +20,7 @@ function Github({ className }: { className?: string }) {
 export function Contact() {
   const [formState, setFormState] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [statusLogs, setStatusLogs] = useState<string[]>(['[PORT] Ready for TLS handshake']);
-  const API_BASE = (window as any).__API_URL__ || 'https://vr03mmaz83.execute-api.eu-west-1.amazonaws.com';
+  const API_BASE = (window as any).API_URL || 'https://vr03mmaz83.execute-api.eu-west-1.amazonaws.com';
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
