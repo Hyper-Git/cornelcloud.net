@@ -77,15 +77,15 @@ export function Chatbot() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-[999] hidden md:block">
+    <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-[999]">
       {/* Floating Toggle Button (CLI theme) */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="w-14 h-14 rounded-full bg-bgSecondary border border-accentCyan/30 text-accentCyan flex items-center justify-center shadow-2xl hover:shadow-[0_0_20px_rgba(0,212,255,0.3)] transition-all duration-300 interactive-hover"
+        className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-bgSecondary border border-accentCyan/30 text-accentCyan flex items-center justify-center shadow-2xl hover:shadow-[0_0_20px_rgba(0,212,255,0.3)] transition-all duration-300 interactive-hover"
       >
-        {isOpen ? <X className="w-5 h-5 text-accentCyan" /> : <Terminal className="w-5.5 h-5.5 text-accentCyan" />}
+        {isOpen ? <X className="w-5 h-5 text-accentCyan" /> : <Terminal className="w-5 h-5 md:w-5.5 md:h-5.5 text-accentCyan" />}
       </motion.button>
 
       {/* Chat Window Panel */}
@@ -96,7 +96,7 @@ export function Chatbot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 40, scale: 0.95 }}
             transition={{ duration: 0.3 }}
-            className="absolute bottom-16 right-0 w-[380px] h-[480px] rounded-2xl glass-card border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.9)] flex flex-col overflow-hidden select-text text-left"
+            className="absolute bottom-16 right-0 w-[calc(100vw-2rem)] sm:w-[380px] h-[440px] sm:h-[480px] rounded-2xl glass-card border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.9)] flex flex-col overflow-hidden select-text text-left"
           >
             {/* Header */}
             <div className="p-3.5 bg-[#0b0c10] border-b border-white/5 flex items-center justify-between select-none">
