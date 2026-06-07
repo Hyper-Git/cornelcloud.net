@@ -28,6 +28,51 @@ export function Projects() {
   const [cdnLatency, setCdnLatency] = useState(0);
   const [costBudget, setCostBudget] = useState(300);
 
+  // SA Workflow Agentic Orchestrator states
+  const [workflowPhase, setWorkflowPhase] = useState<'discovery' | 'design' | 'validation'>('discovery');
+  const [workflowRunning, setWorkflowRunning] = useState(false);
+  const [activeAgent, setActiveAgent] = useState<string | null>(null);
+  const [workflowLogs, setWorkflowLogs] = useState<string[]>(['[SYSTEM] Orchestrator standby. Ready to initiate workflow.']);
+
+  const runAgenticWorkflow = () => {
+    if (workflowRunning) return;
+    setWorkflowRunning(true);
+    setWorkflowLogs(['[SYSTEM] Initializing SA Workflow pipeline...', '> booting principal-agent intake...']);
+    setActiveAgent('principal-agent');
+
+    const steps = [
+      { phase: 'discovery', agent: 'discovery-agent', log: '[discovery-agent] Analyzing company brief & mapping stakeholders...', delay: 800 },
+      { phase: 'discovery', agent: 'discovery-agent', log: '[discovery-agent] Generating discovery questions & requirements...', delay: 1600 },
+      { phase: 'design', agent: 'design-agent', log: '[design-agent] Developing architectural options & trade-offs...', delay: 2400 },
+      { phase: 'design', agent: 'iac-agent', log: '[iac-agent] Synthesizing modular Terraform configurations...', delay: 3200 },
+      { phase: 'design', agent: 'diagram-agent', log: '[diagram-agent] Rendering architecture layout diagram...', delay: 4000 },
+      { phase: 'validation', agent: 'security-validator', log: '[security-validator] Performing compliance gap analysis (PCI DSS)...', delay: 4800 },
+      { phase: 'validation', agent: 'cost-validator', log: '[cost-validator] Fetching live pricing metrics from AWS Pricing API...', delay: 5600 },
+      { phase: 'validation', agent: 'red-team-cto', log: '[red-team-cto] Formulating CTO challenge Q&A preparation...', delay: 6400 }
+    ];
+
+    steps.forEach((step) => {
+      setTimeout(() => {
+        setWorkflowPhase(step.phase as any);
+        setActiveAgent(step.agent);
+        setWorkflowLogs((prev) => [...prev, step.log]);
+      }, step.delay);
+    });
+
+    setTimeout(() => {
+      setWorkflowRunning(false);
+      setActiveAgent(null);
+      setWorkflowLogs((prev) => [...prev, '[SYSTEM] Workflow complete. All deliverables generated successfully.']);
+    }, 7200);
+  };
+
+  const resetAgenticWorkflow = () => {
+    setWorkflowPhase('discovery');
+    setWorkflowRunning(false);
+    setActiveAgent(null);
+    setWorkflowLogs(['[SYSTEM] Orchestrator standby. Ready to initiate workflow.']);
+  };
+
   // Trigger AI Listing generator simulation
   const runAiPipeline = () => {
     if (aiStep > 0) return;
@@ -511,6 +556,140 @@ export function Projects() {
               <span className="font-mono text-[9px] text-green-400 font-bold uppercase">
                 Saved: ${Math.floor(costBudget * 0.34)} / mo
               </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Project 5: SA Workflow Agentic Orchestration */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center text-left">
+          {/* Details Column */}
+          <div className="space-y-6 lg:pr-6">
+            <div className="flex items-center gap-3">
+              <span className="font-mono text-xs text-accentPurple bg-accentPurple/10 border border-accentPurple/20 px-2.5 py-1 rounded-full uppercase tracking-wider">
+                System #05
+              </span>
+              <span className="font-mono text-[10px] text-textMuted uppercase tracking-widest">// MULTI-AGENT ORCHESTRATION</span>
+            </div>
+            
+            <h3 className="text-2xl md:text-3xl font-bold text-textPrimary leading-tight">
+              SA Workflow — Claude Code Orchestrator
+            </h3>
+            
+            <p className="text-sm text-textSecondary leading-relaxed">
+              An autonomous multi-agent Solution Architect pipeline built with Claude Code subagents. Coordinates nine specialized AI agents to execute end-to-end customer engagements, spanning company discovery, diagram rendering, IaC code generation, GDPR security audits, and CTO Q&A validation reports with human checkpoints.
+            </p>
+
+            <div className="grid grid-cols-2 gap-4 border-t border-white/5 pt-4">
+              <div>
+                <span className="text-[10px] font-mono text-textMuted uppercase">Agent Framework</span>
+                <p className="text-xs text-textPrimary font-mono mt-1">Claude Code • Subagent API • MCP</p>
+              </div>
+              <div>
+                <span className="text-[10px] font-mono text-textMuted uppercase">Generated Outputs</span>
+                <p className="text-xs text-textPrimary font-mono mt-1">Terraform • Diagrams • ADR docs</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4 pt-2">
+              <a
+                href="https://github.com/Hyper-Git/claude-code-sa-workflow"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-xs font-mono text-textPrimary hover:text-accentCyan transition-colors duration-200"
+              >
+                <Github className="w-4.5 h-4.5" />
+                Inspect Orchestration
+              </a>
+            </div>
+          </div>
+
+          {/* Interactive Widget Column */}
+          <div className="rounded-3xl glass-card border border-white/5 p-6 h-[320px] flex flex-col justify-between relative overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-[3px] bg-accentPurple" />
+            
+            <div className="flex items-center justify-between border-b border-white/5 pb-3">
+              <div className="flex items-center gap-2">
+                <Bot className="w-4 h-4 text-accentPurple" />
+                <span className="font-mono text-[10px] text-textPrimary uppercase tracking-wider">AGENTIC_WORKFLOW_ORCHESTRATOR</span>
+              </div>
+              <span className="text-[9px] font-mono text-textMuted uppercase">CLAUDE_CODE_CLI</span>
+            </div>
+
+            {/* Workflow steps nodes visualization */}
+            <div className="flex justify-between items-center px-4 my-2 select-none">
+              {/* Phase 1: Discovery */}
+              <div className={`flex flex-col items-center gap-1 p-2 rounded-xl border transition-all duration-300 ${
+                workflowPhase === 'discovery' ? 'border-accentCyan bg-accentCyan/10 text-accentCyan scale-105' : 'border-white/5 bg-white/5 text-textMuted'
+              }`}>
+                <span className="text-[9px] font-mono font-bold">PHASE 01</span>
+                <span className="text-[8px] font-mono uppercase">Discovery</span>
+                <span className="text-[7px] font-mono text-textMuted">discovery-agent</span>
+              </div>
+
+              {/* Arrow */}
+              <span className="text-textMuted text-xs">→</span>
+
+              {/* Phase 2: Design */}
+              <div className={`flex flex-col items-center gap-1 p-2 rounded-xl border transition-all duration-300 ${
+                workflowPhase === 'design' ? 'border-accentPurple bg-accentPurple/10 text-accentPurple scale-105' : 'border-white/5 bg-white/5 text-textMuted'
+              }`}>
+                <span className="text-[9px] font-mono font-bold">PHASE 02</span>
+                <span className="text-[8px] font-mono uppercase">Design &amp; IaC</span>
+                <span className="text-[7px] font-mono text-textMuted">{activeAgent && workflowPhase === 'design' ? activeAgent : 'iac / diagram'}</span>
+              </div>
+
+              {/* Arrow */}
+              <span className="text-textMuted text-xs">→</span>
+
+              {/* Phase 3: Validation */}
+              <div className={`flex flex-col items-center gap-1 p-2 rounded-xl border transition-all duration-300 ${
+                workflowPhase === 'validation' ? 'border-accentOrange bg-accentOrange/10 text-accentOrange scale-105' : 'border-white/5 bg-white/5 text-textMuted'
+              }`}>
+                <span className="text-[9px] font-mono font-bold">PHASE 03</span>
+                <span className="text-[8px] font-mono uppercase">Validation</span>
+                <span className="text-[7px] font-mono text-textMuted">{activeAgent && workflowPhase === 'validation' ? activeAgent : 'security / cost'}</span>
+              </div>
+            </div>
+
+            {/* Console output logs */}
+            <div className="h-20 p-2.5 bg-[#050507] overflow-y-auto font-mono text-[8px] md:text-[9px] text-textSecondary text-left rounded-lg space-y-0.5 border border-white/5">
+              {workflowLogs.map((log, idx) => (
+                <div key={idx} className={log.startsWith('[SYSTEM]') ? 'text-accentCyan' : log.startsWith('>') ? 'text-textPrimary font-bold' : 'text-textMuted'}>
+                  {log}
+                </div>
+              ))}
+            </div>
+
+            <div className="flex items-center justify-between border-t border-white/5 pt-3">
+              <span className="font-mono text-[9px] text-textMuted uppercase">
+                Active Node: {activeAgent ? activeAgent.toUpperCase() : 'STANDBY'}
+              </span>
+
+              {workflowRunning ? (
+                <button 
+                  disabled
+                  className="px-3 py-1 rounded bg-white/5 border border-white/10 text-[9px] font-mono text-textMuted flex items-center gap-1"
+                >
+                  <RefreshCw className="w-2.5 h-2.5 animate-spin" /> Executing Pipeline...
+                </button>
+              ) : (
+                <div className="flex gap-2">
+                  {workflowLogs.length > 1 && (
+                    <button 
+                      onClick={resetAgenticWorkflow}
+                      className="px-3 py-1 rounded bg-white/5 border border-white/10 text-[9px] font-mono text-textPrimary hover:border-accentPurple/40"
+                    >
+                      Reset
+                    </button>
+                  )}
+                  <button 
+                    onClick={runAgenticWorkflow}
+                    className="px-3 py-1 rounded bg-accentPurple/10 border border-accentPurple/20 text-[9px] font-mono text-accentPurple font-bold hover:border-accentPurple/50 flex items-center gap-1"
+                  >
+                    <Play className="w-2.5 h-2.5" /> Run SA Workflow
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
