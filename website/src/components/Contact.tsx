@@ -151,7 +151,7 @@ export function Contact() {
               Transit logs:
             </div>
             {statusLogs.map((log, idx) => (
-              <div key={idx} className={log.startsWith('[OK]') ? 'text-[#00FFD1]' : log.startsWith('[ERR]') ? 'text-red-400' : 'text-textMuted'}>
+              <div key={idx} className={log?.startsWith('[OK]') ? 'text-[#00FFD1]' : log?.startsWith('[ERR]') ? 'text-red-400' : 'text-textMuted'}>
                 {log}
               </div>
             ))}

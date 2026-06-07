@@ -82,7 +82,8 @@ export function Hero() {
     let i = 0;
     const interval = setInterval(() => {
       if (i < logArray.length) {
-        setLogs((prev) => [...prev, logArray[i]]);
+        const nextLog = logArray[i];
+        setLogs((prev) => [...prev, nextLog]);
         i++;
       } else {
         clearInterval(interval);
@@ -194,12 +195,12 @@ export function Hero() {
             <div className="flex-1 space-y-1">
               {logs.map((log, idx) => {
                 let colorClass = 'text-textSecondary';
-                if (log.startsWith('system:')) colorClass = 'text-accentCyan/80 font-bold';
-                else if (log.startsWith('>')) colorClass = 'text-textPrimary font-bold border-l-2 border-accentCyan pl-1.5';
-                else if (log.startsWith('command:')) colorClass = 'text-[#ffffff]/90 font-semibold';
-                else if (log.startsWith('[OK]')) colorClass = 'text-[#00FFD1]';
-                else if (log.startsWith('[WARN]')) colorClass = 'text-accentOrange';
-                else if (log.startsWith('[IAC]') || log.startsWith('[LLM]') || log.startsWith('[COMP]')) colorClass = 'text-accentPurple/80';
+                if (log?.startsWith('system:')) colorClass = 'text-accentCyan/80 font-bold';
+                else if (log?.startsWith('>')) colorClass = 'text-textPrimary font-bold border-l-2 border-accentCyan pl-1.5';
+                else if (log?.startsWith('command:')) colorClass = 'text-[#ffffff]/90 font-semibold';
+                else if (log?.startsWith('[OK]')) colorClass = 'text-[#00FFD1]';
+                else if (log?.startsWith('[WARN]')) colorClass = 'text-accentOrange';
+                else if (log?.startsWith('[IAC]') || log?.startsWith('[LLM]') || log?.startsWith('[COMP]')) colorClass = 'text-accentPurple/80';
                 
                 return (
                   <div key={idx} className={`${colorClass} leading-relaxed`}>
