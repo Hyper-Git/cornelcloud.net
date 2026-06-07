@@ -49,12 +49,12 @@ export function Hero() {
   const [activeCommand, setActiveCommand] = useState<string | null>(null);
   const [cpuLoad, setCpuLoad] = useState(24);
   const [latency, setLatency] = useState(12);
-  const terminalEndRef = useRef<HTMLDivElement | null>(null);
+  const terminalContainerRef = useRef<HTMLDivElement | null>(null);
 
   // Auto scroll terminal logs
   useEffect(() => {
-    if (terminalEndRef.current) {
-      terminalEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    if (terminalContainerRef.current) {
+      terminalContainerRef.current.scrollTop = terminalContainerRef.current.scrollHeight;
     }
   }, [logs]);
 
@@ -191,7 +191,10 @@ export function Hero() {
         <div className="grid grid-cols-1 md:grid-cols-4 min-h-[300px] h-[340px] md:h-[300px]">
           
           {/* Main Console Log Window (75% width) */}
-          <div className="col-span-1 md:col-span-3 p-4 flex flex-col bg-[#050507] overflow-y-auto font-mono text-[11px] md:text-xs text-textSecondary border-b md:border-b-0 md:border-r border-white/5 select-text text-left">
+          <div 
+            ref={terminalContainerRef}
+            className="col-span-1 md:col-span-3 p-4 flex flex-col bg-[#050507] overflow-y-auto font-mono text-[11px] md:text-xs text-textSecondary border-b md:border-b-0 md:border-r border-white/5 select-text text-left"
+          >
             <div className="flex-1 space-y-1">
               {logs.map((log, idx) => {
                 let colorClass = 'text-textSecondary';
@@ -208,7 +211,6 @@ export function Hero() {
                   </div>
                 );
               })}
-              <div ref={terminalEndRef} />
             </div>
           </div>
 
