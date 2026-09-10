@@ -30,7 +30,8 @@ const skillDetails: Record<string, string> = {
   'API Gateway': '[NETWORKING] HTTP traffic proxies, API throttling rules, CORS maps.',
   'Route 53': '[NETWORKING] DNS zone management, health checks, domain mapping records.',
   'ACM': '[SECURITY] Automated SSL/TLS certificates compilation and renewals.',
-  'EC2': '[COMPUTE] Elastic Virtual Servers, auto-scaling groups, EBS configurations.'
+  'EC2': '[COMPUTE] Elastic Virtual Servers, auto-scaling groups, EBS configurations.',
+  'KCNA': '[CERTIFICATION] Kubernetes & Cloud Native Associate certified via Linux Foundation / CNCF (Aug 2026).'
 };
 
 export function Skills() {
@@ -71,8 +72,8 @@ export function Skills() {
     {
       title: 'Validations & Certs',
       icon: <Award className="w-6 h-6 text-yellow-400" />,
-      desc: 'Validated AWS certifications and active specialized learning paths.',
-      tags: ['AWS CCP ✓', 'SAA-C03 ✓', 'AWS re/Start ✓', 'Data Engineer ↗', 'AI/ML Specialty ↗']
+      desc: 'Validated cloud, container & Kubernetes certifications and active specialized learning paths.',
+      tags: ['KCNA (CNCF) ✓', 'SAA-C03 ✓', 'AWS CCP ✓', 'AWS re/Start ✓', 'Data Engineer ↗', 'AI/ML Specialty ↗']
     }
   ];
 

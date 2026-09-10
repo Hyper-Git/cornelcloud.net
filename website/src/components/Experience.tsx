@@ -30,6 +30,16 @@ const timelineData: TimelineItem[] = [
     pinId: 'PIN_02_SYS_DEV'
   },
   {
+    date: 'Aug 2026',
+    title: 'Kubernetes and Cloud Native Associate (KCNA)',
+    company: 'The Linux Foundation / CNCF',
+    description: 'Validated foundational knowledge of Kubernetes and cloud-native architecture, including container orchestration, Cloud Native Computing Foundation (CNCF) ecosystem tools, cluster networking, persistent storage, security policies, and GitOps CI/CD delivery.',
+    type: 'cert',
+    status: '✓ Achieved',
+    statusType: 'achieved',
+    pinId: 'PIN_03_CRT_KCNA'
+  },
+  {
     date: '2025',
     title: 'AWS Certified Solutions Architect — Associate',
     company: 'Amazon Web Services',
@@ -37,7 +47,7 @@ const timelineData: TimelineItem[] = [
     type: 'cert',
     status: '✓ Achieved',
     statusType: 'achieved',
-    pinId: 'PIN_03_CRT_SAA'
+    pinId: 'PIN_04_CRT_SAA'
   },
   {
     date: '2025',
@@ -47,7 +57,7 @@ const timelineData: TimelineItem[] = [
     type: 'cert',
     status: '✓ Achieved',
     statusType: 'achieved',
-    pinId: 'PIN_04_CRT_CCP'
+    pinId: 'PIN_05_CRT_CCP'
   },
   {
     date: '2025',
@@ -57,7 +67,7 @@ const timelineData: TimelineItem[] = [
     type: 'cert',
     status: '✓ Achieved',
     statusType: 'achieved',
-    pinId: 'PIN_05_AWS_RST'
+    pinId: 'PIN_06_AWS_RST'
   },
   {
     date: 'In Progress',
@@ -67,7 +77,7 @@ const timelineData: TimelineItem[] = [
     type: 'progress',
     status: '↗ In Progress',
     statusType: 'progress',
-    pinId: 'PIN_06_EDG_CMP'
+    pinId: 'PIN_07_EDG_CMP'
   },
   {
     date: 'Mar 2022 — May 2025',
@@ -75,7 +85,7 @@ const timelineData: TimelineItem[] = [
     company: 'Triple Purple Ltd.',
     description: 'Managed 50+ complex kitchen installations end-to-end — from scoping and resource planning to on-site delivery and handover. The precision, client coordination, and structured mechanical problem-solving developed here maps directly onto cloud architecture design and systematic pipeline delivery.',
     type: 'job',
-    pinId: 'PIN_07_ORG_JNY'
+    pinId: 'PIN_08_ORG_JNY'
   }
 ];
 

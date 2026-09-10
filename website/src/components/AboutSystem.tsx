@@ -44,9 +44,10 @@ export function AboutSystem() {
     },
     {
       version: 'v4.0.0',
-      name: 'AGENTIC AI SYSTEMS',
+      name: 'CLOUD-NATIVE & AGENTIC AI SYSTEMS',
       date: '2025 - PRESENT',
       details: [
+        'Achieved Kubernetes and Cloud Native Associate (KCNA) certification (Aug 2026).',
         'Deploying LLM orchestration pipelines using AWS Bedrock and APIs.',
         'Building autonomous agent workflows, LangChain prompts, and RAG search.',
         'Integrating serverless backend APIs with AI response channels.'
@@ -111,20 +112,28 @@ export function AboutSystem() {
           </div>
         </div>
 
-        {/* Column 2: AWS Certifications & Analytics */}
+        {/* Column 2: AWS & Cloud-Native Certifications & Analytics */}
         <div className="flex flex-col gap-6">
           
-          {/* Subcard 1: AWS Credentials */}
+          {/* Subcard 1: Certified Credentials */}
           <div className="rounded-3xl glass-card border border-white/5 p-6 relative overflow-hidden flex-1 flex flex-col justify-between">
             <div className="absolute top-0 left-0 right-0 h-[3px] bg-accentCyan" />
             
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <Award className="w-5 h-5 text-accentCyan" />
-                <h3 className="text-lg font-bold text-textPrimary uppercase font-mono tracking-wide">// AWS_CREDENTIALS</h3>
+                <h3 className="text-lg font-bold text-textPrimary uppercase font-mono tracking-wide">// CERTIFIED_CREDENTIALS</h3>
               </div>
               
               <div className="space-y-3 font-mono">
+                <div className="p-3 rounded-xl border border-white/5 bg-white/5 flex items-center justify-between text-left hover:border-accentCyan/30 transition-all duration-300">
+                  <div className="flex flex-col">
+                    <span className="text-xs text-textPrimary font-semibold">Kubernetes &amp; Cloud Native</span>
+                    <span className="text-[9px] text-accentCyan uppercase">KCNA · CNCF / Linux Foundation [Aug 2026]</span>
+                  </div>
+                  <CheckCircle className="w-4.5 h-4.5 text-[#00FFD1] shrink-0 ml-2" />
+                </div>
+
                 <div className="p-3 rounded-xl border border-white/5 bg-white/5 flex items-center justify-between text-left hover:border-accentCyan/30 transition-all duration-300">
                   <div className="flex flex-col">
                     <span className="text-xs text-textPrimary font-semibold">AWS Solutions Architect</span>

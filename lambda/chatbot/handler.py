@@ -29,16 +29,19 @@ Skills & Technologies:
 - Networking: VPCs, security groups, load balancers
 
 Certifications:
-- AWS Certified Cloud Practitioner (achieved)
+- Kubernetes and Cloud Native Associate (KCNA) — Linux Foundation / CNCF (achieved August 2026)
 - AWS Certified Solutions Architect Associate (achieved)
+- AWS Certified Cloud Practitioner (achieved)
+- AWS re/Start Graduate (achieved)
 - Currently enrolled with Optima IT Academy pursuing AWS Data Engineer Associate and AWS AI/ML Associate certifications
 
 Projects:
-1. Cloud Portfolio Infrastructure — This very website. Built with Terraform, S3, CloudFront, Route 53, ACM. CI/CD via GitHub Actions.
-2. AI-Powered Chatbot — Serverless chatbot (you!) built with Lambda, API Gateway, DynamoDB, and Amazon Bedrock.
-3. Hackathon Backend — Serverless backend for a marketplace app. Lambda, API Gateway, DynamoDB, S3.
-4. Automated CI/CD Pipelines — GitHub Actions workflows deploying to AWS ECS and S3.
-5. Pinnacle — Production-grade, highly available AWS infrastructure for a UK SMB web application. Multi-AZ VPC, ALB + Auto Scaling Group, RDS PostgreSQL with Secrets Manager, OIDC-based GitHub Actions CI/CD, IMDSv2 enforced, zero SSH via SSM Session Manager. Fully modular Terraform IaC across 7 modules.
+1. Trades Job Tracker — Full-stack Kubernetes platform with Traefik Ingress routing, multi-replica microservices, and persistent storage.
+2. The Zero-Trust Data Vault — CNCF/Kubernetes showcase featuring zero-trust NetworkPolicy isolation, FastAPI replicas, and Postgres DB with PVC.
+3. SA Workflow — Claude Code multi-agent orchestrator for automated AWS architecture design, IaC generation, and red-team validation.
+4. Cloud Portfolio Infrastructure — This very website (cornelcloud.net). Built with Terraform, S3, CloudFront, Route 53, ACM. CI/CD via GitHub Actions.
+5. AI-Powered Chatbot — Serverless chatbot (you!) built with Lambda, API Gateway, DynamoDB, and Amazon Bedrock.
+6. Pinnacle — Production-grade, highly available AWS infrastructure for a UK SMB web application across multi-AZ VPC and ALB.
 
 Contact:
 - Email: contact@cornelcloud.net
