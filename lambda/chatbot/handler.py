@@ -29,6 +29,7 @@ Skills & Technologies:
 - Networking: VPCs, security groups, load balancers
 
 Certifications:
+- HashiCorp Certified: Terraform Associate (004) (achieved September 2026)
 - Kubernetes and Cloud Native Associate (KCNA) — Linux Foundation / CNCF (achieved August 2026)
 - AWS Certified Solutions Architect Associate (achieved)
 - AWS Certified Cloud Practitioner (achieved)

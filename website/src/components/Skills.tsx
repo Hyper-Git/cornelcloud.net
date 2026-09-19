@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const skillDetails: Record<string, string> = {
   'AWS': '[INFRASTRUCTURE] Enterprise cloud architectures, multi-account, secure transit networking.',
-  'Terraform': '[IAC] Infrastructure as Code automation, state locking, modules compilation.',
+  'Terraform': '[IAC & CERTIFIED] HashiCorp Certified Associate (004). Multi-cloud IaC automation, state locking, modular architecture.',
   'Lambda': '[COMPUTE] Serverless microservices, event-driven integrations, runtimes execution.',
   'Python': '[BACKEND/AI] System automation, data processing, AWS Bedrock API integrations.',
   'Docker': '[CONTAINERS] Secure image building, local development parity, ECR push.',
@@ -31,7 +31,8 @@ const skillDetails: Record<string, string> = {
   'Route 53': '[NETWORKING] DNS zone management, health checks, domain mapping records.',
   'ACM': '[SECURITY] Automated SSL/TLS certificates compilation and renewals.',
   'EC2': '[COMPUTE] Elastic Virtual Servers, auto-scaling groups, EBS configurations.',
-  'KCNA': '[CERTIFICATION] Kubernetes & Cloud Native Associate certified via Linux Foundation / CNCF (Aug 2026).'
+  'KCNA': '[CERTIFICATION] Kubernetes & Cloud Native Associate certified via Linux Foundation / CNCF (Aug 2026).',
+  'Terraform Associate': '[CERTIFICATION] HashiCorp Certified: Terraform Associate (004) (Sep 2026).'
 };
 
 export function Skills() {
@@ -72,8 +73,8 @@ export function Skills() {
     {
       title: 'Validations & Certs',
       icon: <Award className="w-6 h-6 text-yellow-400" />,
-      desc: 'Validated cloud, container & Kubernetes certifications and active specialized learning paths.',
-      tags: ['KCNA (CNCF) ✓', 'SAA-C03 ✓', 'AWS CCP ✓', 'AWS re/Start ✓', 'Data Engineer ↗', 'AI/ML Specialty ↗']
+      desc: 'Validated cloud, container, IaC & Kubernetes certifications and active specialized learning paths.',
+      tags: ['Terraform Associate ✓', 'KCNA (CNCF) ✓', 'SAA-C03 ✓', 'AWS CCP ✓', 'AWS re/Start ✓', 'Data Engineer ↗', 'AI/ML Specialty ↗']
     }
   ];
 

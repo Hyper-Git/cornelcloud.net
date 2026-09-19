@@ -47,7 +47,7 @@ export function AboutSystem() {
       name: 'CLOUD-NATIVE & AGENTIC AI SYSTEMS',
       date: '2025 - PRESENT',
       details: [
-        'Achieved Kubernetes and Cloud Native Associate (KCNA) certification (Aug 2026).',
+        'Achieved HashiCorp Certified: Terraform Associate (Sep 2026) & KCNA (Aug 2026).',
         'Deploying LLM orchestration pipelines using AWS Bedrock and APIs.',
         'Building autonomous agent workflows, LangChain prompts, and RAG search.',
         'Integrating serverless backend APIs with AI response channels.'
@@ -126,6 +126,14 @@ export function AboutSystem() {
               </div>
               
               <div className="space-y-3 font-mono">
+                <div className="p-3 rounded-xl border border-white/5 bg-white/5 flex items-center justify-between text-left hover:border-accentCyan/30 transition-all duration-300">
+                  <div className="flex flex-col">
+                    <span className="text-xs text-textPrimary font-semibold">HashiCorp Certified</span>
+                    <span className="text-[9px] text-accentCyan uppercase">Terraform Associate (004) [Sep 2026]</span>
+                  </div>
+                  <CheckCircle className="w-4.5 h-4.5 text-[#00FFD1] shrink-0 ml-2" />
+                </div>
+
                 <div className="p-3 rounded-xl border border-white/5 bg-white/5 flex items-center justify-between text-left hover:border-accentCyan/30 transition-all duration-300">
                   <div className="flex flex-col">
                     <span className="text-xs text-textPrimary font-semibold">Kubernetes &amp; Cloud Native</span>
