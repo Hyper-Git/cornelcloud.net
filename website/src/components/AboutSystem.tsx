@@ -5,7 +5,6 @@ import {
   Award, 
   HardDrive,
   CheckCircle,
-  TrendingUp,
   Settings,
   ShieldCheck
 } from 'lucide-react';
@@ -14,52 +13,49 @@ export function AboutSystem() {
   const firmwareLogs = [
     {
       version: 'v1.0.0',
-      name: 'KITCHEN & JOINERY CRAFTING',
-      date: '2018 - 2021',
+      name: 'KITCHEN INSTALLATIONS',
+      date: 'MAR 2022 - MAY 2025',
       details: [
-        'Precision structural assembly & CAD layout design.',
-        'High-quality physical project execution & customer delivery.',
-        'Core development of analytical accuracy and project management skills.'
+        'Director and kitchen installer at Triple Purple Ltd in York.',
+        'Delivered 50+ installations from brief to handover.',
+        'Zero formal complaints.'
       ]
     },
     {
       version: 'v2.0.0',
-      name: 'IT FUNDAMENTALS & NETWORKING',
-      date: '2021 - 2023',
+      name: 'IT FIELD WORK',
+      date: 'MAY 2025',
       details: [
-        'Systems administration, networking protocols (TCP/IP, DNS, DHCP).',
-        'Hardware configuration, local server virtualization and diagnostics.',
-        'Core scripting for operating system deployment automation.'
+        'Installed point-of-sale and network equipment for the Costa Coffee rollout with Cerco IT.',
+        'Verified installs and escalated exceptions with written handovers.'
       ]
     },
     {
       version: 'v3.0.0',
-      name: 'AWS CLOUD INFRASTRUCTURE',
-      date: '2023 - 2025',
+      name: 'AWS RE/START',
+      date: 'JUN - SEP 2025',
       details: [
-        'Achieved AWS Solutions Architect & Cloud Practitioner certifications.',
-        'Implemented secure serverless systems, AWS Lambda APIs, IAM setups.',
-        'Automated deployments via Terraform (IaC) and GitHub Actions.'
+        'Completed hands-on AWS training with Primed Talent UK.',
+        'Covered Linux administration, networking, security and core AWS services.'
       ]
     },
     {
       version: 'v4.0.0',
-      name: 'CLOUD-NATIVE & AGENTIC AI SYSTEMS',
-      date: '2025 - PRESENT',
+      name: 'CLOUD PROJECTS & CERTIFICATIONS',
+      date: 'SEP 2025 - PRESENT',
       details: [
-        'Achieved HashiCorp Certified: Terraform Associate (Sep 2026) & KCNA (Aug 2026).',
-        'Deploying LLM orchestration pipelines using AWS Bedrock and APIs.',
-        'Building autonomous agent workflows, LangChain prompts, and RAG search.',
-        'Integrating serverless backend APIs with AI response channels.'
+        'Deployed and documented projects on AWS and Kubernetes.',
+        'Passed HashiCorp Terraform Associate (Sep 2026) and KCNA (Aug 2026).',
+        'Looking for a first commercial cloud support or operations role.'
       ]
     }
   ];
 
   const metrics = [
-    { label: 'Automated Deployments', value: '1,420+', icon: <Activity className="w-4 h-4 text-accentCyan" /> },
-    { label: 'IaC Coverage (Terraform)', value: '100%', icon: <Settings className="w-4 h-4 text-accentPurple" /> },
-    { label: 'Lambda Latency', value: '42ms', icon: <TrendingUp className="w-4 h-4 text-[#ff6b35]" /> },
-    { label: 'System Uptime', value: '99.99%', icon: <ShieldCheck className="w-4 h-4 text-green-400" /> }
+    { label: 'Installations', value: '50+', icon: <Activity className="w-4 h-4 text-accentCyan" /> },
+    { label: 'Formal complaints', value: '0', icon: <Settings className="w-4 h-4 text-accentPurple" /> },
+    { label: 'Certifications', value: '5', icon: <Award className="w-4 h-4 text-[#ff6b35]" /> },
+    { label: 'AWS re/Start', value: 'Graduate', icon: <ShieldCheck className="w-4 h-4 text-green-400" /> }
   ];
 
   return (
@@ -144,8 +140,16 @@ export function AboutSystem() {
 
                 <div className="p-3 rounded-xl border border-white/5 bg-white/5 flex items-center justify-between text-left hover:border-accentCyan/30 transition-all duration-300">
                   <div className="flex flex-col">
-                    <span className="text-xs text-textPrimary font-semibold">AWS Solutions Architect</span>
-                    <span className="text-[9px] text-accentCyan uppercase">Associate [SAA-C03]</span>
+                    <span className="text-xs text-textPrimary font-semibold">Docker Foundations</span>
+                    <span className="text-[9px] text-accentCyan uppercase">May 2026</span>
+                  </div>
+                  <CheckCircle className="w-4.5 h-4.5 text-[#00FFD1] shrink-0 ml-2" />
+                </div>
+
+                <div className="p-3 rounded-xl border border-white/5 bg-white/5 flex items-center justify-between text-left hover:border-accentCyan/30 transition-all duration-300">
+                  <div className="flex flex-col">
+                    <span className="text-xs text-textPrimary font-semibold">AWS Solutions Architect Associate</span>
+                    <span className="text-[9px] text-accentCyan uppercase">Apr 2026</span>
                   </div>
                   <CheckCircle className="w-4.5 h-4.5 text-[#00FFD1] shrink-0 ml-2" />
                 </div>
@@ -153,7 +157,7 @@ export function AboutSystem() {
                 <div className="p-3 rounded-xl border border-white/5 bg-white/5 flex items-center justify-between text-left hover:border-accentCyan/30 transition-all duration-300">
                   <div className="flex flex-col">
                     <span className="text-xs text-textPrimary font-semibold">AWS Cloud Practitioner</span>
-                    <span className="text-[9px] text-accentCyan uppercase">Foundational [CLF-C02]</span>
+                    <span className="text-[9px] text-accentCyan uppercase">Mar 2025</span>
                   </div>
                   <CheckCircle className="w-4.5 h-4.5 text-[#00FFD1] shrink-0 ml-2" />
                 </div>
@@ -161,22 +165,10 @@ export function AboutSystem() {
                 <div className="p-3 rounded-xl border border-white/5 bg-white/5 flex items-center justify-between text-left hover:border-accentCyan/30 transition-all duration-300">
                   <div className="flex flex-col">
                     <span className="text-xs text-textPrimary font-semibold">AWS re/Start Graduate</span>
-                    <span className="text-[9px] text-accentCyan uppercase">12-Week Cloud Bootcamp</span>
+                    <span className="text-[9px] text-accentCyan uppercase">Jun–Sep 2025</span>
                   </div>
                   <CheckCircle className="w-4.5 h-4.5 text-[#00FFD1] shrink-0 ml-2" />
                 </div>
-              </div>
-            </div>
-            
-            <div className="mt-4 pt-4 border-t border-white/5">
-              <span className="text-[10px] font-mono text-textMuted uppercase block mb-2 text-left">Active Learning Compilations</span>
-              <div className="flex flex-wrap gap-2">
-                <span className="px-2 py-0.5 rounded border border-accentOrange/20 bg-accentOrange/5 text-[9px] font-mono text-accentOrange uppercase tracking-wide">
-                  Data Engineer [Compiling...]
-                </span>
-                <span className="px-2 py-0.5 rounded border border-accentOrange/20 bg-accentOrange/5 text-[9px] font-mono text-accentOrange uppercase tracking-wide">
-                  AI/ML Specialty
-                </span>
               </div>
             </div>
           </div>
@@ -205,7 +197,7 @@ export function AboutSystem() {
             </div>
             
             <div className="text-[9px] font-mono text-textMuted uppercase text-center mt-3 pt-3 border-t border-white/5">
-              Metrics calculated via AWS CloudWatch &amp; CI/CD telemetries
+              Figures from Cornel's work history and certifications
             </div>
           </div>
 

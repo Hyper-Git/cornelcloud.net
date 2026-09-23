@@ -3,36 +3,32 @@ import { Canvas } from '@react-three/fiber';
 import { SkillsCloud } from '../canvas/SkillsCloud';
 import { BentoGrid, BentoCard } from './BentoGrid';
 import { useWebGL } from '../hooks/useWebGL';
-import { Server, Cpu, Database, Brain, Globe, Award, Terminal } from 'lucide-react';
+import { Server, Cpu, Database, Activity, Globe, Award, Terminal } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const skillDetails: Record<string, string> = {
-  'AWS': '[INFRASTRUCTURE] Enterprise cloud architectures, multi-account, secure transit networking.',
-  'Terraform': '[IAC & CERTIFIED] HashiCorp Certified Associate (004). Multi-cloud IaC automation, state locking, modular architecture.',
-  'Lambda': '[COMPUTE] Serverless microservices, event-driven integrations, runtimes execution.',
-  'Python': '[BACKEND/AI] System automation, data processing, AWS Bedrock API integrations.',
-  'Docker': '[CONTAINERS] Secure image building, local development parity, ECR push.',
-  'S3': '[STORAGE] Static site hosting, CloudFront CDN sources, lifecycle policies.',
-  'ECS': '[CONTAINERS] Managed container task scaling, AWS Fargate serverless runner.',
-  'VPC': '[NETWORKING] Secure subnets, NAT Gateway pathways, Security Group state walls.',
-  'Bedrock': '[AI/ML] LLM pipeline integrations (Claude, Llama), agent loop deployments.',
-  'CI/CD': '[AUTOMATION] Code build runners, automated syntax tests, release sync.',
-  'GitHub Actions': '[DEVOPS] Pipeline workflow runners, AWS CLI integration profiles.',
-  'FastAPI': '[API] High-performance REST endpoints, custom CORS routing architectures.',
-  'RDS': '[DATABASE] Managed Relational DBs, Aurora Postgres clusters, Multi-AZ backups.',
-  'DynamoDB': '[DATABASE] NoSQL key-value store, single-table schemas, active global tables.',
-  'CloudFront': '[CDN] Edge caching delivery, SSL injection, AWS WAF firewall guards.',
-  'CloudWatch': '[MONITORING] Centralized system log queries, custom metric metrics alarms.',
-  'CloudFormation': '[IAC] Native AWS stack compilation, stack set architectures.',
-  'IAM': '[SECURITY] Principle of Least Privilege policies, cross-account Role assumes.',
-  'Kubernetes': '[CONTAINERS] EKS clusters administration, pod orchestration networks.',
-  'Serverless': '[ARCHITECTURE] Scale-to-zero event routing, API Gateway serverless channels.',
-  'API Gateway': '[NETWORKING] HTTP traffic proxies, API throttling rules, CORS maps.',
-  'Route 53': '[NETWORKING] DNS zone management, health checks, domain mapping records.',
-  'ACM': '[SECURITY] Automated SSL/TLS certificates compilation and renewals.',
-  'EC2': '[COMPUTE] Elastic Virtual Servers, auto-scaling groups, EBS configurations.',
-  'KCNA': '[CERTIFICATION] Kubernetes & Cloud Native Associate certified via Linux Foundation / CNCF (Aug 2026).',
-  'Terraform Associate': '[CERTIFICATION] HashiCorp Certified: Terraform Associate (004) (Sep 2026).'
+  'AWS': 'Core AWS services used in training and portfolio projects.',
+  'Terraform': 'Deployed AWS infrastructure from code; Terraform Associate certified.',
+  'Linux': 'Linux administration covered during AWS re/Start.',
+  'CloudWatch': 'Used alarms and metrics in the Pinnacle project.',
+  'SNS': 'Configured notifications from CloudWatch alarms.',
+  'EC2': 'Configured compute in AWS portfolio projects.',
+  'S3': 'AWS storage used for this website.',
+  'VPC': 'Configured AWS networking in portfolio projects.',
+  'IAM': 'Configured AWS access controls.',
+  'RDS': 'Used PostgreSQL Multi-AZ in the Pinnacle project.',
+  'Route 53': 'AWS DNS service.',
+  'API Gateway': 'Used with the Cost Optimisation Dashboard.',
+  'DynamoDB': 'AWS database service.',
+  'Kubernetes': 'Tested Deployments, Services, NetworkPolicies and RBAC on a local cluster.',
+  'Docker': 'Used Docker and passed Docker Foundations.',
+  'Git': 'Version control for portfolio projects.',
+  'Networking': 'Covered during AWS re/Start and IT field work.',
+  'DNS': 'Networking topic covered in cloud retraining.',
+  'Troubleshooting': 'Worked from logs and metrics to investigate issues.',
+  'Cost Explorer': 'Used in the AWS Cost Optimisation Dashboard.',
+  'Terraform Associate': 'HashiCorp certification achieved in Sep 2026.',
+  'KCNA': 'Kubernetes and Cloud Native Associate certification achieved in Aug 2026.'
 };
 
 export function Skills() {
@@ -43,38 +39,38 @@ export function Skills() {
     {
       title: 'AWS Cloud Services',
       icon: <Server className="w-6 h-6 text-accentCyan" />,
-      desc: 'Designing and deploying production-grade solutions across the full AWS ecosystem.',
-      tags: ['Lambda', 'EC2', 'S3', 'CloudFront', 'VPC', 'Route 53', 'API Gateway', 'DynamoDB', 'CloudWatch', 'IAM', 'ACM']
+      desc: 'Core AWS services used in training and portfolio projects.',
+      tags: ['EC2', 'S3', 'VPC', 'IAM', 'RDS', 'Route 53', 'API Gateway', 'DynamoDB']
     },
     {
-      title: 'Infrastructure as Code & CI/CD',
+      title: 'Infrastructure as Code',
       icon: <Cpu className="w-6 h-6 text-accentPurple" />,
-      desc: 'Automating infrastructure and delivery pipelines for reproducible, zero-drift deployments.',
-      tags: ['Terraform', 'CloudFormation', 'GitHub Actions', 'Docker', 'ECS']
+      desc: 'Deployed and tested AWS environments with Terraform.',
+      tags: ['Terraform', 'Git']
     },
     {
-      title: 'AI & Cloud Intelligence',
-      icon: <Brain className="w-6 h-6 text-accentOrange" />,
-      desc: 'Integrating large language models and AI services into production serverless architectures.',
-      tags: ['Bedrock', 'Python', 'FastAPI', 'CI/CD']
+      title: 'Monitoring & Support',
+      icon: <Activity className="w-6 h-6 text-accentOrange" />,
+      desc: 'Investigated issues from logs and metrics and tested alerting.',
+      tags: ['CloudWatch', 'SNS', 'Troubleshooting', 'Cost Explorer']
     },
     {
-      title: 'Languages & Networking',
+      title: 'Linux & Networking',
       icon: <Globe className="w-6 h-6 text-green-400" />,
-      desc: 'Writing clean backend code for serverless functions and designing secure network topologies.',
-      tags: ['Python', 'FastAPI', 'VPC', 'Docker']
+      desc: 'Linux administration, networking and DNS from AWS re/Start and field work.',
+      tags: ['Linux', 'Networking', 'DNS']
     },
     {
-      title: 'Databases & Containers',
+      title: 'Containers',
       icon: <Database className="w-6 h-6 text-blue-400" />,
-      desc: 'Building containerised workloads and managing highly scalable data storage tiers.',
-      tags: ['Docker', 'ECS', 'RDS', 'DynamoDB', 'Kubernetes']
+      desc: 'Operated and tested a trades job-status app on a local Kubernetes cluster.',
+      tags: ['Docker', 'Kubernetes']
     },
     {
-      title: 'Validations & Certs',
+      title: 'Certifications',
       icon: <Award className="w-6 h-6 text-yellow-400" />,
-      desc: 'Validated cloud, container, IaC & Kubernetes certifications and active specialized learning paths.',
-      tags: ['Terraform Associate ✓', 'KCNA (CNCF) ✓', 'SAA-C03 ✓', 'AWS CCP ✓', 'AWS re/Start ✓', 'Data Engineer ↗', 'AI/ML Specialty ↗']
+      desc: 'Completed AWS, Terraform, Kubernetes and Docker certifications.',
+      tags: ['Terraform Associate ✓', 'KCNA ✓', 'Docker Foundations ✓', 'AWS Solutions Architect Associate ✓', 'AWS Cloud Practitioner ✓', 'AWS re/Start ✓']
     }
   ];
 
@@ -84,7 +80,7 @@ export function Skills() {
         <span className="text-xs font-mono tracking-widest text-accentCyan uppercase">// EXPERTISE</span>
         <h2 className="text-3xl md:text-5xl font-bold mt-2 text-textPrimary">Technical Skills</h2>
         <p className="text-textSecondary mt-4 max-w-xl mx-auto text-sm">
-          A comprehensive cloud toolkit for designing, building, and automating secure enterprise-grade systems.
+          Skills developed through AWS re/Start, certifications and tested portfolio projects.
         </p>
       </div>
 
@@ -113,7 +109,7 @@ export function Skills() {
             ) : (
               /* Fallback 2D grid */
               <div className="flex flex-wrap gap-2.5 justify-center p-4">
-                {['AWS', 'Terraform', 'Lambda', 'Python', 'Docker', 'S3', 'ECS', 'Bedrock', 'CI/CD', 'GitHub Actions', 'FastAPI', 'VPC'].map((tag, i) => (
+                {['AWS', 'Terraform', 'Linux', 'CloudWatch', 'SNS', 'EC2', 'S3', 'VPC', 'IAM', 'RDS', 'Docker', 'Kubernetes'].map((tag, i) => (
                   <motion.span
                     key={tag}
                     initial={{ opacity: 0, scale: 0.8 }}
@@ -147,7 +143,7 @@ export function Skills() {
                     NODE_INSPECT: {hoveredSkill}
                   </div>
                   <div className="text-[10px] text-textSecondary leading-relaxed">
-                    {skillDetails[hoveredSkill] || '[NODE] Active infrastructure dependency integration.'}
+                    {skillDetails[hoveredSkill] || 'Certification completed.'}
                   </div>
                 </motion.div>
               ) : (

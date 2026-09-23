@@ -10,7 +10,7 @@ interface Message {
 export function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { sender: 'bot', text: "Handshake verified. I am Cornel's Cloud/AI Copilot. Ask me questions about his AWS architectures, Terraform IaC, or Python integrations." }
+    { sender: 'bot', text: "Hi, I'm the assistant on Cornel's portfolio. Ask me about his projects, certifications or the roles he's looking for." }
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);

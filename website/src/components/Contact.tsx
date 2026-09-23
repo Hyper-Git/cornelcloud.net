@@ -19,13 +19,13 @@ function Github({ className }: { className?: string }) {
 
 export function Contact() {
   const [formState, setFormState] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
-  const [statusLogs, setStatusLogs] = useState<string[]>(['[PORT] Ready for TLS handshake']);
+  const [statusLogs, setStatusLogs] = useState<string[]>(['[CONTACT] Ready for your message']);
   const API_BASE = (window as any).API_URL || 'https://vr03mmaz83.execute-api.eu-west-1.amazonaws.com';
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormState('sending');
-    setStatusLogs((prev) => [...prev, '> initializing secure payload routing...', '[OIDC] checking key signatures...']);
+    setStatusLogs((prev) => [...prev, '[CONTACT] Sending message...']);
 
     const form = e.currentTarget;
     const formData = new FormData(form);
@@ -47,22 +47,19 @@ export function Contact() {
         setFormState('success');
         setStatusLogs((prev) => [
           ...prev, 
-          '[OK]   encryption keys matched.', 
-          '[OK]   API Gateway received message payload.', 
-          '[SES]  forwarded to inbox: contact@cornelcloud.net.',
-          '[OK]   transmission complete.'
+          '[OK]   Message sent.'
         ]);
         form.reset();
         setTimeout(() => {
           setFormState('idle');
-          setStatusLogs(['[PORT] Ready for TLS handshake']);
+          setStatusLogs(['[CONTACT] Ready for your message']);
         }, 8000);
       } else {
         throw new Error('API responded with error');
       }
     } catch (err) {
       setFormState('error');
-      setStatusLogs((prev) => [...prev, '[ERR]  transit failed: API_DISCONNECTED.']);
+      setStatusLogs((prev) => [...prev, '[ERR]  Message could not be sent. Please try again.']);
       setTimeout(() => {
         setFormState('idle');
         setStatusLogs(['[PORT] Ready for TLS handshake']);
@@ -78,7 +75,7 @@ export function Contact() {
         <span className="text-xs font-mono tracking-widest text-accentCyan uppercase">// SECURE_TUNNEL</span>
         <h2 className="text-3xl md:text-5xl font-bold mt-2 text-textPrimary">Establish Connection</h2>
         <p className="text-textSecondary mt-4 max-w-xl mx-auto text-sm">
-          Open to cloud engineering roles, freelance contracts, and systems architecture consultations. Initiates encryption transport.
+          Looking for a permanent entry-level role in cloud support or cloud operations in York, Leeds or remote within the UK.
         </p>
       </div>
 
@@ -95,7 +92,7 @@ export function Contact() {
             </div>
             
             <p className="text-xs text-textSecondary leading-relaxed">
-              If you prefer traditional SMTP mail routing, click a connection node below. Access tokens are encrypted.
+              You can also reach Cornel through LinkedIn or GitHub.
             </p>
 
             <div className="space-y-4">
@@ -203,7 +200,7 @@ export function Contact() {
               rows={4}
               required
               className="w-full bg-[#050507] border border-white/15 focus:border-accentPurple rounded-lg px-3.5 py-2.5 text-xs text-textPrimary outline-none focus:shadow-[0_0_12px_rgba(124,58,237,0.15)] transition-all font-mono resize-none"
-              placeholder="Detail your cloud infrastructure needs, freelance inquiries, or recruitment details..."
+              placeholder="Ask about a cloud support or operations opportunity..."
             />
           </div>
 
