@@ -4,11 +4,10 @@ import { Text, Billboard } from '@react-three/drei';
 import * as THREE from 'three';
 
 const skills = [
-  'AWS', 'Terraform', 'Lambda', 'Python', 'Docker',
-  'S3', 'ECS', 'VPC', 'Bedrock', 'CI/CD',
-  'GitHub Actions', 'FastAPI', 'RDS', 'DynamoDB', 'CloudFront',
-  'CloudWatch', 'CloudFormation', 'IAM', 'Kubernetes', 'Serverless',
-  'API Gateway', 'Route 53', 'ACM', 'EC2'
+  'AWS', 'Terraform', 'Linux', 'CloudWatch', 'SNS', 'EC2', 'S3',
+  'VPC', 'IAM', 'RDS', 'Route 53', 'API Gateway', 'DynamoDB',
+  'Kubernetes', 'Docker', 'Git', 'Networking', 'DNS',
+  'Troubleshooting', 'Cost Explorer'
 ];
 
 interface WordProps {

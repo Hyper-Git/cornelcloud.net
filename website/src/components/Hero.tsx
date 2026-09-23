@@ -12,43 +12,35 @@ import {
 } from 'lucide-react';
 
 const initialLogs = [
-  'system: initializing cornelcloud core v4.2.1...',
-  'system: establishing secure transport to aws [eu-west-1]...',
-  'system: loading bedrock ai orchestration profiles...',
-  'system: cloud infrastructure link online. secure connection verified.'
+  'system: cornelcloud portfolio ready',
+  'system: AWS and Kubernetes projects documented',
+  'system: looking for a first commercial cloud support role'
 ];
 
 const sandboxLogs = [
-  'command: exec init_sandbox --region eu-west-1',
-  '[IAC]   generating dynamic cloudformation templates...',
-  '[AWS]   s3 bucket created: sandbox-384920-telemetry',
-  '[AWS]   lambda function instantiated: sandbox-processor',
-  '[AWS]   vpc subnets configured & gateway linked.',
-  '[OK]    isolated cloud sandbox initialized in 840ms.'
+  'command: review pinnacle',
+  '[IAC]   Terraform configuration deployed on AWS',
+  '[AWS]   load balancer, Auto Scaling and RDS PostgreSQL Multi-AZ configured',
+  '[OK]    environment tested and torn down to save cost'
 ];
 
 const iacLogs = [
-  'command: exec run_iac_scan --path ./terraform',
-  '[SCAN]  checking 18 resource definitions for drift...',
-  '[SCAN]  validating iam policies & security groups...',
-  '[WARN]  iam_policy.lambda_exec permissions optimized (resolved)',
-  '[OK]    0 security vulnerabilities found.',
-  '[OK]    tfsec score: 100/100 (compliance validated)'
+  'command: review alert test',
+  '[IAC]   CloudWatch alarms configured with SNS notifications',
+  '[TEST]  CPU stress test run',
+  '[OK]    alert chain tested'
 ];
 
-const aiLogs = [
-  'command: exec optimize_prompt_chain --model claude-3-5-sonnet',
-  '[LLM]   parsing prompt tokens... (4,290 input tokens detected)',
-  '[COMP]  detecting redundant system instructions...',
-  '[COMP]  compressing context via semantic truncation...',
-  '[OK]    prompt optimized. tokens reduced by 34% (saved ~$0.04/run).'
+const projectLogs = [
+  'command: review trades job tracker',
+  '[K8S]   job-status app deployed on a local Kubernetes cluster',
+  '[TEST]  live pod deleted to test self-healing',
+  '[OK]    replacement pod observed'
 ];
 
 export function Hero() {
   const [logs, setLogs] = useState<string[]>(initialLogs);
   const [activeCommand, setActiveCommand] = useState<string | null>(null);
-  const [cpuLoad, setCpuLoad] = useState(24);
-  const [latency, setLatency] = useState(12);
   const terminalContainerRef = useRef<HTMLDivElement | null>(null);
 
   // Auto scroll terminal logs
@@ -57,22 +49,6 @@ export function Hero() {
       terminalContainerRef.current.scrollTop = terminalContainerRef.current.scrollHeight;
     }
   }, [logs]);
-
-  // Simulate changing stats
-  useEffect(() => {
-    const statsInterval = setInterval(() => {
-      setCpuLoad((prev) => {
-        const next = prev + Math.floor(Math.random() * 7) - 3;
-        return Math.max(10, Math.min(85, next));
-      });
-      setLatency((prev) => {
-        const next = prev + Math.floor(Math.random() * 5) - 2;
-        return Math.max(8, Math.min(20, next));
-      });
-    }, 1500);
-
-    return () => clearInterval(statsInterval);
-  }, []);
 
   const triggerCommand = (command: string, logArray: string[]) => {
     if (activeCommand) return; // Wait for active command
@@ -116,7 +92,7 @@ export function Hero() {
           className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-accentCyan/20 bg-accentCyan/5 text-xs text-accentCyan font-mono mb-8"
         >
           <span className="w-2 h-2 rounded-full bg-green-500 animate-ping" />
-          AVAILABLE FOR CLOUD &amp; AI ENGINEERING ROLES · UK / REMOTE
+          SEEKING ENTRY-LEVEL CLOUD SUPPORT · YORK / LEEDS / UK REMOTE
         </motion.div>
 
         <motion.h1
@@ -125,8 +101,8 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.1 }}
           className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-textPrimary leading-[1.1] mb-6 font-sans"
         >
-          Building Intelligent Cloud Systems <br />
-          <span className="text-gradient">For The AI Era</span>
+          Learning Through Cloud Projects <br />
+          <span className="text-gradient">Ready For Cloud Support</span>
         </motion.h1>
 
         <motion.p
@@ -135,11 +111,11 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-sm md:text-base font-mono text-textSecondary uppercase tracking-[0.25em] mb-10 flex flex-wrap justify-center gap-x-4 gap-y-2"
         >
-          <span>Cloud Engineer</span>
+          <span>Junior Cloud Support Engineer</span>
           <span className="text-accentCyan/40">•</span>
-          <span>AI Systems Builder</span>
+          <span>AWS re/Start Graduate</span>
           <span className="text-accentCyan/40">•</span>
-          <span>Automation Architect</span>
+          <span>Cloud Operations</span>
         </motion.p>
 
         <motion.div
@@ -182,8 +158,8 @@ export function Hero() {
             </span>
           </div>
           <div className="flex items-center gap-4 text-[10px] font-mono text-textMuted uppercase tracking-wider">
-            <span className="flex items-center gap-1"><Globe className="w-3 h-3 text-accentCyan" /> {latency}ms</span>
-            <span className="hidden sm:inline">AWS: eu-west-1</span>
+            <span className="flex items-center gap-1"><Globe className="w-3 h-3 text-accentCyan" /> York, UK</span>
+            <span className="hidden sm:inline">AWS &amp; KUBERNETES PROJECTS</span>
           </div>
         </div>
 
@@ -203,7 +179,7 @@ export function Hero() {
                 else if (log?.startsWith('command:')) colorClass = 'text-[#ffffff]/90 font-semibold';
                 else if (log?.startsWith('[OK]')) colorClass = 'text-[#00FFD1]';
                 else if (log?.startsWith('[WARN]')) colorClass = 'text-accentOrange';
-                else if (log?.startsWith('[IAC]') || log?.startsWith('[LLM]') || log?.startsWith('[COMP]')) colorClass = 'text-accentPurple/80';
+                else if (log?.startsWith('[IAC]') || log?.startsWith('[K8S]') || log?.startsWith('[TEST]')) colorClass = 'text-accentPurple/80';
                 
                 return (
                   <div key={idx} className={`${colorClass} leading-relaxed`}>
@@ -255,16 +231,16 @@ export function Hero() {
 
               <button
                 disabled={activeCommand !== null}
-                onClick={() => triggerCommand('PROMPT_OPTIMIZE', aiLogs)}
+                onClick={() => triggerCommand('REVIEW_K8S_TEST', projectLogs)}
                 className={`w-full flex items-center justify-between p-2.5 rounded-lg border text-left transition-all duration-200 ${
-                  activeCommand === 'PROMPT_OPTIMIZE'
+                  activeCommand === 'REVIEW_K8S_TEST'
                     ? 'bg-[#ff6b35]/10 border-[#ff6b35] text-[#ff6b35]'
                     : 'bg-white/5 border-white/5 text-textPrimary hover:border-[#ff6b35]/30 hover:bg-[#ff6b35]/5'
-                } ${activeCommand !== null && activeCommand !== 'PROMPT_OPTIMIZE' ? 'opacity-40 cursor-not-allowed' : ''}`}
+                } ${activeCommand !== null && activeCommand !== 'REVIEW_K8S_TEST' ? 'opacity-40 cursor-not-allowed' : ''}`}
               >
                 <div className="flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-wider">
                   <Sparkles className="w-3.5 h-3.5 text-[#ff6b35]" />
-                  OPTIMIZE_AI
+                  REVIEW_K8S_TEST
                 </div>
                 <Play className="w-2.5 h-2.5 opacity-60" />
               </button>
@@ -272,7 +248,7 @@ export function Hero() {
 
             <div className="mt-4 md:mt-0 font-mono text-[10px] text-textMuted uppercase flex items-center gap-2">
               <Activity className="w-3 h-3 text-green-400 animate-pulse" />
-              TELEMETRY: ONLINE
+              PROJECT NOTES: READY
             </div>
           </div>
 
@@ -281,26 +257,18 @@ export function Hero() {
         {/* HUD Stats Footer */}
         <div className="bg-[#050507] border-t border-white/5 p-4 grid grid-cols-3 gap-4 text-center font-mono text-[10px] md:text-[11px] select-none">
           <div className="flex flex-col items-center justify-center border-r border-white/5">
-            <span className="text-textMuted uppercase tracking-wider mb-1">CPU Load</span>
-            <div className="flex items-center gap-2">
-              <span className="text-textPrimary font-bold">{cpuLoad}%</span>
-              <div className="w-16 h-1.5 bg-white/5 rounded-full overflow-hidden hidden sm:block">
-                <div 
-                  className="bg-accentCyan h-full transition-all duration-500 ease-out" 
-                  style={{ width: `${cpuLoad}%` }}
-                />
-              </div>
-            </div>
+            <span className="text-textMuted uppercase tracking-wider mb-1">AWS Project</span>
+            <span className="text-textPrimary font-bold">DEPLOYED</span>
           </div>
           <div className="flex flex-col items-center justify-center border-r border-white/5">
-            <span className="text-textMuted uppercase tracking-wider mb-1">AI Node Status</span>
+            <span className="text-textMuted uppercase tracking-wider mb-1">Kubernetes Project</span>
             <span className="text-[#00FFD1] font-bold flex items-center gap-1.5">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#00FFD1]" /> BEDROCK_OK
+              <ShieldCheck className="w-3.5 h-3.5 text-[#00FFD1]" /> TESTED
             </span>
           </div>
           <div className="flex flex-col items-center justify-center">
-            <span className="text-textMuted uppercase tracking-wider mb-1">IaC Verification</span>
-            <span className="text-accentCyan font-bold uppercase tracking-wide">SECURE</span>
+            <span className="text-textMuted uppercase tracking-wider mb-1">Terraform Associate</span>
+            <span className="text-accentCyan font-bold uppercase tracking-wide">CERTIFIED</span>
           </div>
         </div>
       </motion.div>

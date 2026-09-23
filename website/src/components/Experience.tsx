@@ -15,87 +15,85 @@ interface TimelineItem {
 const timelineData: TimelineItem[] = [
   {
     date: 'Sep 2025 — Present',
-    title: 'Independent Cloud Engineer',
-    company: 'Self-employed',
-    description: 'Building and shipping cloud-native projects independently. Developing serverless architectures with AWS Bedrock and AI integrations, delivering full IaC pipelines with Terraform, and actively pursuing AWS Data Engineer and AI/ML Specialty certifications.',
+    title: 'Career Transition: Cloud Retraining',
+    company: 'Portfolio projects and part-time installation work',
+    description: 'Passed KCNA and HashiCorp Terraform Associate in 2026 alongside AWS certifications. Deployed and documented portfolio projects on AWS and Kubernetes while doing part-time installation work.',
     type: 'job',
-    pinId: 'PIN_01_SRV_LNK'
+    pinId: 'PIN_01_CLOUD'
   },
   {
     date: 'Jun 2025 — Sep 2025',
-    title: 'Cloud Engineer — Training Programme',
+    title: 'AWS re/Start Trainee',
     company: 'Primed Talent UK',
-    description: 'Structured cloud engineering programme focused on AWS architecture, IaC, and professional delivery practices. Gained hands-on experience with real-world cloud deployments and enterprise-grade workflows.',
+    description: 'Completed a full-time, hands-on AWS programme covering Linux administration, networking, security and core AWS services.',
     type: 'job',
-    pinId: 'PIN_02_SYS_DEV'
+    pinId: 'PIN_02_RESTART'
+  },
+  {
+    date: 'May 2025',
+    title: 'IT Field Engineer (Contract)',
+    company: 'Cerco IT · Costa Coffee rollout',
+    description: 'Installed and commissioned point-of-sale and network equipment across North Yorkshire sites. Verified each install and escalated exceptions to central support with a written handover.',
+    type: 'job',
+    pinId: 'PIN_03_FIELD'
+  },
+  {
+    date: 'Mar 2022 — May 2025',
+    title: 'Director and Kitchen Installer',
+    company: 'Triple Purple Ltd · York',
+    description: 'Delivered 50+ installations from brief to handover with zero formal complaints.',
+    type: 'job',
+    pinId: 'PIN_04_DIRECTOR'
   },
   {
     date: 'Sep 2026',
-    title: 'HashiCorp Certified: Terraform Associate (004)',
+    title: 'HashiCorp Terraform Associate',
     company: 'HashiCorp',
-    description: 'Validated expertise in open-source HashiCorp Terraform concepts, workflow architectures, modules, state management, CLI automation, and Infrastructure as Code (IaC) best practices for multi-cloud deployments.',
+    description: 'Terraform Associate certification achieved.',
     type: 'cert',
     status: '✓ Achieved',
     statusType: 'achieved',
-    pinId: 'PIN_03_CRT_TF'
+    pinId: 'PIN_05_TF'
   },
   {
     date: 'Aug 2026',
     title: 'Kubernetes and Cloud Native Associate (KCNA)',
     company: 'The Linux Foundation / CNCF',
-    description: 'Validated foundational knowledge of Kubernetes and cloud-native architecture, including container orchestration, Cloud Native Computing Foundation (CNCF) ecosystem tools, cluster networking, persistent storage, security policies, and GitOps CI/CD delivery.',
+    description: 'KCNA certification achieved.',
     type: 'cert',
     status: '✓ Achieved',
     statusType: 'achieved',
-    pinId: 'PIN_04_CRT_KCNA'
+    pinId: 'PIN_06_KCNA'
   },
   {
-    date: '2025',
-    title: 'AWS Certified Solutions Architect — Associate',
-    company: 'Amazon Web Services',
-    description: 'Validated ability to design and deploy scalable, highly available, and fault-tolerant systems on AWS. Covers compute, storage, networking, databases, and security across multi-tier architectures.',
+    date: 'May 2026',
+    title: 'Docker Foundations',
+    company: 'Docker',
+    description: 'Docker Foundations certification achieved.',
     type: 'cert',
     status: '✓ Achieved',
     statusType: 'achieved',
-    pinId: 'PIN_05_CRT_SAA'
+    pinId: 'PIN_07_DOCKER'
   },
   {
-    date: '2025',
-    title: 'AWS Certified Cloud Practitioner',
+    date: 'Apr 2026',
+    title: 'AWS Solutions Architect Associate',
     company: 'Amazon Web Services',
-    description: 'Validated foundational understanding of AWS Cloud concepts, services, security, architecture, pricing, and support models.',
+    description: 'AWS Solutions Architect Associate certification achieved.',
     type: 'cert',
     status: '✓ Achieved',
     statusType: 'achieved',
-    pinId: 'PIN_06_CRT_CCP'
+    pinId: 'PIN_08_SAA'
   },
   {
-    date: '2025',
-    title: 'AWS re/Start Graduate',
+    date: 'Mar 2025',
+    title: 'AWS Cloud Practitioner',
     company: 'Amazon Web Services',
-    description: 'Completed the AWS re/Start programme — a full-time cloud computing skills training programme designed to prepare graduates for cloud roles.',
+    description: 'AWS Cloud Practitioner certification achieved.',
     type: 'cert',
     status: '✓ Achieved',
     statusType: 'achieved',
-    pinId: 'PIN_07_AWS_RST'
-  },
-  {
-    date: 'In Progress',
-    title: 'AWS Data Engineer Associate & AI/ML Specialty',
-    company: 'Amazon Web Services',
-    description: 'Actively pursuing both AWS Data Engineer Associate and AWS AI/ML Specialty certifications to deepen expertise in data pipelines, ML workflows, and AI-integrated cloud architectures.',
-    type: 'progress',
-    status: '↗ In Progress',
-    statusType: 'progress',
-    pinId: 'PIN_08_EDG_CMP'
-  },
-  {
-    date: 'Mar 2022 — May 2025',
-    title: 'Kitchen Installation Specialist',
-    company: 'Triple Purple Ltd.',
-    description: 'Managed 50+ complex kitchen installations end-to-end — from scoping and resource planning to on-site delivery and handover. The precision, client coordination, and structured mechanical problem-solving developed here maps directly onto cloud architecture design and systematic pipeline delivery.',
-    type: 'job',
-    pinId: 'PIN_09_ORG_JNY'
+    pinId: 'PIN_09_CCP'
   }
 ];
 
@@ -108,7 +106,7 @@ export function Experience() {
         <span className="text-xs font-mono tracking-widest text-accentCyan uppercase">// SYSTEM_UPGRADE_PATH</span>
         <h2 className="text-3xl md:text-5xl font-bold mt-2 text-textPrimary">Experience &amp; Milestones</h2>
         <p className="text-textSecondary mt-4 max-w-xl mx-auto text-sm">
-          A track record of technical precision. Timeline mapped as a schematic circuit board tracing physical delivery and serverless structures.
+          A move from hands-on installation and IT field work into cloud support, backed by AWS training, certifications and deployed projects.
         </p>
       </div>
 

@@ -14,10 +14,10 @@ interface ServerNode {
 const nodesData: ServerNode[] = [
   { id: 'alb', name: 'ALB', position: [0, 3, 0], color: '#4DA3FF', size: 0.3 },
   { id: 'web', name: 'Web Server', position: [-2, 1.5, 0.5], color: '#00FFD1', size: 0.25 },
-  { id: 'app1', name: 'ECS Service', position: [-1, -0.5, 1], color: '#8B5CF6', size: 0.25 },
-  { id: 'app2', name: 'Bedrock API', position: [1.8, 1, -1], color: '#8B5CF6', size: 0.25 },
-  { id: 'lambda', name: 'Lambda Engine', position: [2.5, -1, 1], color: '#ff6b35', size: 0.2 },
-  { id: 'rds', name: 'Aurora DB', position: [0, -2.5, 0], color: '#00FFD1', size: 0.35 },
+  { id: 'app1', name: 'EC2', position: [-1, -0.5, 1], color: '#8B5CF6', size: 0.25 },
+  { id: 'app2', name: 'CloudWatch', position: [1.8, 1, -1], color: '#8B5CF6', size: 0.25 },
+  { id: 'lambda', name: 'SNS Alerts', position: [2.5, -1, 1], color: '#ff6b35', size: 0.2 },
+  { id: 'rds', name: 'RDS Multi-AZ', position: [0, -2.5, 0], color: '#00FFD1', size: 0.35 },
   { id: 's3', name: 'S3 Storage', position: [-2.5, -2, -1], color: '#4DA3FF', size: 0.3 }
 ];
 
