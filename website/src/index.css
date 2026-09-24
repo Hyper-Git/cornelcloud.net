@@ -5,35 +5,35 @@
   font-style: normal;
   font-weight: 300;
   font-display: swap;
-  src: url('/fonts/Outfit-Light.ttf') format('truetype');
+  src: url('/fonts/Outfit-Light.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Outfit';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('/fonts/Outfit-Regular.ttf') format('truetype');
+  src: url('/fonts/Outfit-Regular.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Outfit';
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url('/fonts/Outfit-Medium.ttf') format('truetype');
+  src: url('/fonts/Outfit-Medium.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Outfit';
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url('/fonts/Outfit-SemiBold.ttf') format('truetype');
+  src: url('/fonts/Outfit-SemiBold.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Outfit';
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url('/fonts/Outfit-Bold.ttf') format('truetype');
+  src: url('/fonts/Outfit-Bold.woff2') format('woff2');
 }
 
 @font-face {
@@ -41,14 +41,14 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('/fonts/JetBrainsMono-Regular.ttf') format('truetype');
+  src: url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');
 }
 @font-face {
   font-family: 'JetBrains Mono';
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url('/fonts/JetBrainsMono-Medium.ttf') format('truetype');
+  src: url('/fonts/JetBrainsMono-Medium.woff2') format('woff2');
 }
 
 @theme {
