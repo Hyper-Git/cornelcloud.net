@@ -2,9 +2,9 @@
 # Terraform Variables Values
 ################################################################################
 
-aws_region     = "eu-west-1"
-domain_name    = "cornelcloud.net"
-bucket_name    = "cornelcloud-website"
+aws_region  = "eu-west-1"
+domain_name = "cornelcloud.net"
+bucket_name = "cornelcloud-website"
 
 # Route 53 Hosted Zone ID for cornelcloud.net
 hosted_zone_id = "Z01393483HVF6KCHJNO5V"

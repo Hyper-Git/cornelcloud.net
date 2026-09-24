@@ -15,9 +15,28 @@ import { CustomCursor } from './components/CustomCursor';
 import { Preloader } from './components/Preloader';
 import { AboutSystem } from './components/AboutSystem';
 
+// Show the boot sequence once per browser session, and never to visitors who
+// have asked their OS to reduce motion
+function shouldShowPreloader() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+  try {
+    return !sessionStorage.getItem('preloaderSeen');
+  } catch {
+    return true; // Storage blocked (private mode etc.) - just show it
+  }
+}
+
+function markPreloaderSeen() {
+  try {
+    sessionStorage.setItem('preloaderSeen', '1');
+  } catch {
+    // Storage blocked - it will show again next time, which is fine
+  }
+}
+
 export default function App() {
   const isWebGLSupported = useWebGL();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(shouldShowPreloader);
 
   // Initialize Lenis smooth scroll
   useEffect(() => {
@@ -41,7 +60,14 @@ export default function App() {
     <div className="relative min-h-screen bg-[#050505] text-[#e8eaed] overflow-x-hidden antialiased">
       {/* Boot up Preloader */}
       <AnimatePresence>
-        {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
+        {isLoading && (
+          <Preloader
+            onComplete={() => {
+              markPreloaderSeen();
+              setIsLoading(false);
+            }}
+          />
+        )}
       </AnimatePresence>
 
       {/* Background canvas layer */}
