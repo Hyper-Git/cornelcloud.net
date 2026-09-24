@@ -2,6 +2,13 @@
 # Lambda Functions
 ################################################################################
 
+# Chatbot model. Haiku is right-sized for answering from a fixed fact list:
+# about 5x cheaper per message than Opus and faster to respond.
+locals {
+  chatbot_model_id          = "anthropic.claude-haiku-4-5-20251001-v1:0"
+  chatbot_inference_profile = "eu.${local.chatbot_model_id}" # EU cross-region inference
+}
+
 # ── Package Lambda source files ───────────────────────────────────────────────
 
 data "archive_file" "contact" {
@@ -61,7 +68,7 @@ resource "aws_lambda_function" "chatbot" {
   environment {
     variables = {
       DYNAMODB_TABLE   = aws_dynamodb_table.chat_sessions.name
-      BEDROCK_MODEL_ID = "eu.anthropic.claude-opus-4-5-20251101-v1:0"
+      BEDROCK_MODEL_ID = local.chatbot_inference_profile
     }
   }
 

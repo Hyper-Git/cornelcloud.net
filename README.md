@@ -29,7 +29,7 @@ Cloud portfolio infrastructure for [cornelcloud.net](https://cornelcloud.net), b
    │               7a              7b           8
    │                │               │           │
    │              SES           Bedrock      DynamoDB
-   │          (send email)   (Claude Opus   (chat sessions
+   │          (send email)   (Claude Haiku  (chat sessions
    │                          4.5 EU)        24h TTL)
    │
    ├──  CI/CD: GitHub Actions → Terraform apply → S3 sync → CF invalidation
@@ -48,7 +48,7 @@ Cloud portfolio infrastructure for [cornelcloud.net](https://cornelcloud.net), b
 | 6a | Lambda (contact) | Validates form input, calls SES |
 | 6b | Lambda (chatbot) | Loads history, calls Bedrock, saves reply |
 | 7a | SES | Sends contact email to `contact@cornelcloud.net` |
-| 7b | Bedrock | Claude Opus 4.5 via EU cross-region inference profile |
+| 7b | Bedrock | Claude Haiku 4.5 via EU cross-region inference profile |
 | 8 | DynamoDB | Chat session history · PAY_PER_REQUEST · 24h TTL |
 
 ## Tech Stack
@@ -63,7 +63,7 @@ Cloud portfolio infrastructure for [cornelcloud.net](https://cornelcloud.net), b
 | SSL/TLS | AWS Certificate Manager |
 | Serverless Compute | AWS Lambda (Python 3.12) |
 | API Layer | AWS API Gateway v2 (HTTP) |
-| AI / LLM | Amazon Bedrock — Claude Opus 4.5 (EU inference profile) |
+| AI / LLM | Amazon Bedrock — Claude Haiku 4.5 (EU inference profile) |
 | Chat Storage | AWS DynamoDB (sessions with TTL) |
 | Email | AWS SES |
 | IAM | Least-privilege roles per Lambda |
@@ -107,7 +107,7 @@ cornelcloud-infrastructure/
 - Terraform state bucket: `cornel-terraform-bucket`
 - Route 53 hosted zone for `cornelcloud.net`
 - SES identity verified for `cornelcloud.net`
-- Amazon Bedrock model access enabled for `anthropic.claude-opus-4-5-20251101-v1:0` in eu-west-1
+- Amazon Bedrock model access enabled for `anthropic.claude-haiku-4-5-20251001-v1:0` in eu-west-1
 
 ### GitHub Secrets Required
 
@@ -187,7 +187,7 @@ Each Lambda has a dedicated least-privilege role:
 | Lambda | Free tier: 1M requests/month |
 | API Gateway | Free tier: 1M requests/month |
 | DynamoDB | Free tier: 25GB + 25 WCU/RCU |
-| Bedrock | Per token (Claude Opus 4.5 pricing) |
+| Bedrock | Per token (Claude Haiku 4.5 pricing, chosen over Opus as ~5x cheaper for a fixed-fact chatbot) |
 
 **Estimated monthly cost: < $5** for typical portfolio traffic (excluding Bedrock tokens).
 
@@ -195,7 +195,7 @@ Each Lambda has a dedicated least-privilege role:
 
 - Email DNS records (MX, SPF, DKIM, DMARC) are managed outside Terraform to preserve the existing SES configuration
 - CloudFront distribution deployment takes ~10–15 minutes on first apply
-- The Bedrock model requires the EU cross-region inference profile (`eu.anthropic.claude-opus-4-5-20251101-v1:0`) — direct on-demand invocation is not supported for this model
+- The Bedrock model requires the EU cross-region inference profile (`eu.anthropic.claude-haiku-4-5-20251001-v1:0`) — direct on-demand invocation is not supported for this model
 
 ---
 
