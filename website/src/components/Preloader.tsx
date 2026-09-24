@@ -27,27 +27,27 @@ export function Preloader({ onComplete }: { onComplete: () => void }) {
         }
         return prev + Math.floor(Math.random() * 12) + 4;
       });
-    }, 100);
+    }, 60);
 
     let index = 0;
-    let timerId: any;
+    let timerId: ReturnType<typeof setTimeout>;
 
     const printNextLine = () => {
       if (index < bootLines.length) {
         const lineToAdd = bootLines[index];
         setLines((prev) => [...prev, lineToAdd]);
-        const delay = index === 0 ? 150 : index === 5 ? 1000 : 350;
+        const delay = index === 5 ? 250 : 110;
         index++;
         timerId = setTimeout(printNextLine, delay);
       } else {
         timerId = setTimeout(() => {
           document.body.style.overflow = 'unset';
           onComplete();
-        }, 800);
+        }, 250);
       }
     };
     
-    timerId = setTimeout(printNextLine, 150);
+    timerId = setTimeout(printNextLine, 80);
 
     return () => {
       clearInterval(percentInterval);
@@ -58,7 +58,7 @@ export function Preloader({ onComplete }: { onComplete: () => void }) {
   return (
     <motion.div
       initial={{ opacity: 1 }}
-      exit={{ y: '-100vh', transition: { duration: 0.85, ease: [0.76, 0, 0.24, 1] } }}
+      exit={{ y: '-100vh', transition: { duration: 0.6, ease: [0.76, 0, 0.24, 1] } }}
       className="fixed inset-0 z-[9999] bg-[#050505] flex flex-col justify-between p-8 font-mono select-none"
     >
       <div className="text-[9px] text-[#6b7280] flex justify-between uppercase tracking-wider">
