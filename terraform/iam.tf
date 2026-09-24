@@ -65,8 +65,8 @@ resource "aws_iam_role_policy" "lambda_chatbot_bedrock" {
         Effect = "Allow"
         Action = "bedrock:InvokeModel"
         Resource = [
-          "arn:aws:bedrock:eu-west-1:${data.aws_caller_identity.current.account_id}:inference-profile/eu.anthropic.claude-opus-4-5-20251101-v1:0",
-          "arn:aws:bedrock:*::foundation-model/anthropic.claude-opus-4-5-20251101-v1:0"
+          "arn:aws:bedrock:eu-west-1:${data.aws_caller_identity.current.account_id}:inference-profile/${local.chatbot_inference_profile}",
+          "arn:aws:bedrock:*::foundation-model/${local.chatbot_model_id}"
         ]
       },
       {
