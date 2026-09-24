@@ -37,6 +37,9 @@ resource "aws_cloudfront_distribution" "website" {
     cache_policy_id          = "658327ea-f89d-4fab-a63d-7e88639e58f6" # CachingOptimized
     origin_request_policy_id = "88a5eaf4-2fd4-4709-b370-b4c650ea3fcf" # CORS-S3Origin
 
+    # Adds HSTS, X-Content-Type-Options, X-Frame-Options, Referrer-Policy
+    response_headers_policy_id = "67f7725c-6f97-4210-82d7-5512b31e9d03" # SecurityHeadersPolicy
+
     viewer_protocol_policy = "redirect-to-https"
     compress               = true
   }

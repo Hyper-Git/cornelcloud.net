@@ -60,6 +60,28 @@ resource "aws_apigatewayv2_stage" "api" {
   name        = "$default"
   auto_deploy = true
 
+  # Throttling caps how fast the API can be called in total (not per visitor).
+  # It protects the Bedrock bill and the SES sending quota from scripted abuse.
+  # Callers over the limit get HTTP 429 and never reach Lambda.
+  default_route_settings {
+    throttling_rate_limit  = 5
+    throttling_burst_limit = 10
+  }
+
+  # Each chat message is a paid Bedrock call, so it gets the tightest limit
+  route_settings {
+    route_key              = aws_apigatewayv2_route.chatbot.route_key
+    throttling_rate_limit  = 1
+    throttling_burst_limit = 3
+  }
+
+  # A real visitor sends one contact message, not dozens
+  route_settings {
+    route_key              = aws_apigatewayv2_route.contact.route_key
+    throttling_rate_limit  = 0.2
+    throttling_burst_limit = 2
+  }
+
   tags = {
     Name = "cornelcloud-api-stage"
   }

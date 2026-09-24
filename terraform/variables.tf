@@ -39,6 +39,18 @@ variable "contact_email" {
   default     = "contact@cornelcloud.net"
 }
 
+variable "monthly_budget_usd" {
+  description = "Monthly AWS spend (USD) that triggers budget alert emails"
+  type        = string
+  default     = "20"
+}
+
+variable "budget_alert_email" {
+  description = "Email address that receives AWS budget alerts"
+  type        = string
+  default     = "contact@cornelcloud.net"
+}
+
 variable "from_email" {
   description = "Verified SES sender address for contact form emails"
   type        = string
