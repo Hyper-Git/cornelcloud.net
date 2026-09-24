@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import Lenis from 'lenis';
 import { AnimatePresence } from 'framer-motion';
 import { useWebGL } from './hooks/useWebGL';
-import { GlobalCanvas } from './canvas/GlobalCanvas';
 import { FallbackBG } from './components/FallbackBG';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
@@ -14,6 +13,12 @@ import { Chatbot } from './components/Chatbot';
 import { CustomCursor } from './components/CustomCursor';
 import { Preloader } from './components/Preloader';
 import { AboutSystem } from './components/AboutSystem';
+
+// three.js is ~270 KB gzipped. Loading it lazily lets the page render first
+// and the 3D background appears once its chunk arrives.
+const GlobalCanvas = lazy(() =>
+  import('./canvas/GlobalCanvas').then((m) => ({ default: m.GlobalCanvas }))
+);
 
 // Show the boot sequence once per browser session, and never to visitors who
 // have asked their OS to reduce motion
@@ -71,7 +76,13 @@ export default function App() {
       </AnimatePresence>
 
       {/* Background canvas layer */}
-      {isWebGLSupported ? <GlobalCanvas /> : <FallbackBG />}
+      {isWebGLSupported ? (
+        <Suspense fallback={null}>
+          <GlobalCanvas />
+        </Suspense>
+      ) : (
+        <FallbackBG />
+      )}
 
       {/* Interactive Cursor */}
       <CustomCursor />

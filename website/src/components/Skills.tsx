@@ -1,10 +1,13 @@
-import { useState } from 'react';
-import { Canvas } from '@react-three/fiber';
-import { SkillsCloud } from '../canvas/SkillsCloud';
+import { lazy, Suspense, useState } from 'react';
 import { BentoGrid, BentoCard } from './BentoGrid';
 import { useWebGL } from '../hooks/useWebGL';
 import { Server, Cpu, Database, Activity, Globe, Award, Terminal } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+
+// Loaded lazily so three.js stays out of the initial bundle
+const SkillsCanvas = lazy(() =>
+  import('../canvas/SkillsCanvas').then((m) => ({ default: m.SkillsCanvas }))
+);
 
 const skillDetails: Record<string, string> = {
   'AWS': 'Core AWS services used in training and portfolio projects.',
@@ -100,11 +103,9 @@ export function Skills() {
           <div className="w-full flex-1 relative flex items-center justify-center">
             {isWebGLSupported ? (
               <div className="w-full h-full cursor-grab active:cursor-grabbing">
-                <Canvas camera={{ position: [0, 0, 6.0], fov: 60 }} dpr={[1, 1.5]}>
-                  <ambientLight intensity={1.5} />
-                  <pointLight position={[10, 10, 10]} />
-                  <SkillsCloud onHoverSkill={setHoveredSkill} />
-                </Canvas>
+                <Suspense fallback={null}>
+                  <SkillsCanvas onHoverSkill={setHoveredSkill} />
+                </Suspense>
               </div>
             ) : (
               /* Fallback 2D grid */
