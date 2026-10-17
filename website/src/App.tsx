@@ -21,9 +21,10 @@ const GlobalCanvas = lazy(() =>
 );
 
 // Show the boot sequence once per browser session, and never to visitors who
-// have asked their OS to reduce motion
+// have asked their OS to reduce motion or who followed a link to one section
 function shouldShowPreloader() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+  if (window.location.hash) return false;
   try {
     return !sessionStorage.getItem('preloaderSeen');
   } catch {
@@ -59,6 +60,17 @@ export default function App() {
     requestAnimationFrame(raf);
 
     return () => lenis.destroy();
+  }, []);
+
+  // Deep links such as /#pinnacle (used by the /projects/<slug> share pages):
+  // scroll to the section once it has rendered and the fonts have settled
+  useEffect(() => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    const el = id ? document.getElementById(id) : null;
+    if (!el) return;
+    const jump = () => el.scrollIntoView({ block: 'start' });
+    jump();
+    document.fonts?.ready.then(jump);
   }, []);
 
   return (

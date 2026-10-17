@@ -68,7 +68,7 @@ export function Projects() {
         {/* ========================================================================= */}
         {/* Project 0: Ansible Automation Lab - ODD (Details Left / Widget Right) */}
         {/* ========================================================================= */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center text-left">
+        <div id="ansible-automation-lab" className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center text-left scroll-mt-28">
           {/* Details Column */}
           <div className="space-y-6 lg:pr-6">
             <div className="flex items-center gap-3">
@@ -129,7 +129,7 @@ export function Projects() {
         {/* ========================================================================= */}
         {/* Project 1: Trades Job Tracker (Kubernetes) - ODD (Details Left / Widget Right) */}
         {/* ========================================================================= */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center text-left">
+        <div id="trades-job-tracker" className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center text-left scroll-mt-28">
           {/* Details Column */}
           <div className="space-y-6 lg:pr-6">
             <div className="flex items-center gap-3">
@@ -189,7 +189,7 @@ export function Projects() {
         {/* ========================================================================= */}
                 {/* Project 5: HA AWS Infrastructure - ODD (Details Left / Widget Right) */}
         {/* ========================================================================= */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center text-left">
+        <div id="pinnacle" className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center text-left scroll-mt-28">
           {/* Details Column */}
           <div className="space-y-6 lg:pr-6">
             <div className="flex items-center gap-3">
@@ -287,7 +287,7 @@ export function Projects() {
         {/* ========================================================================= */}
         {/* Project 6: Live Cloud Portfolio - EVEN (Details Right / Widget Left) */}
         {/* ========================================================================= */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center text-left">
+        <div id="cornelcloud-net" className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center text-left scroll-mt-28">
           {/* Details Column (Right on Desktop) */}
           <div className="lg:order-2 space-y-6 lg:pl-6">
             <div className="flex items-center gap-3">
@@ -357,7 +357,7 @@ export function Projects() {
         {/* ========================================================================= */}
         {/* Project 7: AWS Cost Optimization - ODD (Details Left / Widget Right) */}
         {/* ========================================================================= */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center text-left">
+        <div id="cost-optimisation-dashboard" className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center text-left scroll-mt-28">
           {/* Details Column */}
           <div className="space-y-6 lg:pr-6">
             <div className="flex items-center gap-3">
