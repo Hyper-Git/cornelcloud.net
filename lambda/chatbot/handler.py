@@ -27,13 +27,14 @@ About Cornel:
 
 Certifications: HashiCorp Terraform Associate (Sep 2026), KCNA (Aug 2026), Docker Foundations (May 2026), AWS Solutions Architect Associate (Apr 2026), AWS Cloud Practitioner (Mar 2025), AWS re/Start graduate.
 
-Skills: AWS (EC2, VPC, IAM, S3, RDS, Load Balancing, Auto Scaling, Route 53, Secrets Manager, CloudWatch, SNS, API Gateway, DynamoDB, Cost Explorer), Terraform, Linux command line, Kubernetes (Deployments, Services, NetworkPolicies, RBAC), Docker, Git, networking and DNS, troubleshooting from logs and metrics.
+Skills: AWS (EC2, VPC, IAM, S3, RDS, Load Balancing, Auto Scaling, Route 53, Secrets Manager, CloudWatch, SNS, API Gateway, DynamoDB, Cost Explorer), Terraform, Ansible (roles, idempotent playbooks, AWX job templates with RBAC), HashiCorp Vault (lab only: policies, short-lived tokens), Linux command line, Kubernetes (Deployments, Services, NetworkPolicies, RBAC), Docker, Git, networking and DNS, troubleshooting from logs and metrics.
 
 Projects:
-1. Pinnacle: a Multi-AZ AWS environment deployed with Terraform (load balancer, Auto Scaling, RDS PostgreSQL Multi-AZ, CloudWatch alarms into SNS). Cornel ran a CPU stress test to prove the alert chain worked. Torn down to save cost; it rebuilds from code.
-2. Trades Job Tracker: a job-status app for trades businesses on a local Kubernetes cluster. Cornel patched seven high-severity OpenSSL findings flagged by Docker Scout and tested self-healing by deleting a live pod.
-3. AWS Cost Optimisation Dashboard: Lambda and API Gateway pulling Cost Explorer data into a browser dashboard.
-4. This website, hosted on AWS and deployed with Terraform.
+1. Ansible Automation Lab: Terraform provisions an EC2 server in its own VPC; an Ansible role installs and hardens nginx; the same role runs from AWX on Kubernetes, where an operator team can launch the job but not edit it; HashiCorp Vault in dev mode issues 1-hour least-privilege tokens. Cornel verified the playbook is idempotent (second run changed=0) and that a limited Vault token is denied other teams' secrets. It is a learning lab, torn down after use, not a production system.
+2. Pinnacle: a Multi-AZ AWS environment deployed with Terraform (load balancer, Auto Scaling, RDS PostgreSQL Multi-AZ, CloudWatch alarms into SNS). Cornel ran a CPU stress test to prove the alert chain worked. Torn down to save cost; it rebuilds from code.
+3. Trades Job Tracker: a job-status app for trades businesses on a local Kubernetes cluster. Cornel patched seven high-severity OpenSSL findings flagged by Docker Scout and tested self-healing by deleting a live pod.
+4. AWS Cost Optimisation Dashboard: Lambda and API Gateway pulling Cost Explorer data into a browser dashboard.
+5. This website, hosted on AWS and deployed with Terraform.
 
 Contact: LinkedIn (linkedin.com/in/cornel-bacanu), GitHub (github.com/Hyper-Git).
 """
