@@ -4,7 +4,7 @@ import { Text, Billboard } from '@react-three/drei';
 import * as THREE from 'three';
 
 const skills = [
-  'AWS', 'Terraform', 'Linux', 'CloudWatch', 'SNS', 'EC2', 'S3',
+  'AWS', 'Terraform', 'Ansible', 'Vault', 'Linux', 'CloudWatch', 'SNS', 'EC2', 'S3',
   'VPC', 'IAM', 'RDS', 'Route 53', 'API Gateway', 'DynamoDB',
   'Kubernetes', 'Docker', 'Git', 'Networking', 'DNS',
   'Troubleshooting', 'Cost Explorer'

@@ -5,6 +5,7 @@ import {
   AreaChart,
   RefreshCw,
   GitBranch,
+  Workflow,
 } from 'lucide-react';
 
 function Github({ className }: { className?: string }) {
@@ -58,11 +59,72 @@ export function Projects() {
         <span className="text-xs font-mono tracking-widest text-accentCyan uppercase">// PORTFOLIO</span>
         <h2 className="text-3xl md:text-5xl font-bold mt-2 text-textPrimary">Featured Systems</h2>
         <p className="text-textSecondary mt-4 max-w-xl mx-auto text-sm">
-          Four deployed and tested projects covering AWS, Terraform, Kubernetes and cloud cost visibility.
+          Five tested projects covering AWS, Terraform, Ansible, Kubernetes and cloud cost visibility.
         </p>
       </div>
 
       <div className="space-y-32">
+
+        {/* ========================================================================= */}
+        {/* Project 0: Ansible Automation Lab - ODD (Details Left / Widget Right) */}
+        {/* ========================================================================= */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center text-left">
+          {/* Details Column */}
+          <div className="space-y-6 lg:pr-6">
+            <div className="flex items-center gap-3">
+              <span className="font-mono text-xs text-accentPurple bg-accentPurple/10 border border-accentPurple/20 px-2.5 py-1 rounded-full uppercase tracking-wider whitespace-nowrap shrink-0">
+                System #01
+              </span>
+              <span className="font-mono text-[10px] text-textMuted uppercase tracking-widest">// CONFIGURATION MANAGEMENT &amp; SECRETS</span>
+            </div>
+
+            <h3 className="text-2xl md:text-3xl font-bold text-textPrimary leading-tight">
+              Ansible Automation Lab — Terraform, AWX &amp; Vault
+            </h3>
+
+            <p className="text-sm text-textSecondary leading-relaxed">
+              A lab that provisions an AWS EC2 server with Terraform, configures it with a reusable Ansible role, runs that role from AWX with role-based access, and stores secrets in HashiCorp Vault with least-privilege tokens. Running the playbook a second time changes nothing, and a limited Vault token is denied every secret outside its policy.
+            </p>
+
+            <div className="grid grid-cols-2 gap-4 border-t border-white/5 pt-4">
+              <div>
+                <span className="text-[10px] font-mono text-textMuted uppercase">Provision &amp; Configure</span>
+                <p className="text-xs text-textPrimary font-mono mt-1">Terraform • Ansible role</p>
+              </div>
+              <div>
+                <span className="text-[10px] font-mono text-textMuted uppercase">Access &amp; Secrets</span>
+                <p className="text-xs text-textPrimary font-mono mt-1">AWX RBAC • Vault least privilege</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4 pt-2">
+              <a
+                href="https://github.com/Hyper-Git/ansible-automation-lab"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-xs font-mono text-textPrimary hover:text-accentCyan transition-colors duration-200"
+              >
+                <Github className="w-4.5 h-4.5" />
+                Inspect Repository
+              </a>
+            </div>
+          </div>
+
+          {/* Project notes in the widget column */}
+          <div className="rounded-3xl glass-card border border-white/5 p-6 h-[280px] flex flex-col justify-between relative overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-[3px] bg-accentPurple" />
+            <div className="flex items-center gap-2 border-b border-white/5 pb-3">
+              <Workflow className="w-4 h-4 text-accentPurple" />
+              <span className="font-mono text-[10px] text-textPrimary uppercase tracking-wider">AUTOMATION_TEST_NOTES</span>
+            </div>
+            <div className="flex-1 flex flex-col justify-center gap-3 font-mono text-xs text-textSecondary">
+              <span>Second run: changed=0 (idempotent)</span>
+              <span>nginx config validated before it is written</span>
+              <span>Limited Vault token: 403 on other secrets</span>
+            </div>
+            <div className="border-t border-white/5 pt-3 font-mono text-[9px] text-textMuted">AWS EC2 · AWX ON KUBERNETES · TESTED</div>
+          </div>
+        </div>
 
         {/* ========================================================================= */}
         {/* Project 1: Trades Job Tracker (Kubernetes) - ODD (Details Left / Widget Right) */}
@@ -71,8 +133,8 @@ export function Projects() {
           {/* Details Column */}
           <div className="space-y-6 lg:pr-6">
             <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-accentCyan bg-accentCyan/10 border border-accentCyan/20 px-2.5 py-1 rounded-full uppercase tracking-wider">
-                System #01
+              <span className="font-mono text-xs text-accentCyan bg-accentCyan/10 border border-accentCyan/20 px-2.5 py-1 rounded-full uppercase tracking-wider whitespace-nowrap shrink-0">
+                System #02
               </span>
               <span className="font-mono text-[10px] text-textMuted uppercase tracking-widest">// KUBERNETES WORKLOAD ORCHESTRATION</span>
             </div>
@@ -131,8 +193,8 @@ export function Projects() {
           {/* Details Column */}
           <div className="space-y-6 lg:pr-6">
             <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-accentCyan bg-accentCyan/10 border border-accentCyan/20 px-2.5 py-1 rounded-full uppercase tracking-wider">
-                System #02
+              <span className="font-mono text-xs text-accentCyan bg-accentCyan/10 border border-accentCyan/20 px-2.5 py-1 rounded-full uppercase tracking-wider whitespace-nowrap shrink-0">
+                System #03
               </span>
               <span className="font-mono text-[10px] text-textMuted uppercase tracking-widest">// MULTI-AZ AWS ENVIRONMENT</span>
             </div>
@@ -229,8 +291,8 @@ export function Projects() {
           {/* Details Column (Right on Desktop) */}
           <div className="lg:order-2 space-y-6 lg:pl-6">
             <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-accentOrange bg-accentOrange/10 border border-accentOrange/20 px-2.5 py-1 rounded-full uppercase tracking-wider">
-                System #03
+              <span className="font-mono text-xs text-accentOrange bg-accentOrange/10 border border-accentOrange/20 px-2.5 py-1 rounded-full uppercase tracking-wider whitespace-nowrap shrink-0">
+                System #04
               </span>
               <span className="font-mono text-[10px] text-textMuted uppercase tracking-widest">// AWS WEBSITE DEPLOYMENT</span>
             </div>
@@ -299,8 +361,8 @@ export function Projects() {
           {/* Details Column */}
           <div className="space-y-6 lg:pr-6">
             <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-green-400 bg-green-400/10 border border-green-400/20 px-2.5 py-1 rounded-full uppercase tracking-wider">
-                System #04
+              <span className="font-mono text-xs text-green-400 bg-green-400/10 border border-green-400/20 px-2.5 py-1 rounded-full uppercase tracking-wider whitespace-nowrap shrink-0">
+                System #05
               </span>
               <span className="font-mono text-[10px] text-textMuted uppercase tracking-widest">// BILLING TELEMETRY &amp; MONITORING</span>
             </div>

@@ -12,6 +12,8 @@ const SkillsCanvas = lazy(() =>
 const skillDetails: Record<string, string> = {
   'AWS': 'Core AWS services used in training and portfolio projects.',
   'Terraform': 'Deployed AWS infrastructure from code; Terraform Associate certified.',
+  'Ansible': 'Configured EC2 with an idempotent Ansible role, run from the CLI and AWX.',
+  'Vault': 'Least-privilege policies and short-lived tokens in a HashiCorp Vault lab.',
   'Linux': 'Linux administration covered during AWS re/Start.',
   'CloudWatch': 'Used alarms and metrics in the Pinnacle project.',
   'SNS': 'Configured notifications from CloudWatch alarms.',
@@ -48,8 +50,8 @@ export function Skills() {
     {
       title: 'Infrastructure as Code',
       icon: <Cpu className="w-6 h-6 text-accentPurple" />,
-      desc: 'Deployed and tested AWS environments with Terraform.',
-      tags: ['Terraform', 'Git']
+      desc: 'Provisioned AWS with Terraform and configured servers with Ansible.',
+      tags: ['Terraform', 'Ansible', 'Vault', 'Git']
     },
     {
       title: 'Monitoring & Support',
@@ -110,7 +112,7 @@ export function Skills() {
             ) : (
               /* Fallback 2D grid */
               <div className="flex flex-wrap gap-2.5 justify-center p-4">
-                {['AWS', 'Terraform', 'Linux', 'CloudWatch', 'SNS', 'EC2', 'S3', 'VPC', 'IAM', 'RDS', 'Docker', 'Kubernetes'].map((tag, i) => (
+                {['AWS', 'Terraform', 'Ansible', 'Vault', 'Linux', 'CloudWatch', 'SNS', 'EC2', 'S3', 'VPC', 'IAM', 'RDS', 'Docker', 'Kubernetes'].map((tag, i) => (
                   <motion.span
                     key={tag}
                     initial={{ opacity: 0, scale: 0.8 }}
