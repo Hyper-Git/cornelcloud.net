@@ -1,0 +1,152 @@
+[
+ {
+  "slug": "ansible-automation-lab",
+  "repo": "Hyper-Git / ansible-automation-lab",
+  "title": "Ansible Automation Lab",
+  "tagline": "Provision. Configure. Run with RBAC. Guard the secrets.",
+  "boxes": [
+   [
+    "Terraform",
+    "provisions AWS"
+   ],
+   [
+    "Ansible",
+    "configures, hardens"
+   ],
+   [
+    "AWX",
+    "runs it with RBAC"
+   ],
+   [
+    "Vault",
+    "least privilege"
+   ]
+  ],
+  "footer": [
+   "AWS EC2",
+   "Kubernetes",
+   "idempotent",
+   "PR-reviewed"
+  ]
+ },
+ {
+  "slug": "pinnacle",
+  "repo": "Hyper-Git / pinnacle",
+  "title": "Pinnacle Infrastructure",
+  "tagline": "Multi-AZ by design. Alert chain proven under load.",
+  "boxes": [
+   [
+    "Terraform",
+    "7 modules, no console"
+   ],
+   [
+    "ALB + ASG",
+    "2–4 EC2 across 3 AZs"
+   ],
+   [
+    "RDS",
+    "PostgreSQL Multi-AZ"
+   ],
+   [
+    "CloudWatch",
+    "alarms → SNS email"
+   ]
+  ],
+  "footer": [
+   "AWS London",
+   "Secrets Manager",
+   "OIDC CI/CD",
+   "stress-tested"
+  ]
+ },
+ {
+  "slug": "trades-job-tracker",
+  "repo": "Hyper-Git / trades-job-tracker-kubernetes",
+  "title": "Trades Job Tracker",
+  "tagline": "Quoted. Booked. In progress. Complete. On Kubernetes.",
+  "boxes": [
+   [
+    "Docker",
+    "hardened images"
+   ],
+   [
+    "Ingress",
+    "routes / and /api"
+   ],
+   [
+    "Deployments",
+    "probes, replicas"
+   ],
+   [
+    "Self-healing",
+    "deleted Pod replaced"
+   ]
+  ],
+  "footer": [
+   "Traefik",
+   "ConfigMap & Secret",
+   "Namespace",
+   "local cluster"
+  ]
+ },
+ {
+  "slug": "cost-optimisation-dashboard",
+  "repo": "Hyper-Git / Cost-Optimization-Dashboard",
+  "title": "Cost Optimisation Dashboard",
+  "titleSize": 70,
+  "tagline": "See where the AWS bill comes from, before it arrives.",
+  "boxes": [
+   [
+    "Cost Explorer",
+    "spend data"
+   ],
+   [
+    "Lambda",
+    "processes costs"
+   ],
+   [
+    "API Gateway",
+    "REST endpoints"
+   ],
+   [
+    "Dashboard",
+    "Chart.js trends"
+   ]
+  ],
+  "footer": [
+   "serverless",
+   "DynamoDB history",
+   "by service & region"
+  ]
+ },
+ {
+  "slug": "cornelcloud-net",
+  "repo": "Hyper-Git / cornelcloud.net",
+  "title": "cornelcloud.net",
+  "tagline": "A portfolio run like a production service.",
+  "boxes": [
+   [
+    "CloudFront",
+    "S3 origin, HTTPS"
+   ],
+   [
+    "API Gateway",
+    "rate-limited"
+   ],
+   [
+    "Bedrock",
+    "AI chatbot on Lambda"
+   ],
+   [
+    "Terraform",
+    "CI-gated deploys"
+   ]
+  ],
+  "boxSize": 34,
+  "footer": [
+   "budget alerts",
+   "security headers",
+   "GitHub Actions"
+  ]
+ }
+]
