@@ -7,6 +7,18 @@ interface Message {
   text: string;
 }
 
+// The model is told to reply in plain text. This strips any markdown it uses
+// anyway (**bold**, # headings, `code`, * bullets) so symbols never show.
+// Replies are still rendered as plain text, which React escapes, so model
+// output can never inject HTML or scripts.
+function toPlainText(reply: string): string {
+  return reply
+    .replace(/\*\*(.+?)\*\*/g, '$1')
+    .replace(/^#{1,6}\s+/gm, '')
+    .replace(/`([^`]*)`/g, '$1')
+    .replace(/^(\s*)\*\s+/gm, '$1- ');
+}
+
 export function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
@@ -58,7 +70,7 @@ export function Chatbot() {
       const data = await res.json();
       setMessages((prev) => [
         ...prev,
-        { sender: 'bot', text: data.response || "No response received. Check API endpoint." }
+        { sender: 'bot', text: data.response ? toPlainText(data.response) : "No response received. Check API endpoint." }
       ]);
     } catch (err) {
       setMessages((prev) => [
@@ -123,7 +135,7 @@ export function Chatbot() {
                       <span className="text-accentPurple font-semibold">copilot@aws:~$</span>
                     )}
                   </div>
-                  <div className={`leading-relaxed pl-2 border-l ${
+                  <div className={`leading-relaxed whitespace-pre-wrap pl-2 border-l ${
                     msg.sender === 'user' ? 'border-[#00FFD1]/20 text-textPrimary' : 'border-accentPurple/20 text-textSecondary'
                   }`}>
                     {msg.text}
